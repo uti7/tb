@@ -1,0 +1,590 @@
+#!/bin/sh
+# @(#) $Id: configure,v 1.6 2001/02/05 00:11:23 able Exp $
+#
+# Usage:
+#   configure [-h|-b|-d]
+#
+# Requirement:
+#   for configure:
+#       sh(1), uname(1), awk(1)(newly), sed(1), printf(1), etc...
+#   for compile:
+#       unix:  gcc,g++
+#       win32: gcc,g++ for win32 (recommended cygwin-dll V1.0.0 or later)
+#              or, BorlandC++ compiler
+#
+# Option(configure):
+#   -b :    use BorlandC++ compiler (win32 only)
+#   -d :    remove auto generated files
+#
+# Environment variable(configure):
+#    C_PREFIX  : destination of installation (default: /usr/local)
+#    C_DEBUG   : if necessary, debug option
+#    C_LDFLAGS : if necessary, linker option
+#
+# Copyright (c) 1999-2006 Genzoo.A
+#
+#############
+# settings
+#############
+PKGNAME=tb14b
+PREFIX=${C_PREFIX:-/usr/local}
+DEBUG=$C_DEBUG
+LDFLAGS=$C_LDFLAGS
+CXX_OPT="-fno-implicit-templates -Wno-deprecated"
+AUTO_DEPEND=
+MANUAL_DEPEND="include Makefile.dep"
+TEST_AWKS="/usr/bin/nawk /usr/xpg4/awk /usr/bin/awk /usr/local/bin/gawk"
+TEST_CCS="gcc cc"
+TEST_CXXS="g++ c++"
+TESTCC_OUTOPT="-o "
+OBJ_EXT=.o
+unset LD
+GEN_HEADER=@.h
+GEN_MAKE=Makefile
+GEN_TMP="${TMPDIR:-/tmp}/config_gen$$.tmp"
+TMP_C_SOURCE="${TMPDIR:-/tmp}/config$$.c"
+TMP_BIN="${TMPDIR:-/tmp}/config$$_out"
+
+WGEN_TMP=$GEN_TMP
+WTMP_C_SOURCE=$TMP_C_SOURCE
+WTMP_BIN=$TMP_BIN
+NO_STRIP='	'	#attention: this is tab
+
+in2sedscr() {
+    $AWK '/@[A-Za-z_][A-Za-z_0-9]*@/\
+    {name=$0; sub("^[^@]*@","",name); sub("@.*$","",name);\
+    printf("-e \"s%%@%s@%%$%s%%\" ",name, name);}\
+    END{printf("-e \"/^@/d\"");}' $1
+}
+
+# architecture dependencies
+HOST_TYPE=`uname -s`
+case ${HOST_TYPE} in
+CYGWIN*)
+	EXT=.exe	# for make install
+	TMP_BIN=${TMP_BIN}$EXT
+	if [ "$1" = "-b" ]; then
+		TEST_CCS="bcc32.exe"
+		TEST_CXXS="bcc32.exe"
+		TESTCC_OUTOPT="-e"
+		LD="ilink32.exe"
+		WGEN_TMP=`cygpath -w $GEN_TMP`
+		WTMP_C_SOURCE=`cygpath -w $TMP_C_SOURCE`
+		WTMP_BIN=`cygpath -w $TMP_BIN`
+		OBJ_EXT=.obj
+		AUTO_DEPEND=.autodepend
+		MANUAL_DEPEND=
+		CXX_OPT=
+		PCXX="-Pcxx"
+		LDFLAGS="$LDFLAGS C0X32.OBJ"
+		SYSLIB="cw32 import32"
+		NO_STRIP='#'
+	fi
+	;;
+esac
+
+SIGINT=2; SIGQUIT=3; SIGTERM=15
+trap "rm -f $GEN_TMP $TMP_C_SOURCE $TMP_BIN \
+  `basename ${TMP_BIN} $EXT`${OBJ_EXIT} ; \
+  exit 1" $SIGINT $SIGQUIT $SIGTERM 0 
+
+if [ "$1" = "-d" ]; then
+  set -x
+  rm -f \@.h Makefile Makefile.dep
+  set +x
+  exit 0
+fi
+
+###############
+# awk testing
+###############
+# would like to XPG's awk
+printf "testing awk:\n"
+CC=""
+for I in $TEST_AWKS
+do
+	if [ -x $I ]; then
+		AWK=$I
+		printf " $I...yes\n"
+		break
+	fi
+done
+[ -z "$AWK" ] && printf "no\nawk not found.\n" 1>&2 && exit 1
+
+if [ "$1" = "-h" ]; then
+  $AWK 'BEGIN{print;}/^#[ \t]*Usage:/,/^#[ \t]*Copyright/{sub("^#","");print $0;}' $0
+  exit 0
+fi
+
+##################
+# compiler testing
+##################
+printf "testing C/C++ compiler:\n"
+CC=""
+for I in $TEST_CCS
+do
+	type $I 1>/dev/null 2>&1
+	if [ $? -eq 0 ]; then
+		CC=$I
+		printf " $I...yes\n"
+		break
+	fi
+done
+[ -z "$CC" ] && printf "no\nC compiler not found.\n" 1>&2 && exit 1
+CXX=""
+for I in $TEST_CXXS
+do
+	type $I 1>/dev/null 2>&1
+	if [ $? -eq 0 ]; then
+		CXX=$I
+		printf " $I...yes\n"
+		break
+	fi
+done
+[ -z "$CXX" ] && printf "no\nC++ compiler not found.\n" 1>&2 && exit 1
+
+##################
+# header testing
+##################
+# (1) test for wide character header
+
+	printf 'testing [wctype.h]...'
+	printf '#include <wctype.h>\nint main(){int a=0;return a;}\n' > $TMP_C_SOURCE
+	[ ! -s $TMP_C_SOURCE ] && \
+		printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
+	$CC ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE 1>/dev/null 2>&1
+	if [ $? -ne 0 ]; then
+		printf "no\n"
+	else
+		printf "yes\n"
+		HAS_WCTYPE=1
+	fi	
+	printf 'testing [widec.h]...'
+	printf '#include <widec.h>\nint main(){int a=0;return a;}\n' > $TMP_C_SOURCE
+	[ ! -s $TMP_C_SOURCE ] && \
+		printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
+	$CC ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE 1>/dev/null 2>&1
+	if [ $? -ne 0 ]; then
+		printf "no\n"
+	else
+		printf "yes\n"
+		HAS_WIDEC=1
+		if [ "$HAS_WCTYPE" -eq 1 ]; then
+			printf 'testing symbiosis of [widec.h] with [wctype.h]...'
+			printf '#include <wctype.h>\n#include <widec.h>\nint main(){int a=0;return a;}\n' > $TMP_C_SOURCE
+			[ ! -s $TMP_C_SOURCE ] && \
+				printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
+			$CC ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE 2>&1 \
+				|$AWK '/getwc/{exit 1;}'
+			if [ $? -ne 0 ]; then
+				printf "no\n"
+				HAS_WIDEC=
+			else
+				printf "yes\n"
+			fi
+		fi
+		
+	fi	
+
+
+#################
+# generate header
+#################
+#printf "creating configured C/C++ header...\n"
+echo '/*' configured for `uname -a` '*/' >  $GEN_TMP
+[ "$1" = "-b" ] && echo '/*' Build for BorlandC++ '*/' 1>>$GEN_TMP
+$AWK '/^#ifndef _ATM_H_/,/^#endif \/\* not _ATM_H_/' $0 >> $GEN_TMP
+[ ! -f $GEN_TMP ] && printf "cannot create [$GEN_TMP].\n" 1>&2 && exit 1
+
+HAS_WCTYPE=${HAS_WCTYPE:-0}
+HAS_WIDEC=${HAS_WIDEC:-0}
+
+SEDSCR=`in2sedscr $GEN_TMP`
+eval "sed $SEDSCR $GEN_TMP 1>$GEN_HEADER"
+
+[ "$1" = "-b" ] && sed -e 's/*$//' $GEN_HEADER 1>$GEN_TMP && \
+	cp $GEN_TMP $GEN_HEADER
+
+[ ! -s $GEN_HEADER ] && printf "cannot create [$GEN_HEADER].\n" 1>&2 && exit 1
+printf "+configured C/C++ header created.\n"
+
+##################
+# lib testing
+##################
+# (1) test for -lw
+
+	printf 'testing [-lw]...'
+	printf '#include <stdio.h>\nint main(){int a=0;return a;}\n' > $TMP_C_SOURCE
+	[ ! -s $TMP_C_SOURCE ] && \
+		printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
+	$CC ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE -lw 1>/dev/null 2>&1
+	if [ $? -ne 0 ]; then
+		printf "no\n"
+		HAS_LW=0
+	else
+		printf "yes\n"
+		HAS_LW=1
+	fi	
+# (2) test for -lintl
+	printf 'testing [-intl]...'
+	#printf '#include <stdio.h>\nint main(){int a=0;return a;}\n' > $TMP_C_SOURCE
+	#[ ! -s $TMP_C_SOURCE ] && \
+	#	printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
+	$CC ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE -lintl 1>/dev/null 2>&1
+	if [ $? -ne 0 ]; then
+		printf "no\n"
+		HAS_INTL=0
+	else
+		printf "yes\n"
+		HAS_INTL=1
+	fi	
+
+##################
+# function testing
+##################
+# (1) test for iswprint
+
+	printf 'testing [iswprint]...'
+	printf '#include "%s"\nint main(){return iswprint((wint_t)0);}\n' $GEN_HEADER > $TMP_C_SOURCE
+	[ ! -s $TMP_C_SOURCE ] && \
+		printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
+	[ ${HAS_LW:0} -eq 1 ] && WCLIB="-lw"
+	[ ${HAS_INTL:0} -eq 1 ] && WCLIB="$WCLIB -lintl"
+	$CC -I. ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE $WCLIB 1>/dev/null 2>&1
+	if [ $? -ne 0 ]; then
+		printf "no\n"
+		HAS_ISWPRINT=
+	else
+		printf "yes\n"
+		HAS_ISWPRINT='#'
+	fi	
+
+###################
+# generate Makefile
+###################
+#printf "creating Makefile...\n"
+[ ! -z "$MANUAL_DEPEND" ] && touch Makefile.dep
+echo '#' configured for `uname -a` >  $GEN_TMP
+[ "$1" = "-b" ] && echo '#' Build for BorlandC++ 1>>$GEN_TMP
+$AWK '/^### MAKEFILE/,/^### ELIFEKAM/' $0 >> $GEN_TMP
+[ ! -f $GEN_TMP ] && printf "cannot create [$GEN_TMP].\n" 1>&2 && exit 1
+
+[ -z "$LD" ] && LD=$CXX	#same compiler name
+if [ "$1" = "-b" ]; then
+	LD_ARGS='\$(LDFLAGS) \$(OBJ),\$(TARGET),,\$(LIB),,'
+	TTBA_LD_ARGS='\$(LDFLAGS) \$(TTBA_OBJ),\$(TTBA_TARGET),,\$(LIB),,'
+else
+	LD_ARGS='\$(LDFLAGS) -o \$(TARGET) \$(OBJ) \$(LIB)'
+	TTBA_LD_ARGS='\$(LDFLAGS) -o \$(TTBA_TARGET) \$(TTBA_OBJ) \$(LIB)'
+fi
+
+
+SEDSCR=`in2sedscr $GEN_TMP`
+eval "sed $SEDSCR $GEN_TMP 1>$GEN_MAKE"
+
+[ "$1" = "-b" ] && sed -e 's/*$//' $GEN_MAKE 1>$GEN_TMP && \
+	cp $GEN_TMP $GEN_MAKE
+
+[ ! -s $GEN_MAKE ] && \
+	printf "cannot create [$GEN_MAKE].\n" 1>&2 && exit 1
+printf "+configured Makefile created.\n"
+
+exit 0
+# end of shell script body
+
+###############################################
+# configured C/C++ header definition (@.h.in)
+###############################################
+#ifndef _ATM_H_
+#define _ATM_H_
+/*	
+  generic header that according to arch.
+  this file is automaticaly generated by configure(shell script).
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h> /* 2013-03-25 tb14c */
+#include <string.h>
+#if 0
+#include <strings.h>
+#endif
+#ifdef __cplusplus
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#ifdef __BORLANDC__
+#include <strstrea.h>
+#else
+#include <strstream>
+# if __GNUG__ < 3
+#  include <stdiostream.h>
+# else
+#  include <ext/stdio_filebuf.h>
+# endif
+#endif
+#endif
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#ifndef __BORLANDC__
+#include <unistd.h>
+#endif
+#include <errno.h>
+#ifndef __BORLANDC__
+#include <sys/errno.h>
+#endif
+#include <assert.h>
+#include <time.h>
+#include <signal.h>
+
+#include <ctype.h>
+#include <wchar.h>
+#if @HAS_WCTYPE@
+#include <wctype.h>
+#endif
+#if @HAS_WIDEC@
+#include <widec.h>
+#endif
+#include <locale.h>
+
+
+#ifdef __BORLANDC__
+#define NO_GETOPT
+#endif
+
+#ifndef __GNUG__
+#define __FUNCTION__	"unknown-function"
+#endif
+
+#ifdef __cplusplus
+using namespace std;
+#endif
+
+#ifdef TESTER
+#define _C_	,
+#ifndef _INCLUDE_POSIX_SOURCE
+#define __(ecd)	printf("exit.\n";exit(ecd);}
+#endif
+#define _(ecd)	return(ecd);}
+#define __C_	_C_
+#define ___C_	__C_
+#define _P_	public
+#define _PP_	protected
+#define _PPP_	private
+#ifndef __BORLANDC__
+#define _T  template
+#endif
+#define _V	virtual
+#define _ret	return
+#define _retc	return;}
+#define BS	BUFSIZ
+#define CC	class
+#define C(id,pub,pro,pri)	class id {public: pub;protected: pro; private: pri; };
+#ifdef __cplusplus
+#define CA(cond,msg) if((cond)){cerr << "Usage: " << msg;exit(2);}
+#else
+#define CA(cond,msg) if((cond)){fprintf(stderr,"Usage: ");\
+                      fprintf(stderr,msg);exit(2);}
+#endif
+#define DM(val)	debug_print(__FILE__,__LINE__,__FUNCTION__,val);
+#define DB(name,nel)  char name[nel],*p ## name = name;
+#define E	stderr
+#define F(max,proc)	for(UL i=0;i < max;i++){ proc }
+#define MS(buf,val)	memset((void *)buf,val,sizeof(*buf));
+#define FP	fprintf
+typedef int	I;
+#define IE(exp,truep,falsep)	if((exp)){truep;}else{falsep;}
+#define LP(proc)	while(1){proc;}
+#ifdef __cplusplus
+#define	M main(int c,char **v){c=c;v=v;
+#define	MC(cond,msg)	main(int c,char **v){ CA(cond,msg); v=v;
+#else
+#define	M main(int c,char **v){c=c;v=v;{
+#define	MC(cond,msg)	main(int c,char **v){ CA(cond,msg); v=v;{
+#endif
+#define	MMM main(){printf("hello.\n");}
+#define N	"\n"
+#define NNN	<< "\n";
+#define O1	cout
+#define O2	cerr
+#define SO(x)	sizeof(x)
+#define P	printf
+#define PC	"%1c\n"
+#define PC2	"%1c%1c\n"
+#define PD	"%d\n"
+#define PPD(val)	P(PD,val);
+#define PPX(val)	P("%#x\n",val);
+#define PPS(val)	P("%s\n",val);
+#define PS  "%s\n"
+#define PX	"%#x\n"
+#define SS	struct
+#define S2L(s)  strtoul(s, NULL,0)
+typedef unsigned char	UC;
+typedef unsigned long UL;
+typedef unsigned short US_;
+typedef void V;
+#ifdef __cplusplus
+#define W cout << "end of main.\n";return 0;}
+#else
+#define W } printf("end of main.\n");return 0;}
+#endif
+
+
+#ifdef __cplusplus
+#ifdef DEBUG	/* and c++ only */
+inline
+void	debug_print(char *f,int l, char *m, char *str){
+  cerr << f << ":" << l << ":" << m << ":";
+	if(errno){perror(str);}
+	else{cerr << str NNN }
+}
+
+inline
+void	debug_print(char *f,int l, char *m, int v){
+  cerr << f << ":" << l << ":" << m << ":" << v << "\n";
+}
+
+#else
+inline
+void	debug_print(char *f,int l, char *m, char *str){}
+inline
+void	debug_print(char *f,int l, char *m, int v){}
+#endif	/* DEBUG */
+#endif	/* _cplusplus */
+
+#ifndef SIGSTOP
+#define SIGSTOP 19
+#endif
+#ifndef SIGCONT
+#define SIGCONT 18
+#endif
+#endif /* TESTER */
+
+#endif /* not _ATM_H_ */
+
+###############################################
+# configured Makefile definition (Makefile.in)
+###############################################
+### MAKEFILE
+@AUTO_DEPEND@
+########################################################################
+# suffies
+########################################################################
+.SUFFIXES: .cxx .c @OBJ_EXT@
+
+########################################################################
+# programs
+########################################################################
+CC=@CC@
+CXX=@CXX@
+LD=@LD@
+#CTAGS=ctags -VR --c-types=+c+d+e+f+g+m+p+s+t+C
+CTAGS=ctags
+########################################################################
+# flags
+########################################################################
+INC=-I.
+INCS= @.h ArgParser.h Boolean.h GenArg.h Generic.h InputStream.h \
+	Member.h Message.h Ptr.h Record.h Resource.h StringOf.h Vector.h \
+	xnew.h StdinputStream.h
+DEFS=-DSP_HAVE_BOOL -DSP_API= -DSP_ANSI_LIB
+CFLAGS=-O @DEBUG@ $(INC) $(DEFS)
+CXXFLAGS=@CXX_OPT@ \
+         @PCXX@ $(CFLAGS)
+CPPFLAGS=-P -Sd $(CFLAGS)
+LDFLAGS=@LDFLAGS@
+@HAS_ISWPRINT@ CXXFLAGS+=-Diswprint="0 & "
+########################################################################
+# targets
+########################################################################
+PKGNAME=@PKGNAME@
+EXT=@EXT@
+ASSERTED_TARGET=btta$(EXT)
+TARGET=btta.@HOST_TYPE@$(EXT)
+INSTALL_DIR=@PREFIX@
+INSTALL_BIN_DIR=$(INSTALL_DIR)/bin
+COMPLETE_TARGET=$(INSTALL_BIN_DIR)/$(ASSERTED_TARGET)
+
+TTBA_ASSERTED_TARGET=ttba$(EXT)
+TTBA_TARGET=ttba.@HOST_TYPE@$(EXT)
+TTBA_COMPLETE_TARGET=$(INSTALL_BIN_DIR)/$(TTBA_ASSERTED_TARGET)
+########################################################################
+# sources
+########################################################################
+SRC=Message.cxx \
+	InputStream.cxx \
+	ArgParser.cxx \
+	Member.cxx \
+	btta.cxx \
+	btta_inst.cxx 
+TTBA_SRC=ttba.c
+
+########################################################################
+# objects
+########################################################################
+OBJ=$(SRC:.cxx=@OBJ_EXT@)
+TTBA_OBJ=$(TTBA_SRC:.c=@OBJ_EXT@)
+
+########################################################################
+# libs
+########################################################################
+LIB=@WCLIB@ \
+@SYSLIB@
+
+########################################################################
+# rules
+########################################################################
+all : $(TARGET) $(TTBA_TARGET)
+
+$(TARGET): $(OBJ)
+	$(LD) @LD_ARGS@
+
+$(TTBA_TARGET) : $(TTBA_OBJ)
+	$(LD) @TTBA_LD_ARGS@
+
+.cxx@OBJ_EXT@:
+	$(CXX) -c $(CXXFLAGS) $<
+
+.c@OBJ_EXT@:
+	$(CC) -c $(CFLAGS) $<
+
+clean:
+	rm -f $(OBJ) $(TTBA_OBJ) ./core $(TARGET) $(TTBA_TARGET)
+
+depend:
+	$(CXX) $(CXXFLAGS) -MM $(SRC) > Makefile.dep
+	$(CC) $(CFLAGS) -MM $(TTBA_SRC) >> Makefile.dep
+
+#cpp:
+#	cpp32 $(CPPFLAGS) dummy.cpp
+
+cpp:
+	$(CXX) -E $(CXXFLAGS) $(SRC) | awk 'NF>0' > $(TARGET).cppout
+
+tags: $(SRC) $(INCS)
+	$(CTAGS) $(SRC) $(INCS)
+
+dist: clean
+	rm -f @.h Makefile Makefile.dep
+	sh -c "(cd ..; tar cvfz $(PKGNAME).tar.gz $(PKGNAME))"
+
+install:
+	mkdir -p $(INSTALL_BIN_DIR)
+@NO_STRIP@strip $(TARGET)
+	rm -f $(COMPLETE_TARGET)
+	cp -p $(TARGET) $(COMPLETE_TARGET)
+@NO_STRIP@strip $(TTBA_TARGET)
+	rm -f $(TTBA_COMPLETE_TARGET)
+	cp -p $(TTBA_TARGET) $(TTBA_COMPLETE_TARGET)
+
+install_fear:
+	mkdir -p $(INSTALL_BIN_DIR)
+@NO_STRIP@strip $(TARGET)
+	cp -p $(TARGET) $(INSTALL_BIN_DIR)
+@NO_STRIP@strip $(TTBA_TARGET)
+	cp -p $(TTBA_TARGET) $(INSTALL_BIN_DIR)
+
+########################################################################
+@MANUAL_DEPEND@
+### ELIFEKAM

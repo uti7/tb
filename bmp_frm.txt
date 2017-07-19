@@ -1,0 +1,60 @@
+#!/usr/local/bin/btta  -f
+// .bmp file form example for btta $Date: 2001/02/05 14:51:50 $
+
+// generic option specification
+-v -e -k 20
+
+// record-format specification
+-1
+  N     # file: \$FILENAME
+  N     # date: \`date '+%D %T'\`
+  N     # translated by btta
+  N     # struct file_header {
+  t2    #   char  ident[\$NFR](always "BM")
+  l0x   #   DWORD file_size;
+  s02   #   WORD  reserved[\$CNFR/\$NFR];
+  l0x   #   DWORD raster_offset;
+  N     # };
+  N     # struct info_header {
+  l0x   #   DWORD header_size;
+  @w L  #   DWORD width;
+  @h L  #   DWORD height;
+  s     #   WORD  plane;
+  @b S  #   WORD  bpp;
+  l0x   #   BYTE  compression[4];
+  l0x   #   DWORD data_size;
+  L     #   DWORD h_resolution;
+  L     #   DWORD v_resolution;
+  @i L  #   DWORD index_color;
+  L     #   DWORD imp_color;
+  N     # };
+
+-$b(8)  // if bpp is 8, then
+  n     # +++++ palette
+  [$i
+    [*c
+      1
+      n   # struct clut {
+      c0x #   BYTE blue;
+      c0x #   BYTE green;
+      c0x #   BYTE red;
+      N   # };
+    ]
+    c0  #   BYTE reserved;
+    N     # palette[\$NR/\$SNR]
+  ]
+  n # ----- raster of 8bit color
+  [ /* infinite */
+    C # BYTE palette_no[\$NR]
+  ]
+
+
+-$b(24) // if bpp is 24, then
+  n     # ----- raster of 24bit color
+  [$h
+    N   # ***** y[\$NR/\$SNR];
+    [$w:4
+      N # ///// x[\$NR/\$SNR];
+      &c
+    ]
+  ]

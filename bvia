@@ -1,0 +1,132 @@
+#!/usr/bin/sh
+REV=R1.0b
+DIFF_PFX="${TMPDIR:-/tmp}/`basename $0`.$$"
+B2T=".b2t"
+trap "X=1"  1 2 3 15
+trap "rm -f $DIFF_PFX*" 0
+usage()
+{
+cat <<EOF
+Usage: `basename $0` [btta_option] [-i] [-G] [-V] [-A editor_option] file [file...]
+  -i  prompt before overwrite
+  -G  filter the archive through gzip
+  -V  open as \${PAGER}
+$REV
+EOF
+exit ${X-0}
+}
+
+parse_opt()
+{
+while [ $# -gt 0 ]
+do
+  case $1 in
+  -f|-k) B_OPT="$B_OPT $1"; shift 2>/dev/null; B_OPT="$B_OPT $1";;
+  -i) IS_CONF=1;;
+  -V) IS_PAGER=1;;
+  -G) IS_COMPRESSED=1;;
+  -A) shift 2>/dev/null; E_OPT="$1";;
+  -h) usage;;
+  -*) B_OPT="$B_OPT $1";;
+  *)  FILES="$FILES $1";;
+  esac
+  shift 2>/dev/null
+done
+if [ ${IS_PAGER:-0} -eq 1 ]; then
+  OPN_MTD="${PAGER:-more}"
+else
+  OPN_MTD="${EDITOR:-vi}"
+fi
+}
+
+parse_opt $*
+
+[ -z "$FILES" ] && { X=2; usage; }
+for F in $FILES
+do
+  EXT=`echo $F | sed -e 's/^.*[.]/./'`
+  if [ -z "$B_OPT" ]; then
+#    FF="`dirname $F`/`basename $F $EXT`$B2T"
+    FF="${F}$B2T"
+    if [ -f "$FF" ] ;then
+      B_OPT="-f $FF"
+    else
+      B_OPT="-v"
+    fi
+  fi
+  DIFFSRC="$DIFF_PFX.`basename $F $EXT`.dfs"
+  DIFFWRK="$DIFF_PFX.`basename $F $EXT`.txt"
+  if [ -f $F ]; then
+    if [ "${IS_COMPRESSED:-0}" -eq 0 ]; then
+      cp $F $DIFFSRC && btta $B_OPT $DIFFSRC 1>$DIFFWRK
+    else
+      cp $F $DIFFSRC && gzip -dc $DIFFSRC | btta $B_OPT 1>$DIFFWRK
+    fi
+    if [ $? -eq 2 ]; then
+      printf "$F: some error occurred, continue?(y/n):"
+      read yn
+      [ "$yn" != y ] && exit 1
+    fi
+  elif [ ! -d $F ]; then
+    # new file
+    touch $DIFFSRC && cp $DIFFSRC $DIFFWRK
+  fi
+done
+
+eval "$OPN_MTD $E_OPT $DIFF_PFX*txt"
+
+for F in $FILES
+do
+  EXT=`echo $F | sed -e 's/^.*[.]/./'`
+  DIFFSRC="$DIFF_PFX.`basename $F $EXT`.dfs"
+  DIFFDST="$DIFF_PFX.`basename $F $EXT`.dfd"
+  DIFFWRK="$DIFF_PFX.`basename $F $EXT`.txt"
+  if [ -s $DIFFWRK  ]; then
+    if [ "${IS_COMPRESSED:-0}" -eq 0 ]; then
+      ttba $DIFFWRK $DIFFDST
+    else
+      ttba -c $DIFFWRK | gzip -c 1>$DIFFDST
+    fi
+    if [ $? -eq 0 ]; then
+      diff $DIFFSRC $DIFFDST 1>/dev/null 2>&1
+      case $? in
+      1)
+        if [ "${IS_CONF:-0}" -eq 1 ]; then
+          printf "$F: override ok?(y/n):"
+          read yn
+          if [ "$yn" != "y" ]; then
+            IS_PRESERVE=1;
+          fi
+        fi
+        if [ "${IS_PRESERVE:-0}" -ne 1 ]; then
+          cp $DIFFDST $F
+          if [ $? -eq 0 ]; then
+            echo "$F: changed" 1>&2
+          else
+            IS_PRESERVE=1
+          fi
+        fi
+        ;;
+      0) echo "$F: no changed" 1>&2;;
+      *) echo "$F: diff failure" 1>&2
+          IS_PRESERVE=1
+          ;;
+      esac
+    else
+      echo "$F: ttba failure" 1>&2
+      IS_PRESERVE=1
+    fi
+  else
+   echo "$F: $DIFFWRK is not exist or empty" 1>&2
+  fi
+  if [ ${IS_PRESERVE:-0} -eq 1 ]; then
+    printf "$F: would you like to preserve whose txt? (y/n):"
+      read yn
+      if [ "$yn" = "y" ]; then
+        PRSVD="`basename $DIFFWRK`"
+        cp $DIFFWRK $PRSVD && echo "$PRSVD: preserved" 1>&2
+      fi
+  fi
+done
+exit 0
+# vi:set ts=2 sw=2 et:

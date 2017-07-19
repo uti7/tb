@@ -1,0 +1,1160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja"><head>
+<META http-equiv=Content-Type content="text/html; charset=EUC-JP">
+<META content="Genzoo.A tmmhtm.wsf" name=GENERATOR>
+<!--
+NOTE: This html is:
+      1st, Writtern by IndySoft TreeMemo Ver.4.x
+      2nd, Translated by tmmhtm.wsf that according HTML 4.01 Transitional
+-->
+<LINK rel="START" href="tbman.html">
+<TITLE>ttba/btta マニュアル</TITLE>
+<META NAME="keywords" CONTENT="unix,program,tool,text,binary,convert,ttba,btta,バイナリテキスト変換ツール,フィルタ">
+</head><body>
+<h1>ttba/btta マニュアル</h1>
+<P align=right>$Date: 2003/04/22 19:13:34 $</P>
+
+
+<HR WIDTH="95%" ALIGN=LEFT>
+
+
+<!-- Tree Start -->
+<h2>目次<BR></h2>
+1 <a name="1i" href="#1" title="toc1">概要</A><BR>
+2 <a name="2i" href="#2" title="toc2">更新履歴</A><BR>
+3 <a name="3i" href="#3" title="toc3">動作環境</A><BR>
+4 <a name="4i" href="#4" title="toc4">インストール</A><BR>
+5 <a name="5i" href="#5" title="toc5">ttba - テキスト→バイナリ変換</A><BR>
+5.1 <a name="6i" href="#6" title="toc6">使用法</A><BR>
+5.2 <a name="7i" href="#7" title="toc7">オプション</A><BR>
+5.3 <a name="8i" href="#8" title="toc8">入力書式</A><BR>
+5.3.1 <a name="9i" href="#9" title="toc9">ストリーム</A><BR>
+5.3.1.1 <a name="10i" href="#10" title="toc10">行</A><BR>
+5.3.1.2 <a name="11i" href="#11" title="toc11">データ</A><BR>
+5.3.1.2.1 <a name="12i" href="#12" title="toc12">データ記述子(ttba)</A><BR>
+5.3.1.2.2 <a name="13i" href="#13" title="toc13">値のリテラル</A><BR>
+5.3.1.2.3 <a name="14i" href="#14" title="toc14">データ間の区切り</A><BR>
+5.3.1.2.4 <a name="15i" href="#15" title="toc15">データの例</A><BR>
+5.3.2 <a name="16i" href="#16" title="toc16">コメント文</A><BR>
+5.3.3 <a name="17i" href="#17" title="toc17">記述例(をみる)</A><BR>
+5.4 <a name="18i" href="#18" title="toc18">終了コード</A><BR>
+6 <a name="19i" href="#19" title="toc19">btta - バイナリ→テキスト変換(dumper）</A><BR>
+6.1 <a name="20i" href="#20" title="toc20">使用法</A><BR>
+6.2 <a name="21i" href="#21" title="toc21">オプション</A><BR>
+6.3 <a name="22i" href="#22" title="toc22">出力フォーマットの指定方法</A><BR>
+6.3.1 <a name="23i" href="#23" title="toc23">フォーマット書式</A><BR>
+6.3.1.1 <a name="24i" href="#24" title="toc24">-record-format</A><BR>
+6.3.1.1.1 <a name="25i" href="#25" title="toc25">レコード数</A><BR>
+6.3.1.1.2 <a name="26i" href="#26" title="toc26">メンバ</A><BR>
+6.3.1.1.2.1 <a name="27i" href="#27" title="toc27">データ記述子</A><BR>
+6.3.1.1.2.2 <a name="28i" href="#28" title="toc28">基数指定</A><BR>
+6.3.1.1.2.3 <a name="29i" href="#29" title="toc29">繰返し数</A><BR>
+6.3.1.1.2.4 <a name="30i" href="#30" title="toc30">コメント</A><BR>
+6.3.1.1.2.4.1 <a name="31i" href="#31" title="toc31">コメントの置換</A><BR>
+6.3.1.1.2.4.1.1 <a name="32i" href="#32" title="toc32">組込み変数置換</A><BR>
+6.3.1.1.2.4.1.2 <a name="33i" href="#33" title="toc33">外部コマンド置換</A><BR>
+6.3.1.2 <a name="34i" href="#34" title="toc34">入力値をバッファに保存する</A><BR>
+6.3.1.2.1 <a name="35i" href="#35" title="toc35">値バッファ保存</A><BR>
+6.3.1.2.2 <a name="36i" href="#36" title="toc36">値バッファ参照</A><BR>
+6.3.1.2.2.1 <a name="37i" href="#37" title="toc37">ブール的参照</A><BR>
+6.3.1.2.2.2 <a name="38i" href="#38" title="toc38">除算値参照</A><BR>
+6.3.1.2.2.3 <a name="39i" href="#39" title="toc39">切上げて参照</A><BR>
+6.3.1.3 <a name="40i" href="#40" title="toc40">record-formatをバッファに保存する</A><BR>
+6.3.1.3.1 <a name="41i" href="#41" title="toc41">record-formatバッファ保存</A><BR>
+6.3.1.3.2 <a name="42i" href="#42" title="toc42">record-formatバッファ参照</A><BR>
+6.3.2 <a name="43i" href="#43" title="toc43">指定例</A><BR>
+6.3.2.1 <a name="44i" href="#44" title="toc44">レコードの単純な繰返し</A><BR>
+6.3.2.2 <a name="45i" href="#45" title="toc45">入れ子になった構造体</A><BR>
+6.3.2.3 <a name="46i" href="#46" title="toc46">可変長なデータ</A><BR>
+6.3.2.4 <a name="47i" href="#47" title="toc47">bmp をダンプしてみる</A><BR>
+6.3.2.5 <a name="48i" href="#48" title="toc48">部分的にダンプする</A><BR>
+6.3.3 <a name="49i" href="#49" title="toc49">フォーマットをテキストファイルに記述する</A><BR>
+6.4 <a name="50i" href="#50" title="toc50">終了コード</A><BR>
+7 その他<BR>
+7.1 <a name="52i" href="#52" title="toc52">文字コードの扱い</A><BR>
+7.2 <a name="53i" href="#53" title="toc53">構造体メンバの境界合わせについて(btta)</A><BR>
+7.3 <a name="54i" href="#54" title="toc54">改行位置(btta)</A><BR>
+7.4 <a name="55i" href="#55" title="toc55">エラーになった位置を知るには(ttba)</A><BR>
+7.5 <a name="56i" href="#56" title="toc56">付属ツール</A><BR>
+7.6 <a name="57i" href="#57" title="toc57">雑用にちょっと使う</A><BR>
+7.7 <a name="58i" href="#58" title="toc58">btta: WARN:too short data, for a record.とは</A><BR>
+8 <a name="59i" href="#59" title="toc59">著作権など</A><BR>
+<BR>
+<!-- Tree End -->
+
+<!-- Memo Start -->
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>1 <cite><a name="1" href="#1i" title="toi1">概要</A></cite></h3>
+<BR>
+ttba と btta は開発者向けの構造体バイナリ／テキスト変換フィルタです。<BR>
+<A HREF="#ttbasynopsis">ttba</A> は、規定の書式で記述されたテキストをバイナリデータに変換し、ファイルまたは標準出力へ出力します。<BR>
+<A HREF="#bttasynopsis">btta</A> は、任意のデータを ttba 形式のテキストに変換し、標準出力へ出力します。<BR>
+btta には出力フォーマット（変換書式、データ構造など）を与えることができ、それに従った出力が可能です。<BR>
+<BR>
+<H4><A NAME="synopsis">特徴</A></H4>
+ttba への<a href="#8" title="il">入力書式</a> (＝btta の出力) には、以下のような特徴があります。<BR>
+<OL>
+<LI>C言語の構造体メンバと同じレベルで各値を記述(出力)できる。
+対応している型、リテラルは<BR>
+    <UL>
+    <LI>8ビット整数型（符号あり10進、符号なし10進、８進、16進）
+    <LI>16ビット整数型（同上）
+    <LI>32ビット整数型（同上）
+    <LI>64ビット浮動小数点数型（符号あり10進）
+    <LI>文字列（終端NULLを含む、含まない）
+    </UL>
+<LI>任意の位置に見出し／コメントを記述(出力)できる。
+</OL>
+また、btta への<A HREF="#outform">出力フォーマット</A>指定では、上記のための指定に加え、以下のような指定が可能です。<BR>
+<OL>
+<LI>同一データに含まれる複数種のレコード／チャンクを各々の構造で出力
+<LI>可変長配列、可変数のレコードを適切な数で出力
+<LI>バイナリ数値のエンディアンを指示する
+<LI>見出し／コメントの中にカレントのレコード数などを出力
+</OL>
+<H4>用途</H4>
+本ツールを使うと以下のようなことができます。<BR>
+<UL>
+<LI>固有のレコード／チャンク構造をもつデータを、専用のプログラムを書くことなく作成する。
+<LI>あるファイルに対して、専用のプログラムを書くことなく、そのレコード／チャンクの構造に沿った形式でダンプする（各メンバに対する見出し出力も可）。
+<LI>固定長フィールド式テキストデータを、各フィールドに見出しをつけた形で参照する。
+<LI>バイナリファイルをテキスト化し、awk, sed などで加工して、結果をバイナリに戻す。
+<UL><LI>どんなファイルであっても、何が何でも awk で処理する。
+    <LI>dbm でないバイナリファイルを perl で処理する。</UL>
+<LI>使い慣れたテキストエディタでバイナリデータを扱う。
+<LI>単に od のかわりに使う。
+<LI><a href="#57" title="il">雑用にちょっと使う</a></LI>
+</UL>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>2 <cite><a name="2" href="#2i" title="toi2">更新履歴</A></cite></h3>
+<BR>
+<DL>
+<DT>[030309] Ver.1.3d(ttba-Rev.2.0b3,btta-Rev.2.0b32)
+<DD><UL><LI>ttba で処理系本来のバイトオーダーと異なる指定をした時（-E or -e で）、32ビット整数が正しく出力されない不具合を修正
+</UL><!--}-->
+<BR>
+<DT>[020319] Ver.1.3c(ttba-Rev.2.0b2,btta-Rev.2.0b32)
+<DD><UL><LI>ttba のオプションとして <CODE>-E</CODE> および <CODE>-e</CODE> を追加（バイトオーダー指定）
+</UL><!--}-->
+<BR>
+<DT>[010722] Ver.1.3b(ttba-Rev.2.0b1,btta-Rev.2.0b32)
+<DD><UL><LI><VAR>format-file</VAR> 中で -F char オプション（デリミタ指定）がつかえなかったのを修正
+<LI>-v オプションを指定しない場合でも、コメントを指定するとファイルオフセットが表示されるのを修正
+</UL><!--}-->
+<BR>
+<DT>[010705] Ver.1.3a(ttba-Rev.2.0b1,btta-Rev.2.0b31)
+<DD><UL><LI>文字メンバ（ `t'、`z'）に対して、<a href="#35" title="il">値バッファ保存</a>を用いなくても(btta R2.0b30の）警告メッセージが出力されるのを（出力されない様に）修正</UL><!--}-->
+<DT>[010701] Ver.1.3(ttba-Rev.2.0b1,btta-Rev.2.0b30)
+<DD><UL><LI><!--{--><a href="#32" title="il">組込み変数置換</a>で<a href="#36" title="il">値バッファ参照</a>を使える様にした。
+<LI><a href="#36" title="il">値バッファ参照</a>および、<a href="#42" title="il">record-formatバッファ参照</a>に関連するエラーメッセージで変数名が文字コードで出力されるのを修正。
+<LI>文字メンバ（ `t'、`z'）に対して <a href="#35" title="il">値バッファ保存</a>を用いた場合に警告メッセージを出力するようにした。</UL><!--}-->
+<DT>[010216] Ver.1.2(ttba-Rev.2.0b1,btta-Rev.2.0b29)
+<DD>bttaの<a href="#27" title="il">データ記述子</a>に`R'および`r'を追加した。フォーマット指定が不要な部分に対して使うと、その部分をデフォルトのフォーマットで出力する。<a href="#43" title="il">指定例</a>の<a href="#48" title="il">部分的にダンプする</a>も参照のこと。
+<DT>[010205] Ver.1.1(ttba-Rev.2.0b1,btta-Rev.2.0b28)
+<DD><UL><LI><a href="#36" title="il">値バッファ参照</a>で N の倍数に評価する機能を追加した(<a href="#39" title="il">切上げて参照</a>)。
+<LI>付属ツール <A HREF="#utilbvia">bvia</A> のオプションを追加した。
+</UL>
+<DT>[010111] Ver.1.0a(ttba-Rev.2.0b1,btta-Rev.2.0b27)
+<DD><UL><LI><a href="#49" title="il">フォーマットをテキストファイルに記述する</a>場合、先頭の行に<CODE>`#!/usr/local/bin/btta -f'</CODE>などと書けるようにした(btta は無視する)。
+<LI>付属ツールとして <A HREF="#utilbvia">bvia</A> を追加した。
+<LI>上記に伴うマニュアルの修正、およびその他の補足を追加した。
+</UL><DT>[2k1111] Ver.1.0 (ttba-Rev.2.0b1,btta-Rev.2.0b26)
+<DD>公開初版
+</DL>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>3 <cite><a name="3" href="#3i" title="toi3">動作環境</A></cite></h3>
+<BR>
+<P>あたらしめの gcc でコンパイルすれば、ほとんどのUNIX系OSで動くと思います(3.x は未確認)。<BR>
+以下の環境で動作を確認しています。</P><BR>
+<DL>
+<DD>Solaris 2.5.x (gcc 2.95.1)
+<DD>Solaris 8 (gcc 2.95.2)
+<DD>HP-UX 11.00 (gcc 2.95.2)
+<DD>AIX 4 (gcc 2.95.1)
+<DD>Windows9x (Cygwin 1.x)
+<DD>Windows2OOO (Cygwin 1.x)
+<DD>Linux 2.0.x (gcc 2.95.2)
+</DL>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>4 <cite><a name="4" href="#4i" title="toi4">インストール</A></cite></h3>
+<BR>
+<OL><LI>ソースのアーカイブをテンポラリディレクトリに展開する
+<LI><KBD>/usr/local/bin</KBD> 以外にインストールする場合は、環境変数 <KBD>C_PREFIX</KBD> にインストール先のパスを設定する（インストールした後は、設定されている必要はありません）
+<LI><KBD>configure</KBD> シェルスクリプトを実行する
+<LI><KBD>make</KBD> を実行する
+<LI><KBD>make install</KBD> を実行する
+</OL>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5 <cite><a name="5" href="#5i" title="toi5">ttba - テキスト→バイナリ変換</A></cite></h3>
+<BR>
+<A NAME="ttbasynopsis">ttba</A> は、規定の<a href="#8" title="il">入力書式</a>にそって記述されたテキストをバイナリデータに変換するツールです。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.1 <cite><a name="6" href="#6i" title="toi6">使用法</A></cite></h3>
+<BR>
+<H4>コマンドライン</H4>
+<KBD>ttba [-{E|e}] <VAR>infile</VAR> <VAR>outfile</VAR><BR>
+ttba -c [-{E|e}] [ <VAR>infile</VAR> ]<BR>
+</KBD><BR>
+<BR>
+<H4>説明</H4>
+<VAR>infile</VAR> には入力ストリームとなるファイル名を指定します。<BR>
+<BR>
+最初の書式の場合、<VAR>infile</VAR> を変換した結果（バイナリ）を <VAR>outfile</VAR> で指定されたファイルに出力します。<BR>
+二番目の書式の場合、変換結果は標準出力に送られます。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.2 <cite><a name="7" href="#7i" title="toi7">オプション</A></cite></h3>
+<BR>
+ttba のオプションを以下に示します。<BR>
+<DL>
+<DT><CODE>-E</CODE> または <CODE>-e</CODE>
+<DD>入力ストリームに含まれている数値データ(データ記述子が <CODE>S</CODE> や <CODE>L</CODE>などのもの）のエンディアン(バイトオーダー）をどう扱うかを指定します。
+<CODE>-E</CODE> の場合はビッグエンディアン、<CODE>-e</CODE> の場合はリトルエンディアンで出力されます。<BR>
+このオプションを省略した場合は、ttba が動作している処理系にそったものとなります。<BR>
+<BR>
+<DT><A NAME="optc"><CODE>-c</CODE></A>
+<DD>変換結果を標準出力に出力する場合に指定します。
+この時 <VAR>infile</VAR> が省略されていれば、標準入力から読み込みます。<BR>
+</DL>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3 <cite><a name="8" href="#8i" title="toi8">入力書式</A></cite></h3>
+<BR>
+ttba が扱うことのできるデータは、本節に示される書式に従った一連のテキストのストリームです（以下、単に<A NAME="stream">ストリーム</A>）。<BR>
+<BR>
+ttba は<VAR>ストリーム</VAR>中の<VAR>データ</VAR>を先頭から順番に処理することによってバイナリデータを逐次出力していきます。処理は EOF またはエラーを検出すると終了します。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.1 <cite><a name="9" href="#9i" title="toi9">ストリーム</A></cite></h3>
+<BR>
+<VAR>ストリーム</VAR>は、(<VAR>データ</VAR>が記述された)幾つかの<VAR>行</VAR>からなります。<BR>
+<PRE>    <CODE><VAR>ストリーム</VAR> = [ <VAR>行</VAR> ...]</CODE>
+</PRE>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.1.1 <cite><a name="10" href="#10i" title="toi10">行</A></cite></h3>
+<BR>
+<VAR>行</VAR>には、<VAR>データ</VAR>を記述します。<BR>
+異なる<A HREF="#dataid" title="ttba">データ記述子</A>をもつ<VAR>データ</VAR>を混在させることができ、かつ、幾つでも記述できます。<BR>
+<PRE>    <CODE><VAR>行</VAR> = [ <VAR>データ</VAR> ...]</CODE>
+</PRE>
+※<VAR>行</VAR>には<VAR>データ</VAR>のほか、<A HREF="#comment">コメント</A> も書くことができます。厳密にはこうです。<BR>
+<PRE>    <CODE><VAR>行</VAR> = [ <VAR>データ</VAR> ...] [ <VAR>コメント</VAR> ]</CODE>
+</PRE>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.1.2 <cite><a name="11" href="#11i" title="toi11">データ</A></cite></h3>
+<BR>
+ひとつの<VAR>データ</VAR>は以下のような構造をもっています。<BR>
+<BR>
+<PRE>    <CODE><VAR>データ</VAR> = <VAR>データ記述子</VAR> <VAR>値1</VAR> [ <VAR>値2</VAR> ]</CODE>
+</PRE>
+＞<a href="#15" title="il">データの例</a><BR>
+<BR>
+<A HREF="#dataid" title="ttba">データ記述子</A> と<VAR>値1</VAR>の間、および<VAR>値1</VAR>と<VAR>値2</VAR>の間には、0個以上の空白、タブ、または改行を含めることができます。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.1.2.1 <cite><a name="12" href="#12i" title="toi12">データ記述子(ttba)</A></cite></h3>
+<BR>
+<A NAME="dataid">データ記述子</A>はその直後に記述されている<A HREF="#val">値</A>をどう扱うかを決定するためのもので、1つの文字で指定します。大文字小文字の区別はありません。<BR>
+<BR>
+データ記述子を省略することはできません。<BR>
+※<A HREF="#str">文字出力用の<VAR>データ</VAR></A>には、もともとデータ記述子がないものがあります。<BR>
+<BR>
+サポートしているデータ記述子毎に、<VAR>データ</VAR>の書式を示します。<BR>
+<BR>
+<BR>
+<H4>整数値出力用</H4>
+<DL><dt><VAR>データ記述子</VAR>に後続する<VAR>値</VAR>は、<A HREF="#intlit">整数のリテラル</A>でなければなりません。
+    <dd><DL><DT><CODE>`c' <VAR>値</VAR></CODE>
+        <DD><VAR>値</VAR>を8ビットの整数型として出力します。
+    </DL>
+    <DL><DT><CODE>`s' <VAR>値</VAR></CODE>
+        <DD><VAR>値</VAR>を16ビットの整数型として出力します。
+    </DL>
+    <DL><DT><CODE>`l' <VAR>値</VAR></CODE>
+        <DD><VAR>値</VAR>を32ビットの整数型として出力します。
+    </DL></DL>
+<H4>少数値出力用</H4>
+<DL><dt><VAR>値</VAR>は<A HREF="#floatlit">浮動小数点数のリテラル</A>、または<A HREF="#intlit">整数のリテラル</A>でなければなりません。
+    <dd><DL><DT><CODE>`d' <VAR>値</VAR></CODE>
+        <DD><VAR>値</VAR>を64ビットの浮動小数点数型として出力します。
+    </DL></DL>
+<H4><A NAME="str">文字出力用</A></H4>
+<DL><dt><var>値</var>は<A HREF="#strlit">文字(列)のリテラル</A>でなければなりません(一部を除く)。
+    <dd><DL><DT><CODE><VAR>値</VAR></CODE>
+        <DD>データ記述子はありません。<VAR>値</VAR>を文字列として出力します。</DL>
+    <DL><DT><CODE><A NAME="zspec">`z'</A> <VAR>値1</VAR> <VAR>値2</VAR> </CODE>
+        <DD><VAR>値2</VAR>を NULLで終了する文字列として <VAR>値1</VAR> で示されるバイト長で出力します。
+        <VAR>値2</VAR>の実際の長さが<VAR>値1</VAR>で示される長さより短い場合、あまったバイトにはNULLがフィルされます。また<VAR>値2</VAR>の方が長い場合はエラーとなります。<BR>
+        <VAR>値1</VAR>は<A HREF="#intlit">整数のリテラル</A>、<VAR>値2</VAR>は<A HREF="#strlit">文字(列)のリテラル</A>でなければなりません。<BR>
+    </DL></DL>
+<H4>出力位置調整用</H4>
+<DL><dt>これはファイルのシーク(SEEK_CURによる)と同等の機能を提供するものです。このデータを用いると、次のデータの出力位置を変更できます。
+    <dd><DL><DT><CODE>`j' <VAR>値</VAR></CODE>
+        <DD><VAR>値</VAR>には、カレントの出力位置に対するシーク位置（相対バイト数）を<A HREF="#intlit">整数のリテラル</A>で指定します。
+        なお、シークしたことで出力データ中にギャップ（データが書きこまれなかったバイト）が発生した場合、その部分の内容については不定となります。<BR>
+    </DL></DL>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.1.2.2 <cite><a name="13" href="#13i" title="toi13">値のリテラル</A></cite></h3>
+<BR>
+<VAR><A NAME="val">値</A></VAR> として指定できるリテラルには以下のものがあります。<BR>
+<BR>
+<H4><A NAME="intlit">整数のリテラル</A></H4>
+<DL><DT>数字のみ(前ゼロなし) 
+        <DD>10進表記の数値とみなされます。
+    <DT><CODE>`0'</CODE>で始まる数字(<CODE>`0'〜`7'</CODE>)
+        <DD>8進表記の数値とみなされます。
+    <DT><CODE>`0x'</CODE>（または<CODE>`0X'</CODE>）で始まる数字、および英字の<CODE>`a'〜`f'</CODE>（英字は大文字可)
+        <DD>16進表記の数値とみなされます。前ゼロの有無は問いません。
+        </DL>
+<H4><A NAME="floatlit">浮動小数点数のリテラル</A></H4>
+<DL><DT>ピリオド <CODE>`.'</CODE> をひとつ含む数字
+        <DD>浮動小数点数（小数点以下の値をもつ実数）とみなされます。<CODE>`e'</CODE>を用いた仮数＋指数表記も可能です。
+        </DL>
+<H4><A NAME="strlit">文字(列)のリテラル</A></H4>
+<DL><DT>2重引用符 <CODE>`"'</CODE> でかこまれた任意の文字
+        <DD>文字(列)値とみなされます。
+        <DD>かこんでいる両脇の2重引用符が変換結果として出力されることはありません。
+        使用可能なエスケープシーケンスは以下の通りです。<!--cutbr-->
+        <DL COMPACT><DT><CODE>`\\'</CODE>
+            <DD>バックスラッシュ
+        <DT><CODE>`\"'</CODE>
+            <DD>2重引用符
+        <DT><CODE>`\r'</CODE>
+            <DD>CR 。(現物で指定してもよい)
+        <DT><CODE>`\n'</CODE>
+            <DD>LF 。(現物で指定してもよい)
+        </DL>
+    </DL>
+※10進数値が<CODE>`-'</CODE>で始まっていると負数となります。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.1.2.3 <cite><a name="14" href="#14i" title="toi14">データ間の区切り</A></cite></h3>
+<BR>
+<VAR>データ</VAR>と<VAR>データ</VAR>の間は、1個以上の空白、カンマ、またはタブで区切る必要がありますが、境界が明確である場合は、区切り文字がなくても動作します。<BR>
+以下は、区切り文字を省略できない例です。<BR>
+<PRE>    <KBD>% echo c0x1c0x2s0x3L4 | ttba -c &gt; foo</KBD>
+</PRE>
+この場合は少なくとも以下のようにしなければなりません。<BR>
+<PRE>    <KBD>% echo c0x1 c0x2s0x3L4 | ttba -c &gt; foo</KBD>
+</PRE>
+(<VAR>データ</VAR> <CODE>c0x1</CODE> と <VAR>データ</VAR> <CODE>c0x2</CODE> の間に区切り文字を入れる)<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.1.2.4 <cite><a name="15" href="#15i" title="toi15">データの例</A></cite></h3>
+<BR>
+<PRE><CODE>
+    c 1
+    s0x20
+    d -123e-2
+    "string of text"
+    z32 "NULL terminated string of text"
+    j1024</CODE>
+</PRE>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.2 <cite><a name="16" href="#16i" title="toi16">コメント文</A></cite></h3>
+<BR>
+<A HREF="#stream">ストリーム</A>には<A NAME="comment">コメント</A>を含めることができます。コメントは ttba の出力には一切影響を与えません。<BR>
+<BR>
+コメントは<CODE>`#'</CODE>の後に続けて記述します。<BR>
+<CODE>`#'</CODE>から行末までがコメントとなります。<BR>
+要するに sh などと同じです。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.3.3 <cite><a name="17" href="#17i" title="toi17">記述例(をみる)</A></cite></h3>
+<BR>
+btta のフォーマット<a href="#43" title="il">指定例</a>を実際に試してみてください。<VAR> file</VAR> には、実際にあるファイルなら何を指定してもよいです。<BR>
+出力される結果が ttba 入力書式となります。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>5.4 <cite><a name="18" href="#18i" title="toi18">終了コード</A></cite></h3>
+<BR>
+ttba が終了したときの戻り値を以下に示します。<BR>
+<DL COMPACT>
+<DT>0
+<DD>正常
+<DT>1
+<DD>異常
+<DT>2
+<DD>引数が不正
+</DL>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6 <cite><a name="19" href="#19i" title="toi19">btta - バイナリ→テキスト変換(dumper）</A></cite></h3>
+<BR>
+<A NAME="bttasynopsis">btta</A> は ttba と逆の動作をするツールです。<BR>
+<A HREF="#outform">フォーマット</A>を別途与えることで、バイナリをテキストに変換して出力します。<BR>
+btta の出力結果は ttba への入力として利用できます。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.1 <cite><a name="20" href="#20i" title="toi20">使用法</A></cite></h3>
+<BR>
+<H4>コマンドライン</H4>
+<PRE>
+<KBD>
+btta [-v] [-{E|e}] [-F <VAR>char</VAR> ] [-k <VAR>column</VAR> ] [-f <VAR>format-file</VAR> ] [-{x|X}]
+     [-<VAR>record-format</VAR> [...]] [ <VAR>file</VAR> ]
+</KBD>
+</PRE>
+<BR>
+<H4>説明</H4>
+入力データを ttbaの<a href="#8" title="il">入力書式</a>と同じ形式で、標準出力に出力します。<BR>
+<VAR>file</VAR> には入力データのファイル名を指定します。省略時は標準入力が使用されます。<BR>
+<VAR>file</VAR> は１つだけ指定できます。複数ある場合は cat するなどしてください。<BR>
+出力フォーマットは、<A HREF="#bttafopt"><CODE>-f</CODE> オプション</A>の <VAR>format-file</VAR> で示されるファイル内に記述するか、直接 <A HREF="#bttarecform">-<VAR>record-format</VAR> 引数</A>にて指定します。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.2 <cite><a name="21" href="#21i" title="toi21">オプション</A></cite></h3>
+<BR>
+btta のオプションを以下に示します。<BR>
+なお、これら複数のオプションを、例えば <CODE>`-vEX'</CODE> のように、ひとつの引数にまとめて指定することはできません。独立した引数として指定して下さい。<BR>
+<BR>
+<DL><DT><CODE>-v</CODE>
+<DD>1レコードを出力する毎に入力ストリームのバイトオフセットを16進数で出力します。
+これは<CODE>`#'</CODE>文字と共に、それに後続する形で出力されますので、結果を ttba の入力データとして見たときは<a href="#16" title="il">コメント文</a>となります。<BR>
+また、btta が検出すれば警告などのメッセージが標準エラー出力に出力されるようになります。<BR>
+<BR>
+<DT><CODE>-E</CODE> または <CODE>-e</CODE>
+<DD>入力ストリームに含まれる数値データのエンディアン(バイトオーダー）をどう扱うかを指定します。
+<CODE>-E</CODE> の場合はビッグエンディアン、<CODE>-e</CODE> の場合はリトルエンディアンであるとみなします。<BR>
+このオプションを省略した場合は、btta が動作している処理系にそったものとなります。<BR>
+<BR>
+<DT><CODE>-F <VAR>char</VAR></CODE>
+<DD>出力結果における<a href="#14" title="il">データ間の区切り</a>文字を <VAR>char</VAR> で指定します。
+例えばこのオプションで区切り文字をカンマ<CODE>`,'</CODE>と指定すれば出力結果を CSV のようにすることができます。<BR>
+デフォルトは空白文字です。<BR>
+<BR>
+<DT><CODE>-k <VAR>column</VAR></CODE>
+<DD>出力結果に<a href="#30" title="il">コメント</a>が含まれる場合にその出力カラム位置を <VAR>column</VAR> で指定した位置に揃えます。
+デフォルトでは揃えません。<BR>
+出力結果を人間が読む場合、コメントの位置が揃っていると少し読みやすくなるでしょう。<BR>
+<BR>
+<DT><CODE><A NAME="bttafopt">-f</A> <VAR>format-file</VAR></CODE>
+<DD>出力フォーマットを <VAR>format-file</VAR> で示されるファイルから読み込みます。
+ファイルの記述方法を理解するためには、以下の項を読む必要があります。<BR>
+<UL>
+<LI><a href="#23" title="il">フォーマット書式</a></LI>
+<LI><a href="#49" title="il">フォーマットをテキストファイルに記述する</a></LI>
+</UL>
+<BR>
+<DT><CODE><A NAME="bttaxopt">-X または -x</A></CODE>
+<DD>指定されたフォーマットに<a href="#30" title="il">コメント</a>があり、その中で<a href="#31" title="il">コメントの置換</a>機能が利用されていても置換動作を行いません。
+<CODE>-X</CODE> の場合は、<a href="#32" title="il">組込み変数置換</a>および、<a href="#33" title="il">外部コマンド置換</a>を共に抑止します。<BR>
+<CODE>-x</CODE> の場合は、<a href="#33" title="il">外部コマンド置換</a>のみを抑止します。<BR>
+<BR>
+<DT><CODE><VAR><a href="#24" title="il">-record-format</a></VAR></CODE>
+<DD><A NAME="bttarecform">出力フォーマットを引数で直に指定する場合に使用します。</A>
+入力データの構造が比較的単純な (つまり <VAR>record-format</VAR> の記述量が少なくて済む）場合は、 <CODE>-f</CODE> オプションを使用するまでもなく、この引数だけで事足りるでしょう。<BR>
+また、この引数は複数指定することができます。詳しくは<a href="#23" title="il">フォーマット書式</a>を参照して下さい。<BR>
+</DL>
+<BR>
+※<CODE><VAR>-record-format</VAR></CODE> は、他の全てのオプション(ただし <CODE>-f <VAR>format-file</VAR></CODE> オプションを除く)よりも後ろに指定しなければなりません。<BR>
+<BR>
+※出力フォーマットをまったく指定しなかった場合は<CODE><VAR>-record-format</VAR></CODE> として以下のように指定したことになります。<BR>
+<PRE>
+    <CODE>-s0x8</CODE>
+</PRE>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3 <cite><a name="22" href="#22i" title="toi22">出力フォーマットの指定方法</A></cite></h3>
+<BR>
+<H4><A NAME="outform">出力フォーマットの概要</A></H4>
+btta を用いて、バイナリデータに含まれる構造体をそのメンバどおりにテキスト化するためには、出力フォーマット（以下、単にフォーマット）を指定する必要があります。<BR>
+<!--<BR>
+フォーマットを指定する事の意義としては、例えば以下のようなことがあげられます。<BR>
+<BR>
+人間にとって読みやすくする<BR>
+<DL><DD>デバッグ、あるいはその他の目的のために、ファイルをダンプする場合、それが構造体データを含むもので、その構造が明らかあるなら、一般的なダンプアプリケーションで良く用いられる 1 行 16 バイトで1〜2バイトずつ16進数(＋文字)で出力されたダンプよりは、構造体のとおりに出力されたものを追うほうがはるかに効率的でしょう。
+特定の項目だけをピックアップしたい場合もあるかもしれません。<BR>
+これは利用者が、btta のもつ機能を活用し、目的のためのフォーマットを書くことによって実現できます。<BR>
+<BR>
+もしファイルを生成するアプリケーションが自分の支配下にあるのなら、そのプログラム中にデバッグ文を丹念におくことで確認を行うことができます。<BR>
+しかし常にそういうことができる状況であるとは限りません。<BR>
+</DL>
+プログラムにとって扱いやすくする<BR>
+<DL><DD>バイナリファイルをテキスト化し、他のプログラムに読み込ませて使用する場合、例えば他のプログラムが awk であるのならば、awk が最も扱いやすい結果となるようなフォーマットを書けばよいでしょう。</DL>
+--><BR>
+フォーマットとして指定できる項目には、以下のものがあります。<BR>
+<BR>
+これらは特に基本的なものです。<BR>
+<UL><LI>レコードの構造
+<LI>レコード数
+<LI>レコードの各メンバ    
+    <UL>
+    <LI>メンバの型
+    <LI>メンバの変換書式
+    <LI>メンバの繰り返し数(配列用)
+    <LI>メンバへのコメント（見出し）
+</UL></UL>
+<BR>
+以下は補助的なものです。<BR>
+<UL><LI>ファイルのシーク
+    <LI>特定のメンバの値を出力するだけでなく、他のレコード数として、あるいは他メンバの繰り返し数として用いる
+    <LI>コメントの中にレコード数などを出力する。
+    <LI>他のプログラムを起動し、その結果をコメントの中に出力する
+    <LI>単に改行を出力する
+</UL>
+<BR>
+フォーマットの与え方には、以下に示す2通りの方法があります。<BR>
+<UL><LI><VAR><a href="#24" title="il">-record-format</a></VAR> を引数で指定する
+    <LI><VAR><a href="#24" title="il">-record-format</a></VAR> を記述したファイルを用意し、<A HREF="#bttafopt"><CODE>-f <VAR>format-file</VAR></CODE> オプション</A>を使う
+</UL>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1 <cite><a name="23" href="#23i" title="toi23">フォーマット書式</A></cite></h3>
+<BR>
+フォーマットは入力データの全体構造を表したものとなります。<BR>
+<PRE>    <CODE>フォーマット = <VAR><a href="#24" title="il">-record-format</a></VAR> [ <VAR>-record-format</VAR> ... ]</CODE><BR>
+</PRE><BR>
+ひとつの <VAR>-record-format</VAR> が、ひとつのレコード構造に対応します。<BR>
+入力データが複数のレコード構造（レコードの数ではなく構造体の種類のこと）をもつ場合は、その分だけ <VAR>-record-format</VAR> を指定することができます。<BR>
+複数の <VAR>-record-format</VAR>が指定された場合 btta は、最初の <VAR>-record-format</VAR> を、指定された<a href="#25" title="il">レコード数</a>回出力し終えると、次の <VAR>-record-format</VAR> に移行し、出力を続けます。この動作は入力データの EOF に達するか、全ての <VAR>-record-format</VAR>を処理し終えるまで行われます。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1 <cite><a name="24" href="#24i" title="toi24">-record-format</A></cite></h3>
+<BR>
+<VAR>-record-format</VAR> には、レコード構造を指定します（構造体に対応するものです）。ファイルに記述するのでなく引数で与える場合は、ひとつの引数となるようにします。以下の各項目の間を空白などで区切ってはなりません。<BR>
+<PRE>    <CODE><VAR>-record-format</VAR> = `-' [<VAR><a href="#25" title="il">レコード数</a></VAR> ] <VAR><a href="#26" title="il">メンバ</a></VAR> [ <VAR>メンバ</VAR> ... ]</CODE><BR>
+</PRE><BR>
+先頭のハイフンは、<VAR>-record-format</VAR> の始まりを表すためのもので、ファイルで与える場合でも必要です。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.1 <cite><a name="25" href="#25i" title="toi25">レコード数</A></cite></h3>
+<BR>
+<VAR>レコード数</VAR>には、この構造で何レコード出力するかを指定します。<A HREF="#intlit">整数リテラル</A> または、<a href="#36" title="il">値バッファ参照</a>で指定します。<BR>
+省略すると半無限となり、入力データの EOF までがこの構造で出力されるようになります。そのため他の <VAR>-record-format </VAR>がまだ後ろにあっても、それらは意味がなくなります。<BR>
+<BR>
+※16進数のリテラルで指定する場合、後続する<VAR>メンバ</VAR>との境を明確にするためにカンマ<CODE>`,'</CODE>が必要になることがあります。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.2 <cite><a name="26" href="#26i" title="toi26">メンバ</A></cite></h3>
+<BR>
+レコードを構成しているメンバを指定します。入力データを扱う最小単位であり、構造体メンバに対応するものです。入力値はこの項目で指定された型、書式で出力されます。最低でも１つ指定しなければなりません。<BR>
+<PRE>    <CODE><VAR>メンバ</VAR> = <VAR><a href="#27" title="il">データ記述子</a></VAR> [ <VAR><a href="#28" title="il">基数指定</a></VAR> ] [ <VAR><a href="#29" title="il">繰返し数</a></VAR> ] [ <VAR><a href="#30" title="il">コメント</a></VAR> ]</CODE><BR>
+</PRE><BR>
+また、<A NAME="nestedrec">入れ子になった構造体</A>のために以下のような指定をすることも可能です。<BR>
+<PRE>    <CODE><VAR>メンバ</VAR> = `[' <VAR>record-format</VAR> `]'</CODE>
+</PRE>
+これは、<VAR>record-format</VAR> を大カッコで囲んだものです。<BR>
+入れ子指定の深さに制限はありません(システムに起因するものを除き）。<BR>
+※この場合の <VAR>record-format</VAR> には先頭ハイフンを指定しません。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.2.1 <cite><a name="27" href="#27i" title="toi27">データ記述子</A></cite></h3>
+<BR>
+<VAR>データ記述子</VAR>には、メンバの型を指定します。基本的には<A HREF="#dataid">ttbaのデータ記述子</A>と同じですが、大文字小文字の区別があるものがあります。btta にしかないものもあります。<BR>
+<DL COMPACT>
+    <DT><CODE>`c'</CODE>
+        <DD>8ビットの符号付き整数
+    <DT><CODE>`C'</CODE>
+        <DD>8ビットの符号なし整数
+    <DT><CODE>`s'</CODE>
+        <DD>16ビットの符号付き整数
+    <DT><CODE>`S'</CODE>
+        <DD>16ビットの符号なし整数
+    <DT><CODE>`l'</CODE>
+        <DD>32ビットの符号付き整数
+    <DT><CODE>`L'</CODE>
+        <DD>32ビットの符号なし整数
+    <DT><CODE>`d'</CODE> または <CODE>`D'</CODE>
+        <DD>64ビットの符号付き浮動小数点数
+    <DT><CODE>`t'</CODE> または <CODE>`T'</CODE>
+        <DD>文字。非印字文字は強制的に <CODE>`c'</CODE> で表示
+    <DT><CODE>`z'</CODE> または <CODE>`Z'</CODE>
+        <DD><A HREF="#zspec">Z指定の文字</A>。非印字文字もそのまま出力
+    <DT><CODE>`j'</CODE> または <CODE>`J'</CODE>
+        <DD>入力データのシーク(SEEK_CUR式)
+    <DT><CODE>`n'</CODE>
+        <DD>出力を改行する。入力データにはアクセスしない
+    <DT><CODE>`N'</CODE>
+        <DD>何もしない。<a href="#30" title="il">コメント</a>のみを出力したいときに使用する
+    <DT><CODE>`r'</CODE>
+        <DD>このメンバの出現位置からデフォルトのフォーマットで出力する。出力サイズは<a href="#29" title="il">繰返し数</a>にて指定する。データの特定部分に対して、フォーマットを指定するまでもないが 後でバイナリに戻す必要があり、<CODE>`J'</CODE> を使えない局面で使用する(`J'でスキップするとその部分のデータは欠落するため )。
+    <DT><CODE>`R'</CODE>
+        <DD><CODE>`r'</CODE> と同じだが、<a href="#29" title="il">繰返し数</a>をサイズではなく入力データのバイトオフセットであるとし、その位置までをデフォルトのフォーマットで出力する。(デフォルトで出力したい部分の)最終位置が予めわかっているときに使う。
+</DL>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.2.2 <cite><a name="28" href="#28i" title="toi28">基数指定</A></cite></h3>
+<BR>
+<VAR>基数指定</VAR>には、メンバの値を何進数で出力するかを指定します。<VAR>データ記述子</VAR>が整数用である場合のみ指定できます。<BR>
+    <DL COMPACT>
+        <DT><CODE>`0x'</CODE>
+            <DD>16進数
+        <DT><CODE>`0'</CODE>
+            <DD>8進数
+        <DT>省略
+            <DD>10進数
+    </DL>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.2.3 <cite><a name="29" href="#29i" title="toi29">繰返し数</A></cite></h3>
+<BR>
+<VAR>繰返し数</VAR>は、同じ<VAR>データ記述子</VAR>、<VAR>基数指定</VAR>をもったメンバが繰り返される場合に、その数を指定するものです。<BR>
+例えば<BR>
+<PRE>    <CODE>c0xc0xc0x</CODE>
+</PRE>
+のような指定は<BR>
+<PRE>    <CODE>c0x3</CODE>
+</PRE>
+とすることができます。<BR>
+典型的な使用目的としては、配列の出力 があります。<BR>
+<BR>
+<STRONG>10進の</STRONG><A HREF="#intlit">整数リテラル</A>（10進以外は現在使用できません)、または<a href="#36" title="il">値バッファ参照</a>で指定します。<BR>
+省略値は 1 です。<BR>
+<BR>
+<a href="#27" title="il">データ記述子</a> <CODE>`j'</CODE>によってシークするバイト数はこの項目として指定します<BR>
+(従って<a href="#36" title="il">値バッファ参照</a>が使えます)。<BR>
+この場合に限り、<A HREF="#intlit">整数リテラル</A>に関しては全てが使えます、また省略値は 0 となります。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.2.4 <cite><a name="30" href="#30i" title="toi30">コメント</A></cite></h3>
+<BR>
+メンバへのコメント（見出し）を出力する場合に指定します。<BR>
+<PRE>    <CODE>`#' <VAR>コメント文</VAR> `;'</CODE>
+</PRE>
+結果としてメンバ値の直後に <CODE>`#'</CODE> と<VAR>コメント文</VAR>が出力されます。<BR>
+<CODE>`;'</CODE> はコメントの終了を示すためのものです。これは結果には出力されません。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.2.4.1 <cite><a name="31" href="#31i" title="toi31">コメントの置換</A></cite></h3>
+<BR>
+本機能は、<VAR>コメント</VAR>文の中に動的な情報を出力するためのものです。<BR>
+<VAR>コメント文</VAR>の中に特定の記述があると、結果ではその部分が置換されて出力されるようになります。<BR>
+使用量が多いほど処理速度は遅くなりますので、ここぞという所でのみ使ったほうが良いでしょう。<BR>
+ただし、記述されていても<A HREF="#bttaxopt">オプション</A><CODE>-x</CODE> や <CODE>-X</CODE> を使用して置換を禁止することはできます。<BR>
+※本機能は<VAR>コメント文</VAR>の中でのみ有効です。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.2.4.1.1 <cite><a name="32" href="#32i" title="toi32">組込み変数置換</A></cite></h3>
+<BR>
+幾つかの組込み変数が用意されており、その値をコメントの一部として出力することができます。<BR>
+使用するには、<VAR>コメント文</VAR>の中で以下のようにします。<BR>
+<PRE>    <CODE>`\$' <VAR>組込み変数名</VAR></CODE>
+</PRE>
+バックスラッシュでエスケープした<CODE>`$'</CODE>に続けて<VAR>組込み変数名</VAR>を記述したものです。<BR>
+使用できる組込み変数は次のとおりです。<DL COMPACT>
+<DT><CODE>NR</CODE>
+<DD>現在の<a href="#25" title="il">レコード数</a>
+<DT><CODE>SNR</CODE>
+<DD>レコードの総数
+<DT><CODE>CNF</CODE>
+<DD>現在の<a href="#26" title="il">メンバ</a>
+<DT><CODE>NF</CODE>
+<DD>メンバの総数
+<DT><CODE>CNFR</CODE>
+<DD>現在の<a href="#29" title="il">繰返し数</a>
+<DT><CODE>NFR</CODE>
+<DD>繰返しの総数
+<DT><CODE>V</CODE>
+<DD>メンバの値
+<DT><CODE>FILENAME</CODE>
+<DD>入力データファイル名
+<DT><CODE>$<VAR>変数名</VAR></CODE>
+<DD><VAR>変数名</VAR>で示される<a href="#36" title="il">値バッファ参照</a>値。
+例えば <CODE>`# foo = \$$A ;'</CODE> 等とすると変数 A の（その時点の）値に置換されます。<BR>
+</DL>
+※「現在のｘｘｘ」に関しての先頭値は 0 です。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.1.2.4.1.2 <cite><a name="33" href="#33i" title="toi33">外部コマンド置換</A></cite></h3>
+<BR>
+シェルのコマンド置換のように、外部のコマンドを呼び出し、その結果をコメントの一部として出力する機能です。<BR>
+使用するには、<VAR>コメント文</VAR>の中で以下のようにします。<BR>
+<PRE>    <CODE>`\`' <VAR>コマンド文字列</VAR> `\`'</CODE>
+</PRE>
+バックスラッシュでエスケープしたバッククォート<CODE>``'</CODE>で囲んで<VAR>コマンド文字列</VAR>を記述します。<BR>
+コマンドの実行はシェル（コマンドプロセッサ）を介して行われます。<BR>
+<VAR>コマンド文字列</VAR>の中に、<a href="#32" title="il">組込み変数置換</a>の記述を含めることができます。<BR>
+※コマンドの結果が複数の行にわたる場合、最終行のみが対象となります。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.2 <cite><a name="34" href="#34i" title="toi34">入力値をバッファに保存する</A></cite></h3>
+<BR>
+可変数のレコードや、可変長配列をもつデータを処理するために存在する機能です。<BR>
+<a href="#26" title="il">メンバ</a>によって入力値が出力される際に、同時にその値を一時バッファに保存します。<BR>
+保存された値は、以下の指定項目に利用することができます。<BR>
+<UL>
+<LI>他メンバの<a href="#29" title="il">繰返し数</a></LI>
+<LI>他レコードの<a href="#25" title="il">レコード数</a></LI>
+</UL>
+※文字型のメンバ（`t',`z')の値を保存することは出来ません。<BR>
+浮動小数点数型のメンバ（`d'）の値を保存した場合、小数点以下の値は切り捨てられます。<BR>
+また値を持たないメンバ（`j',`n'等)に対してこの機能を使用した場合、その動作は不定です。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.2.1 <cite><a name="35" href="#35i" title="toi35">値バッファ保存</A></cite></h3>
+<BR>
+値をバッファに保存するには、その<VAR><a href="#26" title="il">メンバ</a></VAR>の先頭に以下を記述します。<BR>
+<PRE>    <CODE>`@' <VAR>変数名</VAR></CODE>
+</PRE>
+アットマークの直後に<VAR>変数名</VAR>を続けたものです。間に他の文字があってはなりません。<BR>
+<VAR>変数名</VAR> は任意の1バイト系の一文字です。通常は英数字を指定します。<BR>
+一度保存された値は、同じ変数名をつかって上書きされるまで有効です。<BR>
+※本指定の有無に関わらず、出力は行われます。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.2.2 <cite><a name="36" href="#36i" title="toi36">値バッファ参照</A></cite></h3>
+<BR>
+値バッファに保存されている値を適用します。<VAR><a href="#25" title="il">レコード数</a></VAR>または<BR>
+<VAR>メンバ</VAR>の<VAR><a href="#29" title="il">繰返し数</a></VAR>として指定できます。<BR>
+値が 0 だった場合、そのレコードやメンバは出力されません。<BR>
+<PRE>    <CODE>`$' <VAR>変数名</VAR></CODE>
+</PRE>
+<VAR>変数名</VAR>で参照したいバッファを特定します。<CODE>`$'</CODE> との間に他の文字があってはなりません。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.2.2.1 <cite><a name="37" href="#37i" title="toi37">ブール的参照</A></cite></h3>
+<BR>
+バッファの値をそのまま用いるのではなく、特定の値と等しければ 1 、違っていれば 0 となる参照の仕方です。<BR>
+<PRE>    <CODE>`$' <VAR>変数名</VAR> `(' <VAR>判定値</VAR> `)'</CODE>
+</PRE>
+通常のバッファ参照指定の後ろにカッコで囲んだ<VAR>判定値</VAR>を指定します。<BR>
+判定値は<A HREF="#intlit">整数リテラル</A>で指定します。<BR>
+<VAR>変数名</VAR>で示されるバッファの値が<VAR>判定値</VAR>と等しい場合、1 と評価され、これを用いたレコード、またはメンバは 1 回だけ出力されます。等しくない場合は 0 と評価され、出力は行われません。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.2.2.2 <cite><a name="38" href="#38i" title="toi38">除算値参照</A></cite></h3>
+<BR>
+バッファの値を、指定した値で割り、その結果を適用します。<BR>
+保存されている値が、レコード数や配列要素数を示しているのではなく、総バイト数を示している場合に使用します。<BR>
+レコード数 = バイト数 / sizeof(構造体) とするような参照です。<BR>
+<PRE>    <CODE>`$' <VAR>変数名</VAR> `,' <VAR>除数</VAR></CODE>
+</PRE>
+<VAR>変数名</VAR>で示されるバッファ値は<VAR>除数</VAR>で割った値に評価されます。<BR>
+<VAR>除数</VAR>には<A HREF="#intlit">整数リテラル</A>が指定できます。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.2.2.3 <cite><a name="39" href="#39i" title="toi39">切上げて参照</A></cite></h3>
+<BR>
+バッファの値を、指定した値の倍数になるように評価し、その結果を適用します。<BR>
+この機能の目的は以下の通りです。<BR>
+画像データには、例えばヘッダ部の width に 「10 ピクセル」と示されていても、実データは 「8 の倍数個でなければならない」とし、実際は 16 個のピクセルデータが並んでいる(つまり、6個分 padding されている)、といった形式をもつものがあります。<BR>
+このようなデータを出力するために、値バッファ参照の記述を以下のようにします<BR>
+<PRE>    <CODE>`$' <VAR>変数名</VAR> `:' <VAR>係数</VAR></CODE>
+</PRE>
+<VAR>変数名</VAR>で示されるバッファ値は<VAR>係数</VAR>の倍数となるように(切上げて)評価されます。<BR>
+<VAR>係数</VAR>には<A HREF="#intlit">整数リテラル</A>が指定できます。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.3 <cite><a name="40" href="#40i" title="toi40">record-formatをバッファに保存する</A></cite></h3>
+<BR>
+フォーマット指定の中に一度でてきた <VAR>record-format</VAR> をバッファに保存しておき、他の位置で再利用することができます。<BR>
+共通的な構造体があり、色々な場所で用いられるような場合に、同じ <VAR>record-format</VAR>を何回も記述する手間を省くためのものです。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.3.1 <cite><a name="41" href="#41i" title="toi41">record-formatバッファ保存</A></cite></h3>
+<BR>
+保存したい <VAR>record-format</VAR> の先頭に以下を記述します。<BR>
+<PRE>    <CODE>`*' <VAR>変数名</VAR></CODE>
+</PRE>
+先頭ハイフンを含まない <VAR>record-format</VAR> の前に `*' で始まる<VAR>変数名</VAR>をつけます。<BR>
+<VAR>record-format</VAR>は、<a href="#25" title="il">レコード数</a>ごと保存されます。<BR>
+<a href="#36" title="il">値バッファ参照</a>を含んでいる場合、参照のたびに評価されます。<BR>
+変数名は<a href="#34" title="il">入力値をバッファに保存する</a>ものとは独立していますので両方に同じ<VAR>変数名</VAR>を使用していても区別されます。<BR>
+※この機能を<A HREF="#nestedrec">入れ子の構造体</A>以外の <VAR>record-format</VAR> に使用するときには注意が必要です。<a href="#42" title="il">record-formatバッファ参照</a>を読んでください。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.1.3.2 <cite><a name="42" href="#42i" title="toi42">record-formatバッファ参照</A></cite></h3>
+<BR>
+保存しておいた<VAR>record-format</VAR>を再利用する位置で以下のようにします。<BR>
+<PRE>    <CODE>`&amp;' <VAR>変数名</VAR></CODE>
+</PRE>
+本指定は<VAR>メンバ</VAR>（即ち、<A HREF="#nestedrec">入れ子になった構造体</A>）として評価されます。そのため以下のようにするとうまく動作しません。<BR>
+<PRE><CODE>
+-*a1Ls  /* <VAR>record-format</VAR> `1Ls'を バッファ`a' に保存 */
+...     /* 他の何か */
+-&amp;a     /* バッファ `a' の <VAR>record-format</VAR> を再利用しようとする */
+</CODE></PRE>
+バッファ <CODE>a</CODE> は<VAR>レコード数</VAR>として 1 を保持していますが、<CODE>`&amp;a'</CODE>で参照している側では<VAR>メンバ</VAR>として扱われるため、結果的に以下の用に評価されます。<BR>
+<PRE><code>
+`-[1Ls]'
+</code></PRE>
+この場合、先頭の<VAR>レコード数</VAR>が省略されたことになります。省略時の解釈により、この<VAR>-record-format</VAR>のレコード数は、半無限とみなされます。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.2 <cite><a name="43" href="#43i" title="toi43">指定例</A></cite></h3>
+<BR>
+以下は、比較的簡単なフォーマット指定の例です。<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.2.1 <cite><a name="44" href="#44i" title="toi44">レコードの単純な繰返し</A></cite></h3>
+<BR>
+一種類の構造体をもったレコードが繰り返されるデータを出力する場合の指定例です。<BR>
+<BR>
+<PRE>
+<CODE>
+構造体
+struct <A NAME="strperson">person</A> {
+    unsigned long    no;
+    char        name[32];        /* null terminated */
+    unsigned short    year_of_birth;
+    char        phone_no[13];     /* e.g. `090-1234-5678' */
+    unsigned char    gender;        /* `M': male, `F': female */
+} p;
+
+データ全体
++--------------------+
+| p[0]               |
++--------------------+
+| p[1]               |
++--------------------+
+| ：                 |
++--------------------+
+| p[n]               |
++--------------------+
+</CODE>
+</PRE>
+上記のような場合はフォーマットを<BR>
+<BR>
+<CODE>`-Lz32St13t'</CODE><BR>
+<BR>
+と指定すると１レコード/行で出力されます。<BR>
+<BR>
+<BR>
+コマンドラインの例<BR>
+<PRE><CODE>% btta -v <CITE>-Lz32St13t</CITE> <VAR>file</VAR></CODE>
+</PRE>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.2.2 <cite><a name="45" href="#45i" title="toi45">入れ子になった構造体</A></cite></h3>
+<BR>
+構造体の中に構造体があるレコードが繰り返されるデータ を出力する場合の指定例です。<BR>
+<BR>
+<PRE>
+<CODE>
+構造体
+struct quartette {
+    short id1;
+    short id2;
+    struct <A HREF="#strperson">person</A> p[4];
+}q;
+
+全体
++--------------------+
+| q[0]               |
++--------------------+
+| q[1]               |
++--------------------+
+| ：                 |
++--------------------+
+| q[n]               |
++--------------------+
+</CODE>
+</PRE>
+<BR>
+このような場合<BR>
+<BR>
+<CODE>`-s0x2n[4Lz32St13t]'</CODE><BR>
+<BR>
+と指定することができます。<BR>
+また、この例では構造体 <CODE><A HREF="#strperson">person</A></CODE> の出力数が固定で、しかも4つしかないので<BR>
+<BR>
+<CODE>`-s0x2n[*p1Lz32St13t]&amp;p&amp;p&amp;p'</CODE><BR>
+<BR>
+としてもよいでしょうし、もし苦でなければ<BR>
+<BR>
+<CODE>`-s0x2Lz32St13tLz32St13tLz32St13tLz32St13t'</CODE><BR>
+<BR>
+とすることもできます。<BR>
+<BR>
+<BR>
+コマンドラインの例<BR>
+<PRE><CODE>% btta -v '<CITE>-s0x2n[4Lz32St13t]</CITE>' <VAR>file</VAR></CODE>
+</PRE>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.2.3 <cite><a name="46" href="#46i" title="toi46">可変長なデータ</A></cite></h3>
+<BR>
+配列要素数が可変で、その数をある別のメンバによって保持している場合の指定例です。<BR>
+<BR>
+<PRE>
+<CODE>
+構造体
+struct group_header {
+    long id;
+    char group_name[16];
+    long number_of_person;
+    /* struct <A HREF="#strperson">person</A> p[*VARIABLE*]; */
+}h;
+
+全体
++--------------------+
+| h[0]               |
++--------------------+
+| p[0]               |
++--------------------+
+| ：                 |
++--------------------+
+| p[n]               |
++--------------------+
+| h[1]               |
++--------------------+
+| p[0]               |
++--------------------+
+| ：                 |
++--------------------+
+| p[n]               |
++--------------------+
+| ：                 |
+</CODE>
+</PRE>
+<BR>
+このような場合<BR>
+<BR>
+<CODE>`-L0xz16@pLn[$pLz32St13t]'</CODE><BR>
+<BR>
+と指定することができます。<BR>
+<BR>
+<BR>
+コマンドラインの例<BR>
+<PRE><CODE>% btta -v '<CITE>-L0xz16@pLn[$pLz32St13t]</CITE>' <VAR>file</VAR></CODE>
+</PRE>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.2.4 <cite><a name="47" href="#47i" title="toi47">bmp をダンプしてみる</A></cite></h3>
+<BR>
+Windows のビットマップファイルを例にとり、そのフォーマット指定例をファイルに記述したものです。<BR>
+圧縮なしの256色とフルカラーbmp に対応しています。<BR>
+<PRE>    <A HREF="bmp_frm.txt">bmp_frm.txt</A>
+</PRE>
+<BR>
+コマンドラインの例<BR>
+<PRE><CODE>% btta -f <CITE>bmp_frm.txt</CITE> <VAR>file</VAR></CODE>
+</PRE>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.2.5 <cite><a name="48" href="#48i" title="toi48">部分的にダンプする</A></cite></h3>
+<BR>
+データの特定部分だけをフォーマッティングする(全体に対してフォーマットを指定することにあまり意味がない)場合は以下のようにします。<BR>
+<PRE>
+<CODE>
+
+データ全体
++--------------------+
+| どうでもよい部分   |
++                    +
+|                    |
++--------------------+
+| 必要な<A HREF="#strperson">person</A>部分   |     (例えば 0x58d バイト目)
++--------------------+
+| どうでもよい部分   |
++--------------------+
+</CODE>
+</PRE>
+ダンプするだけならば<BR>
+<BR>
+<CODE>`-1j0x58dLz32St13t'</CODE><BR>
+<BR>
+と指定できます。<BR>
+<BR>
+後で結果を ttba に渡しバイナリに戻す必要がある場合は<BR>
+<BR>
+<CODE>`-1R0x58dLz32St13tR0xffffffff'</CODE><BR>
+<BR>
+などとすればデータが失われることなくバイナリに戻すことが出来ます。<BR>
+<BR>
+※<CODE>`R'</CODE> は大文字と小文字で動作に違いがあります。詳細は<a href="#27" title="il">データ記述子</a>を参照してください。<BR>
+<BR>
+コマンドラインの例<BR>
+<PRE><CODE>% btta -v <CITE>-1j0x58dLz32St13t</CITE> <VAR>file</VAR></CODE>
+</PRE>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.3.3 <cite><a name="49" href="#49i" title="toi49">フォーマットをテキストファイルに記述する</A></cite></h3>
+<BR>
+フォーマットをテキストファイルに記述して <A HREF="#bttafopt">-f <VAR>format-file</VAR> オプション</A>を使って与えることができます。<BR>
+<a href="#23" title="il">フォーマット書式</a>自体は引数で与える場合とまったく同じですが、ファイル中では以下のことが許されます。<BR>
+<BR>
+<UL><LI>改行、空白、およびタブを以下の場所に幾つでも入れてよい。
+    <UL><LI><CODE><VAR><a href="#24" title="il">-record-format</a></VAR></CODE>の前後
+        <UL><LI><CODE>`-'</CODE> の前後
+        <LI><a href="#41" title="il">record-formatバッファ保存</a>の前後
+        <LI><a href="#25" title="il">レコード数</a>の前後
+        <LI><a href="#26" title="il">メンバ</a>の前後
+            <UL><LI><a href="#35" title="il">値バッファ保存</a>の前後
+            <LI><a href="#27" title="il">データ記述子</a>の前後
+            <LI><a href="#28" title="il">基数指定</a>の前後
+            <LI><a href="#29" title="il">繰返し数</a>の前後
+            <LI><a href="#30" title="il">コメント</a>の前後
+            </UL>
+        </UL>
+    </UL>
+<LI><a href="#30" title="il">コメント</a>の終わりを示す<CODE>`;'</CODE>がない場合、行末までがコメントとみなされる。
+<BR>
+<LI>このファイルの注釈を記述できる。
+ファイル中の以下に該当する部分はこのファイルの注釈とみなされ btta は無視する。<BR>
+    <UL><LI><CODE>`/*'</CODE> と <CODE>`*/'</CODE> で囲まれた中 (C言語などと同じ)
+    <LI><CODE>`//'</CODE> から行末まで(C++言語などと同じ)
+    <LI>ファイルの先頭部分にある、0 桁目が `#' の行(<CODE>`#!/usr/local/bin/btta -f'</CODE> などと書けるようにするためです)。
+</UL>※ここでいう「注釈」は、「<a href="#30" title="il">コメント</a>」とは区別しています。
+</UL>
+<P>実際はこのファイルに<VAR>-record-format</VAR> 以外の普通のオプションも記述することができます(ただし <CODE>`-f <VAR>format-file</VAR>'</CODE> オプションを除く)が、意図的にそうしたわけではありません。</P><P><BR>
+このファイルを新たに作る場合、(もしあるのなら) 構造体が定義されているヘッダファイルをコピーして修正するのが最も簡単です。</P><BR>
+<BR>
+＞<a href="#47" title="il">bmp をダンプしてみる</a><BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>6.4 <cite><a name="50" href="#50i" title="toi50">終了コード</A></cite></h3>
+<BR>
+btta が終了したときの戻り値を以下に示します。<BR>
+<DL COMPACT>
+<DT>0
+<DD>正常
+<DT>1
+<DD>警告あり、または異常
+<DT>2
+<DD>引数が不正
+<DT>3
+<DD>正常だが未出力データあり(EOFに達しなかった)
+</DL>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>7.1 <cite><a name="52" href="#52i" title="toi52">文字コードの扱い</A></cite></h3>
+<BR>
+ttba/btta は、文字コードの種類を意識しません。ただ渡すだけです。<BR>
+変換する場合はフィルタをかませるなどして下さい。<BR>
+また、SJIS が含まれたデータの文字処理に関しては、よくある問題が発生します。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>7.2 <cite><a name="53" href="#53i" title="toi53">構造体メンバの境界合わせについて(btta)</A></cite></h3>
+<BR>
+当然のことながら、<A HREF="#outform">フォーマット</A>を指定する際は構造体中に生成される境界合わせを意識する必要があります。<BR>
+(普段から構造体宣言で padding 用メンバを設けるようにしていれば、あまり気にすることもないのでしょうが)<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>7.3 <cite><a name="54" href="#54i" title="toi54">改行位置(btta)</A></cite></h3>
+<BR>
+btta の出力は、以下の位置で改行されます。<BR>
+<UL>
+<LI><a href="#27" title="il">データ記述子</a> <CODE>`n'</CODE> を指定した位置
+<LI><VAR>-record-format</VAR>により、1レコードを出力した直後
+<LI><CODE>`[' <VAR>record-format</VAR> `]'</CODE>により、１レコードを出力した直後
+<LI><a href="#30" title="il">コメント</a>指定によるコメントを出力した直後
+</UL>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>7.4 <cite><a name="55" href="#55i" title="toi55">エラーになった位置を知るには(ttba)</A></cite></h3>
+<BR>
+ttba/btta はエラーメッセージがあまり洗練されていません。<BR>
+特に ttba は 入力ファイルに記述ミスがあっても、「間違っている文字」とその「入力ファイルのバイトオフセット」を表示するだけで、一般的なインタプリタのようにミスがファイルの何行めにあるのかをメッセージからは知ることができません。<BR>
+<BR>
+そのためミスの具体的な位置を調べるには、ファイルをバイナリエディタ（オフセット表示ができるエディタ)などで参照するか、または btta を使って以下のようにします。<BR>
+<PRE>
+    <CODE>% btta -v -k 37 -t16 <VAR>file</VAR></CODE>
+</PRE>
+(付属している <A HREF="#utilbvia">bvia</A> (ttba/btta およびテキストエディタによるバイナリエディタもどきのツール)を使えばダイレクトに修正することができます。)<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>7.5 <cite><a name="56" href="#56i" title="toi56">付属ツール</A></cite></h3>
+<BR>
+<H3><A NAME="utilbvia">bvia</A></H3>
+ttba/btta とテキストエディタを使ったバイナリエディタもどきのシェルスクリプトです。<BR>
+テキストエディタ上でファイルを保存しても、バイナリとして内容に変更がなければそのファイルは touch されません。<BR>
+<H4>コマンドライン</H4>
+<PRE>
+bvia [<VAR>btta-option</VAR>] [-i] [-G] [-V] [-A <VAR>editor_option</VAR>] <VAR>file</VAR> [<VAR>file</VAR>...]
+</PRE>
+<H4>オプション</H4>
+<DL>
+<DT><CODE><VAR>btta-option</VAR></CODE>
+<DD>btta へそのまま渡されます。何も指定されていなかった時、同一ディレクトリに <CODE><VAR>file</VAR>.b2t</CODE> というファイルが存在すれば、そのファイルを <VAR>format-file</VAR> とみなします(このファイルもなかった場合は btta のデフォルトに従います)。
+<DT><CODE>-i</CODE>
+<DD>変更が加えられた場合に元の <VAR>file</VAR> へ上書きしてもよいかどうかを尋るようになります(cp(1) のそれと同じ意味合いです)。
+<DT><CODE>-G</CODE>
+<DD><VAR>file</VAR> が gzip 圧縮されているものと仮定し、テキスト化する前、およびバイナリに戻した後に、それぞれ展開、圧縮を試みます。
+<DT><CODE>-V</CODE>
+<DD>エディタでなくページャを使って参照します。
+<DT><CODE>-A <VAR>editor-option</VAR></CODE>
+<DD>エディタまたはページャに渡すオプションを指定します。複数指定する場合は、<VAR>editor-option</VAR> がひとつの引数となるように(空白をエスケープするなど)指定してください。
+</DL>
+<H4>その他</H4>
+環境変数 <CODE>EDITOR</CODE> が空の場合は vi が使用されます。<BR>
+環境変数 <CODE>PAGER</CODE> が空の場合は more が使用されます。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>7.6 <cite><a name="57" href="#57i" title="toi57">雑用にちょっと使う</A></cite></h3>
+<BR>
+<A NAME="applite">応用例</A>です。<BR>
+<UL><LI>ファイルの一部分を取り出す
+    <DL><DD><CODE>% btta -1j100L0x file</CODE>
+    (<CODE>file</CODE> の 100 バイト目から 4 バイトを取り出し、16進数で出力)</DL>
+    <LI>特定のコード値がどんな文字なのか調べる
+    <DL><DD><CODE>% echo s0xa3c5 s0xa3d5 s0xa3c3 c10|ttba -c</CODE></DL>
+    <LI>10進数を16進数に変換する
+    <DL><DD><CODE>% echo L12345678 | ttba -c | btta -L0x</CODE></DL>
+    <LI>改行コードを unix 形式から mac 形式に変換する
+    <DL><DD><CODE>% btta -c0x ufile | sed -e 's/c0x0a/c13/' | ttba -c &gt; mfile</CODE></DL>
+</UL>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>7.7 <cite><a name="58" href="#58i" title="toi58">btta: WARN:too short data, for a record.とは</A></cite></h3>
+<BR>
+btta を使用していると時々 <CODE>`btta: WARN:too short data, for a record.'</CODE> という警告に遭遇します。<BR>
+これは<a href="#25" title="il">レコード数</a>分のレコードを出力し終える前に入力データが終わってしまった（EOFを検出した）という意味のメッセージです。<BR>
+<BR>
+実使用において、全ての record-format に対してレコード数をきっちり指定しない限り、このメッセージは出力されるでしょう（おそらく）。<BR>
+<BR>
+しかしあくまで警告ですのでデータに何か不整合が起きるわけではありません。<BR>
+<BR>
+私の場合、（フォーマットを指定する際）省けるレコード数はあえて省略しますので（省略は半無限の意）このメッセージを良く見ます。<BR>
+<BR>
+<BR>
+<HR WIDTH="95%" ALIGN=LEFT>
+<h3>8 <cite><a name="59" href="#59i" title="toi59">著作権など</A></cite></h3>
+<BR>
+ttba/btta はフリーソフトです。<BR>
+どなたでも利用することができます。<BR>
+<BR>
+著作権は <A HREF="http://www.geocities.co.jp/SiliconValley-Oakland/6833/">Genzoo.A</A> が保持します。<BR>
+また、一部のライブラリの著作権は <A HREF="http://www.jclark.com">James Clark</A> 氏にあります。<BR>
+<BR>
+ttba/btta としてのソースの改変や、再配布は自由に行ってかまいませんが、James Clark 氏によるライブラリに関しては、その規定 (同梱の COPYNG をご覧下さい) に準拠して下さい (大体同じですが)。<BR>
+<BR>
+実行形式の配布に関しては、ソースを添付（または公開）する場合においてのみ、それを許可するものとします。<BR>
+<BR>
+なお、このソフトウェアによって、利用者または第三者に何らかの損害が発生したとしても、作者はその責任を負いません。<BR>
+<BR>
+Copyright (c) 1994, 1995, 1996, 1997, 1998 James Clark<BR>
+Copyright (c) 1996-2001 Genzoo.A All Rights Reserved.<BR>
+<BR>
+<BR>
+<!-- Memo End -->
+
+</BODY>
+</HTML>

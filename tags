@@ -1,0 +1,708 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+APP_MEMCHR	Generic.h	41;"	d
+APP_MEMSET	Generic.h	53;"	d
+APP_PCLOSE	Generic.h	44;"	d
+APP_PCLOSE	Generic.h	47;"	d
+APP_PCLOSE	Generic.h	50;"	d
+APP_POPEN	Generic.h	43;"	d
+APP_POPEN	Generic.h	46;"	d
+APP_POPEN	Generic.h	49;"	d
+APP_STRCMP	Generic.h	40;"	d
+APP_STRLEN	Generic.h	39;"	d
+ArgParser	ArgParser.h	/^    ArgParser() { }$/;"	f	class:ArgParser
+ArgParser	ArgParser.h	/^class ArgParser {$/;"	c
+BIG	GenArg.h	/^        enum { BIG,LITTLE };$/;"	e	enum:GenArg::Endian::__anon2
+BITPREFIX	Member.h	39;"	d
+BS	@.h	85;"	d
+BTTA_COMPILED	Generic.h	94;"	d
+BTTA_COMPILED	Generic.h	96;"	d
+BTTA_COMPILED	Generic.h	98;"	d
+BTTA_GUIDE	Generic.h	102;"	d
+BTTA_PURPOSE	Generic.h	101;"	d
+BTTA_REV	Generic.h	92;"	d
+BTTA_USAGE0	Generic.h	103;"	d
+BTTA_USAGE10	Generic.h	129;"	d
+BTTA_USAGE11	Generic.h	131;"	d
+BTTA_USAGE12	Generic.h	133;"	d
+BTTA_USAGE12_0	Generic.h	135;"	d
+BTTA_USAGE13	Generic.h	137;"	d
+BTTA_USAGE13_0	Generic.h	139;"	d
+BTTA_USAGE14	Generic.h	141;"	d
+BTTA_USAGE15	Generic.h	143;"	d
+BTTA_USAGE16	Generic.h	145;"	d
+BTTA_USAGE16_0	Generic.h	147;"	d
+BTTA_USAGE17	Generic.h	149;"	d
+BTTA_USAGE17_0	Generic.h	151;"	d
+BTTA_USAGE18	Generic.h	153;"	d
+BTTA_USAGE19	Generic.h	155;"	d
+BTTA_USAGE20	Generic.h	157;"	d
+BTTA_USAGE21	Generic.h	159;"	d
+BTTA_USAGE4	Generic.h	105;"	d
+BTTA_USAGE4_0	Generic.h	107;"	d
+BTTA_USAGE5	Generic.h	109;"	d
+BTTA_USAGE5_0	Generic.h	111;"	d
+BTTA_USAGE6	Generic.h	113;"	d
+BTTA_USAGE6_0	Generic.h	115;"	d
+BTTA_USAGE6_1	Generic.h	117;"	d
+BTTA_USAGE7	Generic.h	119;"	d
+BTTA_USAGE7_0	Generic.h	121;"	d
+BTTA_USAGE8	Generic.h	123;"	d
+BTTA_USAGE8_0	Generic.h	125;"	d
+BTTA_USAGE9	Generic.h	127;"	d
+BaseType	Member.h	/^  enum BaseType {     \/\/  including token type$/;"	g	class:Member
+Boolean	Boolean.h	/^typedef bool Boolean;$/;"	t	namespace:SP_NAMESPACE
+Boolean_INCLUDED	Boolean.h	5;"	d
+C	@.h	87;"	d
+CA	@.h	89;"	d
+CC	@.h	86;"	d
+CHECK_UNEXPECTED_EOF	ArgParser.cxx	635;"	d	file:
+ConstPtr	Ptr.h	/^  ConstPtr() { }$/;"	f	class:SP_NAMESPACE::ConstPtr
+ConstPtr	Ptr.h	/^  ConstPtr(T *ptr) : Ptr<T>(ptr) { }$/;"	f	class:SP_NAMESPACE::ConstPtr
+ConstPtr	Ptr.h	/^  ConstPtr(const ConstPtr<T> &p) : Ptr<T>(p) { }$/;"	f	class:SP_NAMESPACE::ConstPtr
+ConstPtr	Ptr.h	/^  ConstPtr(const Ptr<T> &p) : Ptr<T>(p) { }$/;"	f	class:SP_NAMESPACE::ConstPtr
+ConstPtr	Ptr.h	/^class ConstPtr : private Ptr<T> {$/;"	c	namespace:SP_NAMESPACE
+DB	@.h	95;"	d
+DEBUGONLY	Message.h	/^      DEBUGONLY  = 01004,$/;"	e	enum:Message::MsgType
+DEBUG_ASSERT	Generic.h	168;"	d
+DEFAULT_MAXBUFSIZE	Generic.h	190;"	d
+DM	@.h	94;"	d
+DOUBLE	Member.h	/^    DOUBLE              = 0511,$/;"	e	enum:Member::BaseType
+DTOR	Vector.cxx	11;"	d	file:
+DTOR	Vector.cxx	13;"	d	file:
+DoSubstitute	GenArg.h	/^    enum { DoSubstitute,$/;"	e	enum:GenArg::__anon1
+E	@.h	96;"	d
+END_NESTED_REC	Member.h	/^    END_NESTED_REC      = 0041,$/;"	e	enum:Member::BaseType
+E_D	Message.h	9;"	d
+E_F	Message.h	7;"	d
+E_H	Message.h	10;"	d
+E_U	Message.h	6;"	d
+E_W	Message.h	5;"	d
+Endian	GenArg.h	/^        Endian(){$/;"	f	class:GenArg::Endian
+Endian	GenArg.h	/^    class Endian {$/;"	c	class:GenArg
+F	@.h	97;"	d
+F64Member	Member.cxx	/^F64Member::F64Member(LETTER_T *p, BaseType b, LETTER_T *c \/*= 0*\/)$/;"	f	class:F64Member
+F64Member	Member.h	/^    F64Member() {};$/;"	f	class:F64Member
+F64Member	Member.h	/^class F64Member : public RepeatMember {$/;"	c
+F64_T	Generic.h	/^typedef double			F64_T;$/;"	t
+FATAL	Message.h	/^      FATAL      = 01002,$/;"	e	enum:Message::MsgType
+FIXED_LETTER	Member.h	/^    FIXED_LETTER        = 0122,$/;"	e	enum:Member::BaseType
+FP	@.h	99;"	d
+FormatString	ArgParser.cxx	/^FormatString::FormatString(char *s)$/;"	f	class:FormatString
+FormatString	ArgParser.h	/^    FormatString() : cur_(0), str_(0) {level++;}$/;"	f	class:FormatString
+FormatString	ArgParser.h	/^class FormatString { \/\/\/\/\/\/\/\/\/\/\/\/\/\/ : istrstream {$/;"	c
+GenArg	GenArg.h	/^    GenArg() : verbose_(0), nCCol_(0), argInfo_(0),$/;"	f	class:GenArg
+GenArg	GenArg.h	/^class GenArg {$/;"	c
+HAS_REPEAT	Member.h	/^    HAS_REPEAT          = 0100,$/;"	e	enum:Member::BaseType
+HELP	Message.h	/^      HELP       = 01005,$/;"	e	enum:Message::MsgType
+HEX	Member.h	/^    HEX                 = 0104,$/;"	e	enum:Member::BaseType
+I	@.h	/^typedef int	I;$/;"	t
+I16Member	Member.cxx	/^I16Member::I16Member(LETTER_T *p, BaseType b, LETTER_T *c \/*= 0*\/)$/;"	f	class:I16Member
+I16Member	Member.h	/^class I16Member : public IntMember {$/;"	c
+I16_T	Generic.h	/^typedef unsigned short	I16_T;$/;"	t
+I32Member	Member.cxx	/^I32Member::I32Member(LETTER_T *p, BaseType b, LETTER_T *c \/* = 0*\/)$/;"	f	class:I32Member
+I32Member	Member.h	/^    I32Member() {}$/;"	f	class:I32Member
+I32Member	Member.h	/^class I32Member : public IntMember {$/;"	c
+I32_T	Generic.h	/^typedef unsigned long	I32_T;$/;"	t
+I8Member	Member.cxx	/^I8Member::I8Member(LETTER_T *p, BaseType b, LETTER_T *c \/*= 0*\/)$/;"	f	class:I8Member
+I8Member	Member.h	/^class I8Member : public IntMember {$/;"	c
+I8_T	Generic.h	/^typedef unsigned char	I8_T;$/;"	t
+IE	@.h	101;"	d
+INDIFFERENT	Member.h	/^    INDIFFERENT         = 0201,$/;"	e	enum:Member::BaseType
+INIT_BUILTIN_VAR	Member.h	61;"	d
+IS_DOUBLE	Member.h	/^    IS_DOUBLE           = 0400,$/;"	e	enum:Member::BaseType
+IS_LETTER	Member.h	/^    IS_LETTER           = 0020,$/;"	e	enum:Member::BaseType
+IS_NEST_TOK	Member.h	/^    IS_NEST_TOK         = 0040,$/;"	e	enum:Member::BaseType
+IS_NOTACCESS	Member.h	/^    IS_NOTACCESS        = 0200,$/;"	e	enum:Member::BaseType
+IS_SIGNED	Member.h	/^    IS_SIGNED           = 0010,$/;"	e	enum:Member::BaseType
+IndifferentMember	Member.cxx	/^IndifferentMember::IndifferentMember(LETTER_T *pfx, ArgParser &ap, bool isAbs,$/;"	f	class:IndifferentMember
+IndifferentMember	Member.h	/^class IndifferentMember : public JumpMember {$/;"	c
+InputStream	InputStream.h	/^  InputStream() :$/;"	f	class:InputStream
+InputStream	InputStream.h	/^class InputStream {$/;"	c
+IntMember	Member.h	/^    IntMember() {}$/;"	f	class:IntMember
+IntMember	Member.h	/^    IntMember(LETTER_T *p, unsigned s, BaseType b, LETTER_T *c = 0)$/;"	f	class:IntMember
+IntMember	Member.h	/^class IntMember : public RepeatMember {$/;"	c
+IsStdErr	Message.h	/^      IsStdErr   = 01000,$/;"	e	enum:Message::MsgType
+JUMP	Member.h	/^    JUMP                = 0200,$/;"	e	enum:Member::BaseType
+JumpMember	Member.cxx	/^JumpMember::JumpMember(LETTER_T *pfx, LETTER_T *c \/*= 0*\/)$/;"	f	class:JumpMember
+JumpMember	Member.h	/^class JumpMember : public Member {$/;"	c
+LETTER_CR	Generic.h	61;"	d
+LETTER_ES	Generic.h	60;"	d
+LETTER_HTAB	Generic.h	63;"	d
+LETTER_LF	Generic.h	62;"	d
+LETTER_QUOTE	Generic.h	59;"	d
+LETTER_T	Generic.h	/^typedef char LETTER_T;$/;"	t
+LETTER_UNF	Generic.h	64;"	d
+LETTER_USC	Generic.h	65;"	d
+LETTER_WS	Generic.h	58;"	d
+LETTER_XCL	Generic.h	75;"	d
+LITTLE	GenArg.h	/^        enum { BIG,LITTLE };$/;"	e	enum:GenArg::Endian::__anon2
+LP	@.h	102;"	d
+LetterMember	Member.cxx	/^LetterMember::LetterMember(LETTER_T *p, BaseType b, LETTER_T *c \/*= 0*\/)$/;"	f	class:LetterMember
+LetterMember	Member.h	/^    LetterMember() {};$/;"	f	class:LetterMember
+LetterMember	Member.h	/^class LetterMember : public RepeatMember {$/;"	c
+M	@.h	104;"	d
+M	@.h	107;"	d
+MANIP_BITS	Member.h	40;"	d
+MANIP_COFFSET	Member.h	42;"	d
+MANIP_F64	Member.h	33;"	d
+MANIP_I16D	Member.h	26;"	d
+MANIP_I16H	Member.h	28;"	d
+MANIP_I16O	Member.h	27;"	d
+MANIP_I16UD	Member.h	25;"	d
+MANIP_I32D	Member.h	22;"	d
+MANIP_I32H	Member.h	24;"	d
+MANIP_I32O	Member.h	23;"	d
+MANIP_I32UD	Member.h	21;"	d
+MANIP_I8D	Member.h	30;"	d
+MANIP_I8H	Member.h	32;"	d
+MANIP_I8O	Member.h	31;"	d
+MANIP_I8UD	Member.h	29;"	d
+MANIP_JUMPD	Member.h	38;"	d
+MANIP_JUMPH	Member.h	36;"	d
+MANIP_JUMPO	Member.h	37;"	d
+MANIP_OFFSET	Member.h	41;"	d
+MANIP_VARLET	Member.h	35;"	d
+MAX_MSGLEN	Message.h	16;"	d
+MAX_PATH	Message.h	19;"	d
+MC	@.h	105;"	d
+MC	@.h	108;"	d
+MIN_IT	Generic.h	90;"	d
+MMM	@.h	110;"	d
+MS	@.h	98;"	d
+MSG	Message.h	12;"	d
+Member	Member.h	/^  Member() {}$/;"	f	class:Member
+Member	Member.h	/^  Member(BaseType b)$/;"	f	class:Member
+Member	Member.h	/^  Member(unsigned s, BaseType b, LETTER_T *c = 0)$/;"	f	class:Member
+Member	Member.h	/^class Member : public Resource {$/;"	c
+Message	Message.h	/^    Message() : line_(0), outstr_(str_, MAX_MSGLEN), type_(NOTE) {$/;"	f	class:Message
+Message	Message.h	/^class Message {$/;"	c
+MsgType	Message.h	/^    enum MsgType {  \/\/under 3 columns must be sequential val$/;"	g	class:Message
+N	@.h	111;"	d
+NESTED_REC	Member.h	/^    NESTED_REC          = 0040,$/;"	e	enum:Member::BaseType
+NEWLINE_SEQ	Generic.h	57;"	d
+NLIMIT	Message.h	/^      NLIMIT     = 00777,$/;"	e	enum:Message::MsgType
+NNN	@.h	112;"	d
+NOTACCESS	Member.h	/^    NOTACCESS           = 0300,$/;"	e	enum:Member::BaseType
+NOTE	Message.h	/^      NOTE       = 00003,$/;"	e	enum:Message::MsgType
+NO_GETOPT	@.h	57;"	d
+N_N	Message.h	8;"	d
+NoSubstituteCommand	GenArg.h	/^           NoSubstituteCommand,$/;"	e	enum:GenArg::__anon1
+NoSubstituteParameterAndCommand	GenArg.h	/^           NoSubstituteParameterAndCommand };$/;"	e	enum:GenArg::__anon1
+NotAccessMember	Member.cxx	/^NotAccessMember::NotAccessMember(LETTER_T *pfx, LETTER_T *c \/*= 0*\/)$/;"	f	class:NotAccessMember
+NotAccessMember	Member.h	/^class NotAccessMember : public LetterMember {$/;"	c
+O1	@.h	113;"	d
+O2	@.h	114;"	d
+OCT	Member.h	/^    OCT                 = 0102,$/;"	e	enum:Member::BaseType
+OFF_T	Generic.h	/^typedef signed OFF_T;$/;"	t
+OPELSHIFT	Message.cxx	65;"	d	file:
+OPELSHIFT	Message.cxx	82;"	d	file:
+OPELSHIFT	Message.h	39;"	d
+OPELSHIFT	Message.h	45;"	d
+OPELSHIFT	OutputStream.h	116;"	d
+OPELSHIFT	OutputStream.h	22;"	d
+OPELSHIFT	OutputStream.h	30;"	d
+OPELSHIFT	OutputStream.h	51;"	d
+OPELSHIFT	OutputStream.h	56;"	d
+OPELSHIFT	OutputStream.h	89;"	d
+OPELSHIFT2	Message.cxx	72;"	d	file:
+OPELSHIFT2	Message.cxx	91;"	d	file:
+OPELSHIFT2	Message.h	40;"	d
+OPELSHIFT2	Message.h	46;"	d
+OPELSHIFT2	OutputStream.h	117;"	d
+OPELSHIFT2	OutputStream.h	24;"	d
+OPELSHIFT2	OutputStream.h	31;"	d
+OPELSHIFT2	OutputStream.h	52;"	d
+OPELSHIFT2	OutputStream.h	57;"	d
+OPELSHIFT2	OutputStream.h	94;"	d
+OPELSHIFT_X	OutputStream.h	118;"	d
+OPELSHIFT_X	OutputStream.h	99;"	d
+OPESHIFT	Message.cxx	102;"	d	file:
+OPESHIFT2	Message.cxx	103;"	d	file:
+OS_INIT	Member.cxx	939;"	d	file:
+OutputStream	OutputStream.h	/^    OutputStream() {}$/;"	f	class:OutputStream
+OutputStream	OutputStream.h	/^class OutputStream : public Resource {$/;"	c
+Owner	Owner.h	/^  Owner() : p_(0) { }$/;"	f	class:SP_NAMESPACE::Owner
+Owner	Owner.h	/^  Owner(T *p) : p_(p) { }$/;"	f	class:SP_NAMESPACE::Owner
+Owner	Owner.h	/^class Owner {$/;"	c	namespace:SP_NAMESPACE
+Owner_DEF_INCLUDED	Owner.cxx	5;"	d	file:
+Owner_INCLUDED	Owner.h	5;"	d
+P	@.h	116;"	d
+PC	@.h	117;"	d
+PC2	@.h	118;"	d
+PD	@.h	119;"	d
+PPD	@.h	120;"	d
+PPS	@.h	122;"	d
+PPX	@.h	121;"	d
+PS	@.h	123;"	d
+PX	@.h	124;"	d
+PackedBoolean	Boolean.h	/^typedef bool PackedBoolean;$/;"	t	namespace:SP_NAMESPACE
+PackedBoolean	Boolean.h	/^typedef char PackedBoolean;$/;"	t	namespace:SP_NAMESPACE
+ParseLevel	ArgParser.h	/^      ParseLevel() { l_++; }$/;"	f	class:ArgParser::ParseLevel
+ParseLevel	ArgParser.h	/^  class ParseLevel {$/;"	c	class:ArgParser
+Ptr	Ptr.cxx	/^Ptr<T>::Ptr(T *ptr) : ptr_(ptr)$/;"	f	class:SP_NAMESPACE::Ptr
+Ptr	Ptr.cxx	/^Ptr<T>::Ptr(const Ptr<T> &p)$/;"	f	class:SP_NAMESPACE::Ptr
+Ptr	Ptr.h	/^  Ptr() : ptr_(0) { }$/;"	f	class:SP_NAMESPACE::Ptr
+Ptr	Ptr.h	/^class Ptr {$/;"	c	namespace:SP_NAMESPACE
+Ptr_DEF_INCLUDED	Ptr.cxx	5;"	d	file:
+Ptr_INCLUDED	Ptr.h	5;"	d
+REC	Member.h	/^    REC                 = 0042,$/;"	e	enum:Member::BaseType
+Record	Record.h	/^typedef RecordMember Record;$/;"	t
+RecordMember	Member.cxx	/^RecordMember::RecordMember() : nums_(0), width_(0), isRound_(0),$/;"	f	class:RecordMember
+RecordMember	Member.cxx	/^RecordMember::RecordMember(unsigned s) : nums_(1), width_(0),$/;"	f	class:RecordMember
+RecordMember	Member.h	/^class RecordMember : public Member {$/;"	c
+RepeatMember	Member.cxx	/^RepeatMember::RepeatMember(LETTER_T *p, unsigned s, BaseType b,$/;"	f	class:RepeatMember
+RepeatMember	Member.h	/^    RepeatMember() : repeat_(0),width_(0),isRound_(0) {}$/;"	f	class:RepeatMember
+RepeatMember	Member.h	/^class RepeatMember : public Member {$/;"	c
+Resource	Resource.h	/^Resource::Resource()$/;"	f	class:SP_NAMESPACE::Resource
+Resource	Resource.h	/^Resource::Resource(const Resource &)$/;"	f	class:SP_NAMESPACE::Resource
+Resource	Resource.h	/^class SP_API Resource {$/;"	c	namespace:SP_NAMESPACE
+Resource_INCLUDED	Resource.h	5;"	d
+S2L	@.h	126;"	d
+SEQ_CR	Generic.h	67;"	d
+SEQ_ESCCHAR	Generic.h	71;"	d
+SEQ_HEXNUM	Generic.h	74;"	d
+SEQ_HTAB	Generic.h	70;"	d
+SEQ_LF	Generic.h	68;"	d
+SEQ_OCTNUM	Generic.h	73;"	d
+SEQ_QUOTE	Generic.h	72;"	d
+SEQ_SPC	Generic.h	69;"	d
+SI16_T	Generic.h	/^typedef short	SI16_T;$/;"	t
+SI32_T	Generic.h	/^typedef long	SI32_T;$/;"	t
+SI8_T	Generic.h	/^typedef char	SI8_T;$/;"	t
+SIGCONT	@.h	164;"	d
+SIGNED_DEC	Member.h	/^    SIGNED_DEC          = 0111,$/;"	e	enum:Member::BaseType
+SIGSTOP	@.h	161;"	d
+SO	@.h	115;"	d
+SP_API	Generic.h	19;"	d
+SP_DECLARE_PLACEMENT_OPERATOR_NEW	xnew.h	14;"	d
+SP_DEFINE_TEMPLATES	btta_inst.cxx	14;"	d	file:
+SP_DEFINE_TEMPLATES	btta_inst.cxx	3;"	d	file:
+SP_HAVE_BOOL	Generic.h	20;"	d
+SP_NAMESPACE	Boolean.h	/^namespace SP_NAMESPACE {$/;"	n
+SP_NAMESPACE	Owner.cxx	/^namespace SP_NAMESPACE {$/;"	n	file:
+SP_NAMESPACE	Owner.h	/^namespace SP_NAMESPACE {$/;"	n
+SP_NAMESPACE	Ptr.cxx	/^namespace SP_NAMESPACE {$/;"	n	file:
+SP_NAMESPACE	Ptr.h	/^namespace SP_NAMESPACE {$/;"	n
+SP_NAMESPACE	Resource.h	/^namespace SP_NAMESPACE {$/;"	n
+SP_NAMESPACE	StringOf.cxx	/^namespace SP_NAMESPACE {$/;"	n	file:
+SP_NAMESPACE	StringOf.h	/^namespace SP_NAMESPACE {$/;"	n
+SP_NAMESPACE	Vector.cxx	/^namespace SP_NAMESPACE {$/;"	n	file:
+SP_NAMESPACE	Vector.h	/^namespace SP_NAMESPACE {$/;"	n
+SS	@.h	125;"	d
+STRDES	Generic.h	166;"	d
+STRDUP	Generic.h	163;"	d
+S_MANIP_F64	Member.h	57;"	d
+S_MANIP_I16D	Member.h	50;"	d
+S_MANIP_I16H	Member.h	52;"	d
+S_MANIP_I16O	Member.h	51;"	d
+S_MANIP_I16UD	Member.h	49;"	d
+S_MANIP_I32D	Member.h	46;"	d
+S_MANIP_I32H	Member.h	48;"	d
+S_MANIP_I32O	Member.h	47;"	d
+S_MANIP_I32UD	Member.h	45;"	d
+S_MANIP_I8D	Member.h	54;"	d
+S_MANIP_I8H	Member.h	56;"	d
+S_MANIP_I8O	Member.h	55;"	d
+S_MANIP_I8UD	Member.h	53;"	d
+String	StringOf.cxx	/^String<T>::String()$/;"	f	class:SP_NAMESPACE::String
+String	StringOf.cxx	/^String<T>::String(const String<T> &s)$/;"	f	class:SP_NAMESPACE::String
+String	StringOf.cxx	/^String<T>::String(const T *ptr, size_t length)$/;"	f	class:SP_NAMESPACE::String
+String	StringOf.h	/^class String {$/;"	c	namespace:SP_NAMESPACE
+StringOf_DEF_INCLUDED	StringOf.cxx	5;"	d	file:
+StringOf_INCLUDED	StringOf.h	5;"	d
+TOKEN_LETTER	Member.h	/^    TOKEN_LETTER        = 0124,$/;"	e	enum:Member::BaseType
+TokenLetterMember	Member.cxx	/^TokenLetterMember::TokenLetterMember(LETTER_T *p, BaseType b, LETTER_T *c$/;"	f	class:TokenLetterMember
+TokenLetterMember	Member.h	/^    TokenLetterMember() {}$/;"	f	class:TokenLetterMember
+TokenLetterMember	Member.h	/^class TokenLetterMember : public LetterMember {$/;"	c
+UC	@.h	/^typedef unsigned char	UC;$/;"	t
+UL	@.h	/^typedef unsigned long UL;$/;"	t
+UNFOLD_CNF	Generic.h	81;"	d
+UNFOLD_CNFR	Generic.h	82;"	d
+UNFOLD_FILENAME	Generic.h	78;"	d
+UNFOLD_NF	Generic.h	80;"	d
+UNFOLD_NFR	Generic.h	86;"	d
+UNFOLD_NR	Generic.h	79;"	d
+UNFOLD_SNR	Generic.h	85;"	d
+UNFOLD_VAL	Generic.h	83;"	d
+UNFOLD_VREF	Generic.h	88;"	d
+UNKNOWN	Member.h	/^    UNKNOWN             = 0000,$/;"	e	enum:Member::BaseType
+UNSIGNDED_DEC	Member.h	/^    UNSIGNDED_DEC       = 0101,$/;"	e	enum:Member::BaseType
+USAGE	Message.h	/^      USAGE      = 01001,$/;"	e	enum:Message::MsgType
+US_	@.h	/^typedef unsigned short US_;$/;"	t
+V	@.h	/^typedef void V;$/;"	t
+VAR_LETTER	Member.h	/^    VAR_LETTER          = 0121,$/;"	e	enum:Member::BaseType
+VFP	xnew.h	/^typedef void (*VFP)();$/;"	t
+VarLetterMember	Member.cxx	/^VarLetterMember::VarLetterMember(LETTER_T *p, BaseType b, LETTER_T *c$/;"	f	class:VarLetterMember
+VarLetterMember	Member.h	/^    VarLetterMember() {}$/;"	f	class:VarLetterMember
+VarLetterMember	Member.h	/^class VarLetterMember : public LetterMember {$/;"	c
+Vector	Vector.cxx	/^Vector<T>::Vector(const Vector<T> &v)$/;"	f	class:SP_NAMESPACE::Vector
+Vector	Vector.cxx	/^Vector<T>::Vector(size_t n, const T &t)$/;"	f	class:SP_NAMESPACE::Vector
+Vector	Vector.h	/^  Vector() : ptr_(0), size_(0), alloc_(0) { }$/;"	f	class:SP_NAMESPACE::Vector
+Vector	Vector.h	/^  Vector(size_t n) : ptr_(0), size_(0), alloc_(0) { append(n); }$/;"	f	class:SP_NAMESPACE::Vector
+Vector	Vector.h	/^class Vector {$/;"	c	namespace:SP_NAMESPACE
+Vector_DEF_INCLUDED	Vector.cxx	5;"	d	file:
+Vector_INCLUDED	Vector.h	5;"	d
+W	@.h	132;"	d
+W	@.h	134;"	d
+WARN	Message.h	/^      WARN       = 01000,$/;"	e	enum:Message::MsgType
+WMOutputStream	OutputStream.h	/^		WMOutputStream(int col = 0) : col_(col), os_(new ostrstream) {$/;"	f	class:WMOutputStream
+WMOutputStream	OutputStream.h	/^class WMOutputStream : public OutputStream {$/;"	c
+_	@.h	73;"	d
+_ATM_H_	@.h	3;"	d
+_C_	@.h	69;"	d
+_MSG	Message.h	65;"	d
+_MarkTbl	GenArg.h	/^      _MarkTbl() : refpos_((unsigned)-1), val_((unsigned)-1) {}$/;"	f	struct:GenArg::_MarkTbl
+_MarkTbl	GenArg.h	/^    struct _MarkTbl {$/;"	s	class:GenArg
+_PPP_	@.h	78;"	d
+_PP_	@.h	77;"	d
+_P_	@.h	76;"	d
+_T	@.h	80;"	d
+_V	@.h	82;"	d
+__	@.h	71;"	d
+__ArgParser_h__	ArgParser.h	3;"	d
+__C_	@.h	74;"	d
+__FUNCTION__	@.h	61;"	d
+__FUNCTION__	Generic.h	21;"	d
+__GenArg_h__	GenArg.h	3;"	d
+__Generic_h__	Generic.h	3;"	d
+__InputStream_h__	InputStream.h	3;"	d
+__Member_h__	Member.h	3;"	d
+__Message_h__	Message.h	3;"	d
+__OutputStream_h__	OutputStream.h	3;"	d
+__Record_h__	Record.h	4;"	d
+__StdInputStream_h__	StdInputStream.h	3;"	d
+___C_	@.h	75;"	d
+_msg	btta.cxx	/^Message _msg;$/;"	v
+_ret	@.h	83;"	d
+_retc	@.h	84;"	d
+alloc_	StringOf.h	/^  size_t alloc_;$/;"	m	class:SP_NAMESPACE::String
+alloc_	Vector.h	/^  size_t alloc_;		\/\/ allocated size$/;"	m	class:SP_NAMESPACE::Vector
+ap_	Member.h	/^    ArgParser &ap_;$/;"	m	class:IndifferentMember
+append	Member.h	/^  virtual void append(Ptr<Member> &) { assert(0); }$/;"	f	class:Member
+append	Member.h	/^void RecordMember::append(Ptr<Member> &m) {$/;"	f	class:RecordMember
+append	StringOf.cxx	/^String<T> &String<T>::append(const T *p, size_t length)$/;"	f	class:SP_NAMESPACE::String
+append	Vector.cxx	/^void Vector<T>::append(size_t n)$/;"	f	class:SP_NAMESPACE::Vector
+argInfo_	GenArg.h	/^    bool      argInfo_;$/;"	m	class:GenArg
+asJump	Member.h	/^    JumpMember *asJump() { return this; }$/;"	f	class:JumpMember
+asJump	Member.h	/^  virtual JumpMember   *asJump() { return 0; }$/;"	f	class:Member
+asRecord	Member.h	/^    RecordMember *asRecord() { return this; }$/;"	f	class:RecordMember
+asRecord	Member.h	/^  virtual RecordMember *asRecord() { return 0; }$/;"	f	class:Member
+asRepeat	Member.h	/^    RepeatMember  *asRepeat() { return this; }$/;"	f	class:RepeatMember
+asRepeat	Member.h	/^  virtual RepeatMember *asRepeat() {return 0; }$/;"	f	class:Member
+asTokenLetter	Member.h	/^    TokenLetterMember  *asTokenLetter() { return this; }$/;"	f	class:TokenLetterMember
+asTokenLetter	Member.h	/^  virtual TokenLetterMember *asTokenLetter() { return 0; }$/;"	f	class:Member
+assign	StringOf.cxx	/^String<T> &String<T>::assign(const T *p, size_t n)$/;"	f	class:SP_NAMESPACE::String
+assign	Vector.cxx	/^void Vector<T>::assign(size_t n, const T &t)$/;"	f	class:SP_NAMESPACE::Vector
+back	Vector.h	/^  T &back() { return ptr_[size_ - 1]; }$/;"	f	class:SP_NAMESPACE::Vector
+back	Vector.h	/^  const T &back() const { return ptr_[size_ - 1]; }$/;"	f	class:SP_NAMESPACE::Vector
+bad	InputStream.h	/^bool  bad(){$/;"	f	class:InputStream
+base_	Member.h	/^  BaseType base_;$/;"	m	class:Member
+begin	StringOf.h	/^  const_iterator begin() const { return ptr_; }$/;"	f	class:SP_NAMESPACE::String
+begin	StringOf.h	/^  iterator begin() { return ptr_; }$/;"	f	class:SP_NAMESPACE::String
+begin	Vector.h	/^  const_iterator begin() const { return ptr_; }$/;"	f	class:SP_NAMESPACE::Vector
+begin	Vector.h	/^  iterator begin() { return ptr_; }$/;"	f	class:SP_NAMESPACE::Vector
+bool	Boolean.h	/^typedef int bool;$/;"	t
+cLit	Member.h	/^inline char *cLit(char c)$/;"	f
+cc	ArgParser.h	/^    char  cc() const { return str_[cur_]; }$/;"	f	class:FormatString
+clear	Owner.h	/^  void clear() {$/;"	f	class:SP_NAMESPACE::Owner
+clear	Ptr.cxx	/^void Ptr<T>::clear()$/;"	f	class:SP_NAMESPACE::Ptr
+clear	Ptr.h	/^  Ptr<T>::clear;$/;"	m	class:SP_NAMESPACE::ConstPtr::Ptr
+clear	Vector.h	/^  void clear() { erase(ptr_, ptr_ + size_); }$/;"	f	class:SP_NAMESPACE::Vector
+cnf_	Member.h	/^  size_t            cnf_;     \/\/ current number of field$/;"	m	class:Member
+cnfr_	Member.h	/^  size_t            cnfr_;    \/\/ current number of repeat of field$/;"	m	class:Member
+col_	OutputStream.h	/^		int col_;$/;"	m	class:WMOutputStream
+comment_	Member.h	/^  String<LETTER_T>  comment_;$/;"	m	class:Member
+cond_	Member.h	/^  unsigned int      cond_;    \/\/ of integer value of boolean type $/;"	m	class:Member
+const_iterator	StringOf.h	/^  typedef const T *const_iterator;$/;"	t	class:SP_NAMESPACE::String
+const_iterator	Vector.h	/^  typedef const T *const_iterator;$/;"	t	class:SP_NAMESPACE::Vector
+count	Resource.h	/^int Resource::count() const$/;"	f	class:SP_NAMESPACE::Resource
+count_	Resource.h	/^  int count_;$/;"	m	class:SP_NAMESPACE::Resource
+cout	InputStream.h	/^  OutputStream &cout() { return *os_; }$/;"	f	class:InputStream
+cs	ArgParser.h	/^    unsigned char  *cs() const { return &str_[cur_]; }$/;"	f	class:FormatString
+cur	ArgParser.h	/^    unsigned cur() {return cur_; }$/;"	f	class:FormatString
+cur_	ArgParser.h	/^    uint64_t cur_;$/;"	m	class:FormatString
+data	StringOf.h	/^  const T *data() const { return ptr_; }$/;"	f	class:SP_NAMESPACE::String
+debug_assert	Generic.h	/^inline void  debug_assert(bool cond) { assert(cond); }$/;"	f
+debug_assert	Generic.h	/^inline void  debug_assert(bool cond) { }$/;"	f
+debug_print	@.h	/^void	debug_print(char *f,int l, char *m, char *str){$/;"	f
+debug_print	@.h	/^void	debug_print(char *f,int l, char *m, char *str){}$/;"	f
+debug_print	@.h	/^void	debug_print(char *f,int l, char *m, int v){$/;"	f
+debug_print	@.h	/^void	debug_print(char *f,int l, char *m, int v){}$/;"	f
+del	Owner.cxx	/^void Owner<T>::del()$/;"	f	class:SP_NAMESPACE::Owner
+delimiter_	Member.h	/^    String<LETTER_T> delimiter_; \/\/ R2.0b34$/;"	m	class:TokenLetterMember
+delm	GenArg.h	/^    String<LETTER_T> &delm() { return delm_; }$/;"	f	class:GenArg
+delm_	GenArg.h	/^    String<LETTER_T>      delm_;$/;"	m	class:GenArg
+endian	GenArg.h	/^    } endian;$/;"	m	class:GenArg	typeref:class:GenArg::Endian
+eof	InputStream.h	/^  bool eof() { return (ifs().get() == EOF); }$/;"	f	class:InputStream
+erase	Vector.cxx	/^T *Vector<T>::erase(const T *p1, const T *p2)$/;"	f	class:SP_NAMESPACE::Vector
+externalCallComment	Member.cxx	/^void Member::externalCallComment(String<LETTER_T> &unfolded,$/;"	f	class:Member
+extract	Owner.h	/^  T *extract() {$/;"	f	class:SP_NAMESPACE::Owner
+false	Boolean.h	/^const int false = 0;$/;"	v
+ff	ArgParser.h	/^    unsigned char  *ff(unsigned char *p){$/;"	f	class:FormatString
+file_	GenArg.h	/^        int file_;$/;"	m	class:GenArg::Endian
+file_	Message.h	/^    char file_[MAX_PATH];$/;"	m	class:Message
+flush	OutputStream.h	/^    virtual void flush(bool b = 1){}$/;"	f	class:OutputStream
+flush	OutputStream.h	/^    void flush(bool isReNew = 1){$/;"	f	class:WMOutputStream
+formatFromFile	ArgParser.cxx	/^bool ArgParser::formatFromFile(const char *fname, Ptr<Record> &parent,$/;"	f	class:ArgParser
+fsSize_	Member.h	/^    unsigned              fsSize_;$/;"	m	class:RecordMember
+func_	Message.h	/^    char func_[MAX_PATH];$/;"	m	class:Message
+ga	btta.cxx	/^GenArg  ga;$/;"	v
+get	InputStream.cxx	/^bool InputStream::get(F64_T &v, int &n)$/;"	f	class:InputStream
+get	InputStream.cxx	/^bool InputStream::get(I16_T &v, int &n)$/;"	f	class:InputStream
+get	InputStream.cxx	/^bool InputStream::get(I32_T &v, int &n)$/;"	f	class:InputStream
+get	InputStream.cxx	/^bool InputStream::get(I8_T &v, int &n)$/;"	f	class:InputStream
+get	InputStream.cxx	/^bool InputStream::get(const unsigned l, String<LETTER_T> &s, int &n)$/;"	f	class:InputStream
+get	InputStream.h	/^char get(){$/;"	f	class:InputStream
+getComment	ArgParser.cxx	/^bool FormatString::getComment(Ptr<Member> &m)$/;"	f	class:FormatString
+getExecComment	Member.cxx	/^void Member::getExecComment(String<LETTER_T> &unfolded, size_t &i,$/;"	f	class:Member
+getMark	ArgParser.cxx	/^bool FormatString::getMark(char &m)$/;"	f	class:FormatString
+getMember	ArgParser.cxx	/^int FormatString::getMember(Ptr<Member> &mem, Ptr<Member> &rec,$/;"	f	class:FormatString
+getNum	ArgParser.cxx	/^Ptr<Member> FormatString::getNum()$/;"	f	class:FormatString
+getReplacedComment	Member.cxx	/^void Member::getReplacedComment(String<LETTER_T> &comment, size_t &i,$/;"	f	class:Member
+getSizeAndBaseType	ArgParser.cxx	/^Member::BaseType FormatString::getSizeAndBaseType($/;"	f	class:FormatString
+getStringConstant	ArgParser.cxx	/^bool FormatString::getStringConstant(String<LETTER_T> &s)$/;"	f	class:FormatString
+getToken	InputStream.cxx	/^bool InputStream::getToken(String<char> &s)$/;"	f	class:InputStream
+getWidthSpec	ArgParser.cxx	/^size_t FormatString::getWidthSpec(bool &isRound)$/;"	f	class:FormatString
+getl	InputStream.cxx	/^size_t InputStream::getl(String<char> &s)$/;"	f	class:InputStream
+go	ArgParser.cxx	/^bool ArgParser::go(int ac, char **av, Ptr<Record> &parent, InputStream &is)$/;"	f	class:ArgParser
+grow	StringOf.cxx	/^void String<T>::grow(size_t n)$/;"	f	class:SP_NAMESPACE::String
+hasCond_	Member.h	/^  bool              hasCond_;$/;"	m	class:Member
+ifs	InputStream.h	/^  istream &ifs() { if(isStdin_){ return cin; } return ifs_; }$/;"	f	class:InputStream
+ifs	InputStream.h	/^  istream &ifs() { return ifs_; }$/;"	f	class:InputStream
+ifs_	InputStream.h	/^  ifstream ifs_;$/;"	m	class:InputStream
+insert	StringOf.cxx	/^String<T> &String<T>::insert(size_t i, const String<T> &s)$/;"	f	class:SP_NAMESPACE::String
+insert	Vector.cxx	/^void Vector<T>::insert(const T *p, const T *q1, const T *q2)$/;"	f	class:SP_NAMESPACE::Vector
+insert	Vector.cxx	/^void Vector<T>::insert(const T *p, size_t n, const T &t)$/;"	f	class:SP_NAMESPACE::Vector
+ios	OpeLShift.h	21;"	d
+isAbsolute_	Member.h	/^    bool  isAbsolute_;$/;"	m	class:IndifferentMember
+isArgInfo	GenArg.h	/^    bool isArgInfo() { return argInfo_; }$/;"	f	class:GenArg
+isLetter	Member.h	/^  bool isLetter() const { return (bool)(base_ & IS_LETTER); }$/;"	f	class:Member
+isLittleEndian	InputStream.h	/^bool isLittleEndian()$/;"	f	class:InputStream
+isNative	GenArg.h	/^        bool isNative() { return (sys_ == file_); }$/;"	f	class:GenArg::Endian
+isNoSubstitute	GenArg.h	/^    unsigned isNoSubstitute() { return isNoSubstitute_; }$/;"	f	class:GenArg
+isNoSubstitute_	GenArg.h	/^    unsigned  isNoSubstitute_;$/;"	m	class:GenArg
+isNull	Ptr.h	/^  Boolean isNull() const { return ptr_ == 0; }$/;"	f	class:SP_NAMESPACE::Ptr
+isNull	Ptr.h	/^  Ptr<T>::isNull;$/;"	m	class:SP_NAMESPACE::ConstPtr::Ptr
+isOpen	InputStream.h	/^  bool isOpen() { return isOpen_; }$/;"	f	class:InputStream
+isOpen_	InputStream.h	/^  bool  isOpen_;$/;"	m	class:InputStream
+isRound_	Member.h	/^    bool                  isRound_;  \/\/ 2.0b28$/;"	m	class:RecordMember
+isRound_	Member.h	/^    bool              isRound_;  \/\/ 2.0b28$/;"	m	class:RepeatMember
+isRound_	Member.h	/^    bool     isRound_;  \/\/ 2.0b28$/;"	m	class:JumpMember
+isSigned	Member.h	/^  bool isSigned() const { return (bool)(base_ & IS_SIGNED); }$/;"	f	class:Member
+isStdin_	InputStream.h	/^  bool  isStdin_;$/;"	m	class:InputStream
+isV	GenArg.h	/^    bool isV() { return verbose_; }$/;"	f	class:GenArg
+istdiostream	Generic.h	22;"	d
+istdiostream	StdInputStream.h	/^typedef stdin_stream istdiostream;$/;"	t
+iterator	StringOf.h	/^  typedef T *iterator;$/;"	t	class:SP_NAMESPACE::String
+iterator	Vector.h	/^  typedef T *iterator;$/;"	t	class:SP_NAMESPACE::Vector
+jump	InputStream.cxx	/^bool InputStream::jump(signed j)$/;"	f	class:InputStream
+l_	ArgParser.cxx	/^int ArgParser::ParseLevel::l_ = 0;$/;"	m	class:ArgParser::ParseLevel	file:
+l_	ArgParser.h	/^      static int  l_;$/;"	m	class:ArgParser::ParseLevel
+length_	StringOf.h	/^  size_t length_;$/;"	m	class:SP_NAMESPACE::String
+level	ArgParser.cxx	/^int FormatString::level = 0;$/;"	m	class:FormatString	file:
+level	ArgParser.h	/^      static int level() { return l_; }$/;"	f	class:ArgParser::ParseLevel
+level	ArgParser.h	/^    static int  level;$/;"	m	class:FormatString
+line_	Message.h	/^    int line_;$/;"	m	class:Message
+main	btta.cxx	/^int main(int c, char **v)$/;"	f
+makeRecForm	ArgParser.cxx	/^Ptr<Member> ArgParser::makeRecForm(char *av)$/;"	f	class:ArgParser
+mark_	Member.h	/^  unsigned char     mark_;$/;"	m	class:Member
+markedRec	GenArg.h	/^    Ptr<Member> &markedRec(int n) { return markedRec_[n]; }  \/\/20b11$/;"	f	class:GenArg
+markedRec_	GenArg.h	/^    Ptr<Member> markedRec_[256];  \/\/20b11$/;"	m	class:GenArg
+maxBufSize	GenArg.h	/^    int maxBufSize(){return maxBufSize_;}$/;"	f	class:GenArg
+maxBufSize_	GenArg.h	/^    int maxBufSize_;$/;"	m	class:GenArg
+mkpos	GenArg.h	/^    unsigned mkpos(unsigned char c) { return mkt_[c].refpos_; }$/;"	f	class:GenArg
+mkt_	GenArg.h	/^    _MarkTbl  mkt_[256];$/;"	m	class:GenArg
+mkval	GenArg.h	/^    unsigned mkval(unsigned char c) { return mkt_[c].val_; }$/;"	f	class:GenArg
+nCCol	GenArg.h	/^    int &nCCol() { return nCCol_; }$/;"	f	class:GenArg
+nCCol_	GenArg.h	/^    int  nCCol_;$/;"	m	class:GenArg
+name	InputStream.h	/^String<LETTER_T> &name() { return name_; }$/;"	f	class:InputStream
+name_	InputStream.h	/^  String<LETTER_T>  name_;$/;"	m	class:InputStream
+nf_	Member.h	/^  size_t            nf_;      \/\/ number of field$/;"	m	class:Member
+nfr_	Member.h	/^  size_t            nfr_;     \/\/ sum of number of repeat of field$/;"	m	class:Member
+nr_	Member.h	/^  size_t            nr_;      \/\/ number of record$/;"	m	class:Member
+nums_	Member.h	/^    unsigned              nums_;    \/\/ of rec$/;"	m	class:RecordMember
+ofs	InputStream.h	/^  unsigned ofs() { return ofs_; }$/;"	f	class:InputStream
+ofs_	InputStream.h	/^  unsigned int ofs_;$/;"	m	class:InputStream
+ofs_	Member.h	/^  unsigned          ofs_;$/;"	m	class:Member
+open	InputStream.cxx	/^void InputStream::open(const char *fn) {$/;"	f	class:InputStream
+operator !=	Ptr.h	/^  Boolean operator!=(const ConstPtr<T> &p) const {$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator !=	Ptr.h	/^  Boolean operator!=(const Ptr<T> &p) const { return Ptr<T>::operator!=(p); }$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator !=	Ptr.h	/^  Boolean operator!=(const Ptr<T> &p) const {$/;"	f	class:SP_NAMESPACE::Ptr
+operator !=	Ptr.h	/^  Boolean operator!=(const T *p) const {$/;"	f	class:SP_NAMESPACE::Ptr
+operator !=	StringOf.h	/^  Boolean operator!=(const String<T> &str) const {$/;"	f	class:SP_NAMESPACE::String
+operator *	Owner.h	/^  T &operator*() const { return *p_; }$/;"	f	class:SP_NAMESPACE::Owner
+operator *	Ptr.h	/^  T &operator*() const { return *ptr_; }$/;"	f	class:SP_NAMESPACE::Ptr
+operator *	Ptr.h	/^  const T &operator*() const { return *Ptr<T>::pointer(); }$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator +=	StringOf.h	/^  String<T> &operator+=(T c) {$/;"	f	class:SP_NAMESPACE::String
+operator +=	StringOf.h	/^  String<T> &operator+=(const String<T> &s) {$/;"	f	class:SP_NAMESPACE::String
+operator ->	Owner.h	/^  T *operator->() const { return p_; }$/;"	f	class:SP_NAMESPACE::Owner
+operator ->	Ptr.h	/^  T *operator->() const { return ptr_; }$/;"	f	class:SP_NAMESPACE::Ptr
+operator ->	Ptr.h	/^  const T *operator->() const { return Ptr<T>::pointer(); }$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator <<	Message.cxx	/^Message &Message::operator<<(const Message::MsgType &t)$/;"	f	class:Message
+operator =	Owner.h	/^  void operator=(T *p) {$/;"	f	class:SP_NAMESPACE::Owner
+operator =	Ptr.cxx	/^Ptr<T> &Ptr<T>::operator=(T *p)$/;"	f	class:SP_NAMESPACE::Ptr
+operator =	Ptr.cxx	/^Ptr<T> &Ptr<T>::operator=(const Ptr<T> &p)$/;"	f	class:SP_NAMESPACE::Ptr
+operator =	Ptr.h	/^  ConstPtr<T> &operator=(T *p) {$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator =	Ptr.h	/^  ConstPtr<T> &operator=(const ConstPtr<T> &p) {$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator =	Ptr.h	/^  ConstPtr<T> &operator=(const Ptr<T> &p) {$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator =	StringOf.cxx	/^String<T> &String<T>::operator=(const String<T> &s)$/;"	f	class:SP_NAMESPACE::String
+operator =	Vector.cxx	/^Vector<T> &Vector<T>::operator=(const Vector<T> &v)$/;"	f	class:SP_NAMESPACE::Vector
+operator ==	Ptr.h	/^  Boolean operator==(const ConstPtr<T> &p) const {$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator ==	Ptr.h	/^  Boolean operator==(const Ptr<T> &p) const { return Ptr<T>::operator==(p); }$/;"	f	class:SP_NAMESPACE::ConstPtr
+operator ==	Ptr.h	/^  Boolean operator==(const Ptr<T> &p) const {$/;"	f	class:SP_NAMESPACE::Ptr
+operator ==	Ptr.h	/^  Boolean operator==(const T *p) const {$/;"	f	class:SP_NAMESPACE::Ptr
+operator ==	StringOf.h	/^  Boolean operator==(const String<T> &s) const {$/;"	f	class:SP_NAMESPACE::String
+operator []	StringOf.h	/^  T &operator[](size_t i) { return ptr_[i]; }$/;"	f	class:SP_NAMESPACE::String
+operator []	StringOf.h	/^  T operator[](size_t i) const { return ptr_[i]; }$/;"	f	class:SP_NAMESPACE::String
+operator []	Vector.h	/^  T &operator[](size_t i) { return ptr_[i]; }$/;"	f	class:SP_NAMESPACE::Vector
+operator []	Vector.h	/^  const T &operator[](size_t i) const { return ptr_[i]; }$/;"	f	class:SP_NAMESPACE::Vector
+operator int	Owner.h	/^  operator int() const { return p_ != 0; }$/;"	f	class:SP_NAMESPACE::Owner
+operator new	xnew.h	/^void *operator new(size_t, void *p)$/;"	f
+os_	InputStream.h	/^  Ptr<OutputStream> os_;$/;"	m	class:InputStream
+os_	OutputStream.h	/^    Owner<ostrstream> os_;$/;"	m	class:WMOutputStream
+out	Member.cxx	/^bool F64Member::out(InputStream &is)$/;"	f	class:F64Member
+out	Member.cxx	/^bool I16Member::out(InputStream &is)$/;"	f	class:I16Member
+out	Member.cxx	/^bool I32Member::out(InputStream &is)$/;"	f	class:I32Member
+out	Member.cxx	/^bool I8Member::out(InputStream &is)$/;"	f	class:I8Member
+out	Member.cxx	/^bool IndifferentMember::out(InputStream &is)$/;"	f	class:IndifferentMember
+out	Member.cxx	/^bool JumpMember::out(InputStream &is)$/;"	f	class:JumpMember
+out	Member.cxx	/^bool LetterMember::out(InputStream &is)$/;"	f	class:LetterMember
+out	Member.cxx	/^bool NotAccessMember::out(InputStream &is)$/;"	f	class:NotAccessMember
+out	Member.cxx	/^bool TokenLetterMember::out(InputStream &is)$/;"	f	class:TokenLetterMember
+out	Member.h	/^    virtual bool out(InputStream &) { assert(0); return 0; }$/;"	f	class:RepeatMember
+out1or2	Message.h	/^    ostream &out1or2()$/;"	f	class:Message
+outComment	Member.cxx	/^void Member::outComment(InputStream &is)$/;"	f	class:Member
+outRemainder	Member.cxx	/^void  RepeatMember::outRemainder(InputStream &is, unsigned char *b,unsigned s)$/;"	f	class:RepeatMember
+outRemainder	Member.h	/^  virtual void  outRemainder(InputStream &, unsigned char *,unsigned) { assert(0); }$/;"	f	class:Member
+outstr_	Message.h	/^    ostrstream outstr_;$/;"	m	class:Message
+p_	Owner.h	/^  T *p_;$/;"	m	class:SP_NAMESPACE::Owner
+pad	OutputStream.h	/^    virtual void pad(){}$/;"	f	class:OutputStream
+pad	OutputStream.h	/^void WMOutputStream::pad()$/;"	f	class:WMOutputStream
+peek	InputStream.h	/^char peek() { return ifs().peek(); }$/;"	f	class:InputStream
+pointer	Owner.h	/^  T *pointer() const { return p_; }$/;"	f	class:SP_NAMESPACE::Owner
+pointer	Ptr.h	/^  T *pointer() const { return ptr_; }$/;"	f	class:SP_NAMESPACE::Ptr
+pointer	Ptr.h	/^  const T *pointer() const { return Ptr<T>::pointer(); }$/;"	f	class:SP_NAMESPACE::ConstPtr
+prefix_	Member.h	/^    String<LETTER_T>  prefix_;$/;"	m	class:JumpMember
+prefix_	Member.h	/^    String<LETTER_T>  prefix_;$/;"	m	class:RepeatMember
+print	ArgParser.cxx	/^void FormatString::print(const char *indent)$/;"	f	class:FormatString
+process	Member.cxx	/^bool JumpMember::process(InputStream &is,$/;"	f	class:JumpMember
+process	Member.cxx	/^bool RecordMember::process(InputStream &is,$/;"	f	class:RecordMember
+process	Member.cxx	/^bool RepeatMember::process(InputStream &is,$/;"	f	class:RepeatMember
+process	Member.h	/^  virtual bool process(InputStream &,$/;"	f	class:Member
+ptr_	Ptr.h	/^  T *ptr_;$/;"	m	class:SP_NAMESPACE::Ptr
+ptr_	StringOf.h	/^  T *ptr_;$/;"	m	class:SP_NAMESPACE::String
+ptr_	Vector.h	/^  T *ptr_;$/;"	m	class:SP_NAMESPACE::Vector
+push_back	Vector.h	/^  void push_back(const T &t) {$/;"	f	class:SP_NAMESPACE::Vector
+rdbuf	StdInputStream.h	/^char *stdin_stream::rdbuf(){$/;"	f	class:stdin_stream
+recForm_	GenArg.h	/^    Ptr<Record> recForm_;$/;"	m	class:GenArg
+ref	Resource.h	/^void Resource::ref()$/;"	f	class:SP_NAMESPACE::Resource
+refMark_	Member.h	/^  unsigned char     refMark_;$/;"	m	class:Member
+refine	Member.cxx	/^String<LETTER_T> LetterMember::refine()$/;"	f	class:LetterMember
+refine	Member.cxx	/^String<LETTER_T> VarLetterMember::refine()$/;"	f	class:VarLetterMember
+refpos_	GenArg.h	/^      unsigned  refpos_;$/;"	m	struct:GenArg::_MarkTbl
+repeat_	Member.h	/^    unsigned          repeat_;$/;"	m	class:RepeatMember
+reserve	Vector.h	/^  void reserve(size_t n) {  if (n > alloc_) reserve1(n); }$/;"	f	class:SP_NAMESPACE::Vector
+reserve1	Vector.cxx	/^void Vector<T>::reserve1(size_t size)$/;"	f	class:SP_NAMESPACE::Vector
+resize	StringOf.cxx	/^void String<T>::resize(size_t n)$/;"	f	class:SP_NAMESPACE::String
+resize	Vector.h	/^  void resize(size_t n) {$/;"	f	class:SP_NAMESPACE::Vector
+resolveRefNum	Member.cxx	/^unsigned Member::resolveRefNum(char ref)$/;"	f	class:Member
+rootRec	GenArg.h	/^    Ptr<Record> &rootRec() { return recForm_; }$/;"	f	class:GenArg
+sb_	StdInputStream.h	/^		ostrstream sb_;$/;"	m	class:stdin_stream
+set	ArgParser.cxx	/^void FormatString::set(char *s)$/;"	f	class:FormatString
+setBase	Member.h	/^    void      setBase(LETTER_T *b, BaseType t){$/;"	f	class:RepeatMember
+setBase	Member.h	/^    void      setBase(LETTER_T *pfx){$/;"	f	class:RepeatMember
+setBase	Member.h	/^  virtual void setBase(BaseType t) { base_ = t; }$/;"	f	class:Member
+setBase	Member.h	/^  virtual void setBase(LETTER_T *p, BaseType t) { assert(0); }$/;"	f	class:Member
+setCCol	GenArg.h	/^    void setCCol(int n) { nCCol_ = n; };$/;"	f	class:GenArg
+setComment	Member.h	/^  void setComment(LETTER_T *c) {$/;"	f	class:Member
+setE	GenArg.h	/^        void setE(int e) { file_ = e; }$/;"	f	class:GenArg::Endian
+setF	GenArg.h	/^    void setF(LETTER_T *c) { delm_.assign(c,APP_STRLEN(c)+1); }$/;"	f	class:GenArg
+setI	GenArg.h	/^    void setI() { argInfo_ = 1; };$/;"	f	class:GenArg
+setInfo	Message.cxx	/^void Message::setInfo(const char *f, int l, const char *fn, MsgType mt)$/;"	f	class:Message
+setJumpOffset	ArgParser.cxx	/^void FormatString::setJumpOffset(JumpMember *mem)$/;"	f	class:FormatString
+setMark	GenArg.h	/^    void setMark(unsigned char c,unsigned v, unsigned ofs){$/;"	f	class:GenArg
+setMark	Member.h	/^    void  setMark() { setMarkBase((unsigned)val_, ofs_); }$/;"	f	class:F64Member
+setMark	Member.h	/^    void  setMark() { setMarkBase((unsigned)val_, ofs_); }$/;"	f	class:I16Member
+setMark	Member.h	/^    void  setMark() { setMarkBase((unsigned)val_, ofs_); }$/;"	f	class:I32Member
+setMark	Member.h	/^    void  setMark() { setMarkBase((unsigned)val_, ofs_); }$/;"	f	class:I8Member
+setMark	Member.h	/^    void  setMark() { setMarkBase(0, ofs_); }$/;"	f	class:LetterMember
+setMarkBase	Member.cxx	/^void Member::setMarkBase(unsigned val, unsigned ofs)$/;"	f	class:Member
+setRepeat	ArgParser.cxx	/^void FormatString::setRepeat(RepeatMember *mem)$/;"	f	class:FormatString
+setV	GenArg.h	/^    void setV() { verbose_ = 1; };$/;"	f	class:GenArg
+setX	GenArg.h	/^    void setX(unsigned n) { isNoSubstitute_ = n; };$/;"	f	class:GenArg
+size	Member.h	/^  unsigned  size() const { return size_; }$/;"	f	class:Member
+size	StringOf.h	/^  size_t size() const { return length_; }$/;"	f	class:SP_NAMESPACE::String
+size	Vector.h	/^  size_t size() const { return size_; }$/;"	f	class:SP_NAMESPACE::Vector
+size_	Member.h	/^  unsigned size_;$/;"	m	class:Member
+size_	Vector.h	/^  size_t size_;$/;"	m	class:SP_NAMESPACE::Vector
+size_type	StringOf.h	/^  typedef size_t size_type;$/;"	t	class:SP_NAMESPACE::String
+size_type	Vector.h	/^  typedef size_t size_type;$/;"	t	class:SP_NAMESPACE::Vector
+skipProlog	InputStream.cxx	/^void InputStream::skipProlog()$/;"	f	class:InputStream
+snr_	Member.h	/^  size_t            snr_;     \/\/ sum of number of record$/;"	m	class:Member
+stdin_stream	StdInputStream.h	/^class stdin_stream : public istream$/;"	c
+stdin_stream	StdInputStream.h	/^stdin_stream::stdin_stream(FILE *fp)$/;"	f	class:stdin_stream
+strVal_	Member.h	/^  String<LETTER_T>  strVal_;$/;"	m	class:Member
+str_	ArgParser.h	/^    unsigned char  *str_;$/;"	m	class:FormatString
+str_	Message.h	/^    char str_[MAX_MSGLEN];$/;"	m	class:Message
+sub_	Member.h	/^    Vector<Ptr<Member> >  sub_;$/;"	m	class:RecordMember
+swap	Owner.h	/^  void swap(Owner<T> &x) {$/;"	f	class:SP_NAMESPACE::Owner
+swap	Ptr.h	/^  void swap(ConstPtr<T> &p) { Ptr<T>::swap(p); }$/;"	f	class:SP_NAMESPACE::ConstPtr
+swap	Ptr.h	/^  void swap(Ptr<T> &p) {$/;"	f	class:SP_NAMESPACE::Ptr
+swap	StringOf.cxx	/^void String<T>::swap(String<T> &to)$/;"	f	class:SP_NAMESPACE::String
+swap	Vector.cxx	/^void Vector<T>::swap(Vector<T> &v)$/;"	f	class:SP_NAMESPACE::Vector
+sys_	GenArg.h	/^        int sys_;$/;"	m	class:GenArg::Endian
+system	GenArg.h	/^        int  system() { return sys_; }$/;"	f	class:GenArg::Endian
+true	Boolean.h	/^const int true = 1;$/;"	v
+typeName_	Message.h	/^    static const char *typeName_[];$/;"	m	class:Message
+typeName_	Message.h	/^const char *Message::typeName_[] = {$/;"	m	class:Message
+type_	Message.h	/^    MsgType type_;$/;"	m	class:Message
+unfoldComment	Member.cxx	/^void Member::unfoldComment(String<LETTER_T> &unfolded, InputStream &is)$/;"	f	class:Member
+unref	Resource.h	/^int Resource::unref()$/;"	f	class:SP_NAMESPACE::Resource
+usageStr_	Message.h	/^    static const char *usageStr_[];$/;"	m	class:Message
+usageStr_	Message.h	/^const char *Message::usageStr_[] = {$/;"	m	class:Message
+val_	GenArg.h	/^      unsigned  val_;$/;"	m	struct:GenArg::_MarkTbl
+val_	Member.h	/^    F64_T val_;$/;"	m	class:F64Member
+val_	Member.h	/^    I16_T val_;$/;"	m	class:I16Member
+val_	Member.h	/^    I32_T val_;$/;"	m	class:I32Member
+val_	Member.h	/^    I8_T val_;$/;"	m	class:I8Member
+val_	Member.h	/^    OFF_T    val_;		\/\/ seek offset$/;"	m	class:JumpMember
+val_	Member.h	/^    String<LETTER_T> val_;$/;"	m	class:LetterMember
+verbose_	GenArg.h	/^    bool      verbose_;$/;"	m	class:GenArg
+waste_	Member.h	/^    Ptr<Member> waste_;$/;"	m	class:IndifferentMember
+whatis	Member.h	/^  BaseType  whatis() { return base_; }$/;"	f	class:Member
+width_	Member.h	/^    unsigned              width_;   \/\/  of rec$/;"	m	class:RecordMember
+width_	Member.h	/^    unsigned          width_;   \/\/  of rec$/;"	m	class:RepeatMember
+width_	Member.h	/^    unsigned width_;$/;"	m	class:JumpMember
+xnew_INCLUDED	xnew.h	2;"	d
+~ArgParser	ArgParser.h	/^    ~ArgParser() { }$/;"	f	class:ArgParser
+~F64Member	Member.h	/^    ~F64Member() {}$/;"	f	class:F64Member
+~FormatString	ArgParser.h	/^    ~FormatString() { STRDES(str_); level--; }$/;"	f	class:FormatString
+~GenArg	GenArg.h	/^    ~GenArg() {}$/;"	f	class:GenArg
+~I16Member	Member.h	/^    ~I16Member() {}$/;"	f	class:I16Member
+~I32Member	Member.h	/^    ~I32Member() {}$/;"	f	class:I32Member
+~I8Member	Member.h	/^    ~I8Member() {}$/;"	f	class:I8Member
+~IndifferentMember	Member.h	/^    ~IndifferentMember() {}$/;"	f	class:IndifferentMember
+~InputStream	InputStream.h	/^  ~InputStream(){}$/;"	f	class:InputStream
+~IntMember	Member.h	/^    ~IntMember() {}$/;"	f	class:IntMember
+~JumpMember	Member.h	/^    ~JumpMember() {}$/;"	f	class:JumpMember
+~LetterMember	Member.h	/^    ~LetterMember() {}$/;"	f	class:LetterMember
+~Member	Member.cxx	/^Member::~Member() { base_ = UNKNOWN; }$/;"	f	class:Member
+~Message	Message.h	/^Message::~Message() {} \/\/\/\/\/\/\/{ if(str_) delete [] str_; }$/;"	f	class:Message
+~NotAccessMember	Member.h	/^    ~NotAccessMember() {}$/;"	f	class:NotAccessMember
+~OutputStream	OutputStream.h	/^    virtual ~OutputStream() {}$/;"	f	class:OutputStream
+~Owner	Owner.cxx	/^Owner<T>::~Owner()$/;"	f	class:SP_NAMESPACE::Owner
+~ParseLevel	ArgParser.h	/^      ~ParseLevel() { l_--; }$/;"	f	class:ArgParser::ParseLevel
+~Ptr	Ptr.cxx	/^Ptr<T>::~Ptr()$/;"	f	class:SP_NAMESPACE::Ptr
+~RecordMember	Member.h	/^    ~RecordMember() {}$/;"	f	class:RecordMember
+~RepeatMember	Member.h	/^    virtual ~RepeatMember() {}$/;"	f	class:RepeatMember
+~String	StringOf.h	/^  ~String() { if (ptr_ && ptr_ != (T *)-1) delete [] ptr_; }$/;"	f	class:SP_NAMESPACE::String
+~String	StringOf.h	/^  ~String() { if (ptr_) delete [] ptr_; }$/;"	f	class:SP_NAMESPACE::String
+~TokenLetterMember	Member.h	/^    ~TokenLetterMember() {}$/;"	f	class:TokenLetterMember
+~VarLetterMember	Member.h	/^    ~VarLetterMember() {}$/;"	f	class:VarLetterMember
+~Vector	Vector.cxx	/^Vector<T>::~Vector()$/;"	f	class:SP_NAMESPACE::Vector
+~WMOutputStream	OutputStream.h	/^		virtual ~WMOutputStream() {$/;"	f	class:WMOutputStream
