@@ -50,13 +50,16 @@ Usage: ttba [-{e|E}] infile outfile\n\
               in infile should be processed little(big) endian\n\
               (default: native)\n\
 %s%s\n"
-# define TTBA_REV "R2.0b3"
+# define TTBA_REV "R2.0b4"
 
 #ifdef __BORLANDC__
 # define TTBA_COMPILED "(bcc)"
 # define INT_SCAN_FORM "%li"
 #elif defined(__GNUC__)
 # define TTBA_COMPILED "(gcc)"
+# define INT_SCAN_FORM "%0li"
+#elif defined(_MSC_VER)
+# define TTBA_COMPILED "(vc)"
 # define INT_SCAN_FORM "%0li"
 #else
 # define TTBA_COMPILED "(other)"
@@ -388,10 +391,12 @@ fprintf(stderr,"DEBUG: fscanf ret is =%d\n",c);
                     cval = '\n';
                     break;
                 default:
-        fprintf(stderr, "unknown escape sequence `\\%1c'\n", cval);
-        fprintf(stderr,ERR_POS);
-        exit_code = 1;
-        goto END;
+					fprintf(stderr, "WARN: unknown escape sequence `\\%1c', will output as is.\n", cval);
+					fprintf(stderr,ERR_POS);
+					fprintf(_fout, "\\");
+					rbyte++;
+					/*exit_code = 1;
+					goto END;*/
                 }
             }
             rbyte++;
