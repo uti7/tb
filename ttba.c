@@ -25,19 +25,6 @@
 #include <errno.h>
 #define NO_GETOPT
 #endif
-#if 0
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#ifdef DEVC
-#include <io.h>
-#else
-#include <errno.h>
-#include <sys/errno.h>
-#include <unistd.h>
-#endif
-#include <ctype.h>
-#endif
 
 #define ERR_POS "%s: offset(nearby)=%d(%#x).\n",\
     _fnin,ftell(_fin)-1,ftell(_fin)-1
@@ -181,6 +168,8 @@ unsigned long lreverse(unsigned long s)
     ret |= (s & 0xff000000) >> 24;
     return ret;
 }
+
+/*int errno = 0;*/
 
 int main(int argc, char **argv)
 {

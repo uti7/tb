@@ -1,4 +1,4 @@
-# configured for Linux www13120uf.sakura.ne.jp 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux
+# configured for MINGW64_NT-10.0-18363 fy7 3.0.7-338.x86_64 2019-05-24 10:50 UTC x86_64 Msys
 ### MAKEFILE
 
 ########################################################################
@@ -11,13 +11,14 @@
 ########################################################################
 CC=gcc
 CXX=g++
-LD=g++
+BTTA_LD=g++
+TTBA_LD=gcc
 #CTAGS=ctags -VR --c-types=+c+d+e+f+g+m+p+s+t+C
 CTAGS=ctags
 ########################################################################
 # flags
 ########################################################################
-INC=-I.
+INC=-I. -I/mingw64/x86_64-w64-mingw32/include
 INCS= @.h ArgParser.h Boolean.h GenArg.h Generic.h InputStream.h \
 	Member.h Message.h Ptr.h Record.h Resource.h StringOf.h Vector.h \
 	xnew.h StdinputStream.h
@@ -26,21 +27,21 @@ CFLAGS=-O  $(INC) $(DEFS)
 CXXFLAGS=-fno-implicit-templates -Wno-deprecated \
           $(CFLAGS)
 CPPFLAGS=-P -Sd $(CFLAGS)
-LDFLAGS=
+LDFLAGS=-static
 # CXXFLAGS+=-Diswprint="0 & "
 ########################################################################
 # targets
 ########################################################################
 PKGNAME=tb14b
-EXT=
+EXT=.exe
 ASSERTED_TARGET=btta$(EXT)
-TARGET=btta.Linux$(EXT)
+TARGET=btta.MINGW64_NT-10.0-18363$(EXT)
 INSTALL_DIR=/usr/local
 INSTALL_BIN_DIR=$(INSTALL_DIR)/bin
 COMPLETE_TARGET=$(INSTALL_BIN_DIR)/$(ASSERTED_TARGET)
 
 TTBA_ASSERTED_TARGET=ttba$(EXT)
-TTBA_TARGET=ttba.Linux$(EXT)
+TTBA_TARGET=ttba.MINGW64_NT-10.0-18363$(EXT)
 TTBA_COMPLETE_TARGET=$(INSTALL_BIN_DIR)/$(TTBA_ASSERTED_TARGET)
 ########################################################################
 # sources
@@ -63,6 +64,7 @@ TTBA_OBJ=$(TTBA_SRC:.c=.o)
 # libs
 ########################################################################
 LIB= \
+-L/mingw64/x86_64-w64-mingw32/lib \
 
 
 ########################################################################
@@ -71,10 +73,10 @@ LIB= \
 all : $(TARGET) $(TTBA_TARGET)
 
 $(TARGET): $(OBJ)
-	$(LD) $(LDFLAGS) -o $(TARGET) $(OBJ) $(LIB)
+	$(BTTA_LD) $(LDFLAGS) -o $(TARGET) $(OBJ) $(LIB)
 
 $(TTBA_TARGET) : $(TTBA_OBJ)
-	$(LD) $(LDFLAGS) -o $(TTBA_TARGET) $(TTBA_OBJ) $(LIB)
+	$(TTBA_LD) $(LDFLAGS) -o $(TTBA_TARGET) $(TTBA_OBJ) $(LIB)
 
 .cxx.o:
 	$(CXX) -c $(CXXFLAGS) $<

@@ -1,4 +1,4 @@
-/* configured for Linux www13120uf.sakura.ne.jp 2.6.32-279.el6.x86_64 #1 SMP Fri Jun 22 12:19:21 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux */
+/* configured for MINGW64_NT-10.0-18363 fy7 3.0.7-338.x86_64 2019-05-24 10:50 UTC x86_64 Msys */
 #ifndef _ATM_H_
 #define _ATM_H_
 /*	
@@ -14,29 +14,32 @@
 #include <strings.h>
 #endif
 #ifdef __cplusplus
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#ifdef __BORLANDC__
-#include <strstrea.h>
-#else
-#include <strstream>
-# if __GNUG__ < 3
-#  include <stdiostream.h>
+# include <iostream>
+# include <fstream>
+# include <iomanip>
+# ifdef __BORLANDC__
+#   include <strstrea.h>
 # else
-#  include <ext/stdio_filebuf.h>
+#   include <strstream>
+#   if __GNUG__ < 3
+#     include <stdiostream.h>
+#   else
+#     include <ext/stdio_filebuf.h>
+#   endif
 # endif
-#endif
 #endif
 #include <sys/types.h>
 #include <sys/stat.h>
+/*
 #include <fcntl.h>
+*/
+#include <wctype.h>
 #ifndef __BORLANDC__
 #include <unistd.h>
 #endif
 #include <errno.h>
-#ifndef __BORLANDC__
-#include <sys/errno.h>
+#if !defined(__BORLANDC__) && !defined(__GNUC__) && !defined(__GNUG__)
+# include <sys/errno.h>
 #endif
 #include <assert.h>
 #include <time.h>

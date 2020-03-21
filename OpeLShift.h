@@ -1,6 +1,6 @@
 // @(#) $Id: OpeLShift.h,v 1.3 2003/03/08 20:41:10 able Exp $
 // o p e r a t o r < < datatype frequently
-OPELSHIFT(ostream &c)
+//OPELSHIFT(ostream &c)
 OPELSHIFT(const char *c)
 OPELSHIFT(const int c)
 OPELSHIFT(const unsigned int c)

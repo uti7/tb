@@ -58,9 +58,11 @@ in2sedscr() {
 }
 
 # architecture dependencies
+MINGW_INC=
+MINGW_LIB=
 HOST_TYPE=`uname -s`
 case ${HOST_TYPE} in
-CYGWIN*)
+  CYGWIN*)
 	EXT=.exe	# for make install
 	TMP_BIN=${TMP_BIN}$EXT
 	if [ "$1" = "-b" ]; then
@@ -81,6 +83,11 @@ CYGWIN*)
 		NO_STRIP='#'
 	fi
 	;;
+  MINGW*)
+	EXT=.exe	# for make install
+  MINGW_INC=/mingw64/x86_64-w64-mingw32/include
+  MINGW_LIB=/mingw64/x86_64-w64-mingw32/lib
+  ;;
 esac
 
 SIGINT=2; SIGQUIT=3; SIGTERM=15
@@ -152,13 +159,15 @@ done
 	printf '#include <wctype.h>\nint main(){int a=0;return a;}\n' > $TMP_C_SOURCE
 	[ ! -s $TMP_C_SOURCE ] && \
 		printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
-	$CC ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE 1>/dev/null 2>&1
+
+	$CC ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE
 	if [ $? -ne 0 ]; then
 		printf "no\n"
 	else
 		printf "yes\n"
 		HAS_WCTYPE=1
 	fi	
+
 	printf 'testing [widec.h]...'
 	printf '#include <widec.h>\nint main(){int a=0;return a;}\n' > $TMP_C_SOURCE
 	[ ! -s $TMP_C_SOURCE ] && \
@@ -250,6 +259,7 @@ printf "+configured C/C++ header created.\n"
 		printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
 	[ ${HAS_LW:0} -eq 1 ] && WCLIB="-lw"
 	[ ${HAS_INTL:0} -eq 1 ] && WCLIB="$WCLIB -lintl"
+
 	$CC -I. ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE $WCLIB 1>/dev/null 2>&1
 	if [ $? -ne 0 ]; then
 		printf "no\n"
@@ -269,7 +279,11 @@ echo '#' configured for `uname -a` >  $GEN_TMP
 $AWK '/^### MAKEFILE/,/^### ELIFEKAM/' $0 >> $GEN_TMP
 [ ! -f $GEN_TMP ] && printf "cannot create [$GEN_TMP].\n" 1>&2 && exit 1
 
-[ -z "$LD" ] && LD=$CXX	#same compiler name
+if [ -z "$LD" ]; then
+  #same compiler name
+  BTTA_LD=$CXX
+  TTBA_LD=$CC
+fi
 if [ "$1" = "-b" ]; then
 	LD_ARGS='\$(LDFLAGS) \$(OBJ),\$(TARGET),,\$(LIB),,'
 	TTBA_LD_ARGS='\$(LDFLAGS) \$(TTBA_OBJ),\$(TTBA_TARGET),,\$(LIB),,'
@@ -310,29 +324,32 @@ exit 0
 #include <strings.h>
 #endif
 #ifdef __cplusplus
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#ifdef __BORLANDC__
-#include <strstrea.h>
-#else
-#include <strstream>
-# if __GNUG__ < 3
-#  include <stdiostream.h>
+# include <iostream>
+# include <fstream>
+# include <iomanip>
+# ifdef __BORLANDC__
+#   include <strstrea.h>
 # else
-#  include <ext/stdio_filebuf.h>
+#   include <strstream>
+#   if __GNUG__ < 3
+#     include <stdiostream.h>
+#   else
+#     include <ext/stdio_filebuf.h>
+#   endif
 # endif
-#endif
 #endif
 #include <sys/types.h>
 #include <sys/stat.h>
+/*
 #include <fcntl.h>
+*/
+#include <wctype.h>
 #ifndef __BORLANDC__
 #include <unistd.h>
 #endif
 #include <errno.h>
-#ifndef __BORLANDC__
-#include <sys/errno.h>
+#if !defined(__BORLANDC__) && !defined(__GNUC__) && !defined(__GNUG__)
+# include <sys/errno.h>
 #endif
 #include <assert.h>
 #include <time.h>
@@ -478,13 +495,14 @@ void	debug_print(char *f,int l, char *m, int v){}
 ########################################################################
 CC=@CC@
 CXX=@CXX@
-LD=@LD@
+BTTA_LD=@BTTA_LD@
+TTBA_LD=@TTBA_LD@
 #CTAGS=ctags -VR --c-types=+c+d+e+f+g+m+p+s+t+C
 CTAGS=ctags
 ########################################################################
 # flags
 ########################################################################
-INC=-I.
+INC=-I. -I@MINGW_INC@
 INCS= @.h ArgParser.h Boolean.h GenArg.h Generic.h InputStream.h \
 	Member.h Message.h Ptr.h Record.h Resource.h StringOf.h Vector.h \
 	xnew.h StdinputStream.h
@@ -530,6 +548,7 @@ TTBA_OBJ=$(TTBA_SRC:.c=@OBJ_EXT@)
 # libs
 ########################################################################
 LIB=@WCLIB@ \
+-L@MINGW_LIB@ \
 @SYSLIB@
 
 ########################################################################
@@ -538,10 +557,10 @@ LIB=@WCLIB@ \
 all : $(TARGET) $(TTBA_TARGET)
 
 $(TARGET): $(OBJ)
-	$(LD) @LD_ARGS@
+	$(BTTA_LD) @LD_ARGS@
 
 $(TTBA_TARGET) : $(TTBA_OBJ)
-	$(LD) @TTBA_LD_ARGS@
+	$(TTBA_LD) @TTBA_LD_ARGS@
 
 .cxx@OBJ_EXT@:
 	$(CXX) -c $(CXXFLAGS) $<
