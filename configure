@@ -85,8 +85,8 @@ case ${HOST_TYPE} in
 	;;
   MINGW*)
 	EXT=.exe	# for make install
-  MINGW_INC=/mingw64/x86_64-w64-mingw32/include
-  MINGW_LIB=/mingw64/x86_64-w64-mingw32/lib
+  MINGW_INC="-I/mingw64/x86_64-w64-mingw32/include"
+  MINGW_LIB="-L/mingw64/x86_64-w64-mingw32/lib"
   ;;
 esac
 
@@ -502,7 +502,7 @@ CTAGS=ctags
 ########################################################################
 # flags
 ########################################################################
-INC=-I. -I@MINGW_INC@
+INC=-I. @MINGW_INC@
 INCS= @.h ArgParser.h Boolean.h GenArg.h Generic.h InputStream.h \
 	Member.h Message.h Ptr.h Record.h Resource.h StringOf.h Vector.h \
 	xnew.h StdinputStream.h
@@ -548,7 +548,7 @@ TTBA_OBJ=$(TTBA_SRC:.c=@OBJ_EXT@)
 # libs
 ########################################################################
 LIB=@WCLIB@ \
--L@MINGW_LIB@ \
+@MINGW_LIB@ \
 @SYSLIB@
 
 ########################################################################

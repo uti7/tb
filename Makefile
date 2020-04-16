@@ -23,7 +23,7 @@ INCS= @.h ArgParser.h Boolean.h GenArg.h Generic.h InputStream.h \
 	Member.h Message.h Ptr.h Record.h Resource.h StringOf.h Vector.h \
 	xnew.h StdinputStream.h
 DEFS=-DSP_HAVE_BOOL -DSP_API= -DSP_ANSI_LIB
-CFLAGS=-O  $(INC) $(DEFS)
+CFLAGS=-g3 -O  $(INC) $(DEFS)
 CXXFLAGS=-fno-implicit-templates -Wno-deprecated \
           $(CFLAGS)
 CPPFLAGS=-P -Sd $(CFLAGS)

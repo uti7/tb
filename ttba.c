@@ -1,4 +1,4 @@
-/* vi:set ts=4 sw=4 : */
+/* vi:set ts=4 sw=4 et: */
 /* @(#) $Id: ttba.c,v 1.9 2003/03/08 20:41:10 able Exp $ */
 /*********************************
 *
@@ -13,7 +13,7 @@
                                 with "-E" opt
         R1.5    double support (to use, `d') 2k.06.03
         R1.51   jump support (to use, `j') 2k.06.07
-		R1.6.0  for Borland C
+        R1.6.0  for Borland C
         R2.0b1  add gET_iNTEGER(), instead of fSCNAF
                 cease "-E" opt
 **********************************/
@@ -30,14 +30,15 @@
     _fnin,ftell(_fin)-1,ftell(_fin)-1
 #define USAGE   "\
 txt2bin-a - convert text-scritpt to binary-data\n\
-Usage: ttba [-{e|E}] infile outfile\n\
+Usage: ttba [-{e|E}] [-m marge_src_file] infile outfile\n\
        ttba [-{e|E}] -c [infile]\n\
-       -c: send to stdout\n\
+       -m   : merge the contents of infile into marge_src_file and output as outfile\n\
+       -c   : send to stdout\n\
        -e(E): indeicate whether numeric value that 16bit and greater\n\
               in infile should be processed little(big) endian\n\
               (default: native)\n\
 %s%s\n"
-# define TTBA_REV "R2.0b4"
+# define TTBA_REV "R2.1b1"
 
 #ifdef __BORLANDC__
 # define TTBA_COMPILED "(bcc)"
@@ -53,43 +54,43 @@ Usage: ttba [-{e|E}] infile outfile\n\
 # define INT_SCAN_FORM "%0li"
 #endif
 
-    FILE            *_fin = NULL, *_fout = NULL;
-    char            *_fnin = NULL, *_fnout = NULL;
+    FILE            *_fin = NULL, *_fout = NULL, *_fmarge = NULL;;
+    char            *_fnin = NULL, *_fnout = NULL, *_fnmarge= NULL;;
 
 #ifdef NO_GETOPT
-int			optind = 1;
-static char	optargbuf[BUFSIZ];
-char		*optarg = optargbuf;
+int            optind = 1;
+static char    optargbuf[BUFSIZ];
+char        *optarg = optargbuf;
 
 int getopt(int c, char *v[], const char *s)
 {
-    extern int		optind, retopt;
+    extern int        optind, retopt;
     extern char     *optarg;
-	static unsigned int vpos = 0;
-	char tok[2],*p = NULL;
-	static int		isOptArg = 0;
+    static unsigned int vpos = 0;
+    char tok[2],*p = NULL;
+    static int        isOptArg = 0;
     /* FIXME: cannot determine multi parameter in arg */
-	if(isOptArg) optind++;
-	while(1){
-		isOptArg = 0;
-		if(optind >= c || (vpos == 0 && v[optind][vpos] != '-')) return EOF;
-		vpos++;
-		if(vpos >= strlen(v[optind])){
-			optind++;
-			vpos = 0;
-			continue;
-		}
-		sprintf(tok,"%1c", v[optind][vpos]);
-		if((p = strstr(s, tok)) == NULL || *(p+1) != ':') break;
-		optind++;
-		isOptArg = 1;
-		vpos = 0;
-		strcpy(optarg, v[optind]);
-		break;
-	}
-	return (int)tok[0];
+    if(isOptArg) optind++;
+    while(1){
+        isOptArg = 0;
+        if(optind >= c || (vpos == 0 && v[optind][vpos] != '-')) return EOF;
+        vpos++;
+        if(vpos >= strlen(v[optind])){
+            optind++;
+            vpos = 0;
+            continue;
+        }
+        sprintf(tok,"%1c", v[optind][vpos]);
+        if((p = strstr(s, tok)) == NULL || *(p+1) != ':') break;
+        optind++;
+        isOptArg = 1;
+        vpos = 0;
+        strcpy(optarg, v[optind]);
+        break;
+    }
+    return (int)tok[0];
 }
-#endif	/* NO_GETOPT */
+#endif    /* NO_GETOPT */
 
 #define MAX_SLEN 16
 
@@ -179,15 +180,16 @@ int main(int argc, char **argv)
     unsigned short  sval;
     unsigned char   cval;
     char            discard[BUFSIZ];
-	int             exit_code = 0;
-    int             opt,use_pipe_f = 0;
+    int             exit_code = 0;
+    int             opt, is_pipe = 0;
     size_t          pbyte,rbyte,zbyte = 0;
     extern int      optind;
     extern char     *optarg;
 
     int             isNativeEndian = 1;
+    struct stat     s;
     errno = 0;
-    while ((opt = getopt(argc, argv, "eEh?c")) != EOF){
+    while ((opt = getopt(argc, argv, "eEh?cm:")) != EOF){
         switch (opt) {
         case 'e':
             isNativeEndian = isNative(LITTLE);
@@ -196,14 +198,17 @@ int main(int argc, char **argv)
             isNativeEndian = isNative(BIG);
             break;
         case 'c':
-            use_pipe_f = 1;
+            is_pipe = 1;
+            break;
+        case 'm':
+            _fnmarge = strdup(optarg);
             break;
 
         case '?':
         case 'h':
             fprintf(stderr,USAGE,TTBA_REV,TTBA_COMPILED);
             exit_code = 0;
-			goto END;
+            goto END;
 
         default:
 
@@ -211,17 +216,32 @@ int main(int argc, char **argv)
         }
     }
     if (errno) {
-		fprintf(stderr,USAGE,TTBA_REV,TTBA_COMPILED);
+        fprintf(stderr,USAGE,TTBA_REV,TTBA_COMPILED);
         exit_code = 2;
-		goto END;
+        goto END;
     }
-    if( use_pipe_f ){
+
+    if(_fnmarge){
+        _fmarge = fopen( _fnmarge, "rb" );
+        if( !_fmarge ){
+            perror(_fnmarge);
+            exit_code = 1;
+            goto END;
+        }
+        if(stat(_fnmarge, &s) != 0){
+            perror(_fnmarge);
+            goto END;
+        }
+
+    }
+
+    if(is_pipe){
         if( optind < argc ){
             _fnin = strdup(argv[optind]);
             _fin = fopen( _fnin, "rb" );
             if( !_fin ){
                 perror(_fnin);
-				exit_code = 1;
+                exit_code = 1;
                 goto END;
             }
         }else{
@@ -229,7 +249,7 @@ int main(int argc, char **argv)
             _fnin = (char *)malloc(10);
             if(!_fnin){
                 perror("malloc");
-				exit_code = 1;
+                exit_code = 1;
                 goto END;
             }
             strcpy( _fnin, "stdin" );
@@ -238,36 +258,36 @@ int main(int argc, char **argv)
         _fnout = (char *)malloc(10);
         if(!_fnout){
             perror("malloc");
-			exit_code = 1;
+            exit_code = 1;
             goto END;
         }
         strcpy( _fnout, "stdout" );
     }else{
         if( optind >= argc ){
             errno = EINVAL;
-			fprintf(stderr,USAGE,TTBA_REV,TTBA_COMPILED);
-			exit_code = 2;
+            fprintf(stderr,USAGE,TTBA_REV,TTBA_COMPILED);
+            exit_code = 2;
             goto END;
         }
         _fnin = strdup(argv[optind]);
         _fin = fopen( _fnin, "rb" );
         if( !_fin ){
             perror(_fnin);
-			exit_code = 1;
+            exit_code = 1;
             goto END;
         }
         optind++;
         if( optind >= argc ){
             errno = EINVAL;
-			fprintf(stderr,USAGE,TTBA_REV,TTBA_COMPILED);
-			exit_code = 2;
+            fprintf(stderr,USAGE,TTBA_REV,TTBA_COMPILED);
+            exit_code = 2;
             goto END;
         }
         _fnout = strdup(argv[optind]);
         _fout = fopen( _fnout, "wb" );
         if(!_fout){
             perror(_fnout);
-			exit_code = 1;
+            exit_code = 1;
             goto END;
         }
     }
@@ -281,39 +301,41 @@ fprintf(stderr,"DEBUG: c=%d\n",c);
         exit_code = 0;
         goto END;
     }
-	switch(c){
+    switch(c){
     case 'c':
-	case 'C':
+    case 'C':
         if((c = get_integer(&val)) == -2) goto END;
         if(val > 0xff){
             fprintf(stderr,"%d(%#x): data incorrect, `c' is 8bit integer\n",
-				val,val);
-			fprintf(stderr,ERR_POS);
-			exit_code = 1;
-			goto END;
+                val,val);
+            fprintf(stderr,ERR_POS);
+            exit_code = 1;
+            goto END;
         }
         cval = (char)val;
         fwrite(&cval, 1, sizeof(cval), _fout);
-		break;
+        if(_fmarge) fseek(_fmarge, sizeof(cval), SEEK_CUR);
+        break;
     case 's':
-	case 'S':
+    case 'S':
         if((c = get_integer(&val)) == -2) goto END;
         if(val > 0xffff){
             fprintf(stderr,"%d(%#x): data incorrect, `s' is 16bit integer\n",
-				val,val);
-			fprintf(stderr,ERR_POS);
-			exit_code = 1;
-			goto END;
+                val,val);
+            fprintf(stderr,ERR_POS);
+            exit_code = 1;
+            goto END;
         }
         sval = (unsigned short)val;
         if(!isNativeEndian)
             sval=sreverse(sval);
 
         fwrite(&sval, 1, sizeof(sval), _fout);
-		break;
+        if(_fmarge) fseek(_fmarge, sizeof(sval), SEEK_CUR);
+        break;
     case 'l':
-	case 'L':
-	{
+    case 'L':
+    {
         if((c = get_integer(&val)) == -2) goto END;
 #ifdef DEBUG
 fprintf(stderr, "DEBUG: scan result, long     (%d)=%#x\n",
@@ -324,45 +346,98 @@ fprintf(stderr,"DEBUG: fscanf ret is =%d\n",c);
             val=lreverse(val);
 
         fwrite(&val, 1, sizeof(val), _fout);
-	}
-		break;
+        if(_fmarge) fseek(_fmarge, sizeof(val), SEEK_CUR);
+    }
+        break;
+    case 'J':
     case 'j':
-	case 'J':
+    {
+        void    *buf = NULL;
+        int     distance = 0;
+        int     is_abs_offset = (c == 'J') ? 1 : 0;
+
         if((c = get_integer(&val)) == -2) goto END;
-        fseek(_fout, val, SEEK_CUR);
-		break;
+        if(_fmarge){
+            if((long)val == -1){
+                /* jump to eof */
+                distance = s.st_size - ftell(_fmarge);
+            }else{
+                distance = (is_abs_offset) ? val - ftell(_fmarge) : val;
+            }
+            if(distance < 0){
+                fprintf(stderr,"%d(%#x): can't jump backwards. current offset: %d(%#x)\n",
+                    val,val,ftell(_fmarge),ftell(_fmarge));
+                fprintf(stderr,ERR_POS);
+                exit_code = 1;
+                goto END;
+            }
+            else if((distance + ftell(_fmarge)) > s.st_size ){
+                fprintf(stderr,"%d(%#x): can't jump forwards. current offset: %d(%#x)\n",
+                    val,val,ftell(_fmarge),ftell(_fmarge));
+                fprintf(stderr,ERR_POS);
+                exit_code = 1;
+                goto END;
+            }
+
+            if(distance == 0)
+                break;
+
+            buf = malloc(distance);
+            if(fread(buf, 1, distance, _fmarge) != distance){
+                fprintf(stderr,"%d(%#x): jump failed, that marge src reading. \n",
+                    val,val);
+                fprintf(stderr,ERR_POS);
+                exit_code = 1;
+                free(buf);
+                goto END;
+            }
+            fwrite(buf, 1, distance, _fout);
+            free(buf);
+        }else{
+            if((long)val == -1){
+                fprintf(stderr,"%d(%#x): jump distance is invalid. \n",
+                    val,val);
+                fprintf(stderr,ERR_POS);
+                exit_code = 1;
+                goto END;
+            }
+            fseek(_fout, distance, SEEK_CUR);
+        }
+        break;
+    }
     case 'd':
-	case 'D':
-	{
-		double w = 0;
+    case 'D':
+    {
+        double w = 0;
         fscanf(_fin,"%le",&w);
         fwrite(&w, 1, sizeof(double), _fout);
+        if(_fmarge) fseek(_fmarge, sizeof(w), SEEK_CUR);
         c = 0;
-	}
-		break;
-	case '#':
-		fgets(discard,BUFSIZ,_fin);
+    }
+        break;
+    case '#':
+        fgets(discard,BUFSIZ,_fin);
         c = 0;
-		break;
-	case 'z':
-	case 'Z':
+        break;
+    case 'z':
+    case 'Z':
         if((c = get_integer((unsigned long *)&zbyte)) == -2) goto END;
         if(!zbyte){
             fprintf(stderr,"`z': size not found.\n");
-			fprintf(stderr,ERR_POS);
+            fprintf(stderr,ERR_POS);
             exit_code = 1;
             goto END;
         }
-    	break;
-	case '"':
-	{
+        break;
+    case '"':
+    {
         esc_f = 0;
         for(rbyte = 0; ; ){
             cval = fgetc(_fin);
             if(feof(_fin)){
                 fprintf(stderr,"unexpected EOF, during text processing\n");
-				exit_code = 1;
-				goto END;
+                exit_code = 1;
+                goto END;
             }
             if(!esc_f && cval == '\\'){
                 esc_f = 1;
@@ -380,12 +455,12 @@ fprintf(stderr,"DEBUG: fscanf ret is =%d\n",c);
                     cval = '\n';
                     break;
                 default:
-					fprintf(stderr, "WARN: unknown escape sequence `\\%1c', will output as is.\n", cval);
-					fprintf(stderr,ERR_POS);
-					fprintf(_fout, "\\");
-					rbyte++;
-					/*exit_code = 1;
-					goto END;*/
+                    fprintf(stderr, "WARN: unknown escape sequence `\\%1c', will output as is.\n", cval);
+                    fprintf(stderr,ERR_POS);
+                    fprintf(_fout, "\\");
+                    rbyte++;
+                    /*exit_code = 1;
+                    goto END;*/
                 }
             }
             rbyte++;
@@ -394,39 +469,43 @@ fprintf(stderr,"DEBUG: fscanf ret is =%d\n",c);
                 cval = '\0';
                 for( pbyte = rbyte; pbyte <= zbyte; pbyte++ ){
                     fprintf(_fout,"%1c",cval);
+                    if(_fmarge) fseek(_fmarge, sizeof(cval), SEEK_CUR);
                 }
                 zbyte = 0;
                 break;
             }else if( zbyte && rbyte > zbyte ){
-        fprintf(stderr,
-        "ERROR: too long text-string for `Z'spec. specified=%d, actual=%d\n",
-        zbyte, rbyte);
+                fprintf(stderr,
+                    "ERROR: too long text-string for `Z'spec. specified=%d, actual=%d\n",
+                    zbyte, rbyte);
                 fprintf(stderr,ERR_POS);
-				exit_code = 1;
-				goto END;
+                exit_code = 1;
+                goto END;
             }
             fprintf(_fout,"%1c",cval);
+            if(_fmarge) fseek(_fmarge, sizeof(cval), SEEK_CUR);
             esc_f = 0;
         }
         c = 0;
-	}
-		break;
-	default:
-    	if(!ispunct(c) && !isspace(c)){
-			fprintf(stderr,"ileagal letter(%#x,`%1c')\n", c, (char)c);
-			fprintf(stderr,ERR_POS);
-			exit_code = 1;
-			goto END;
-		}
+    }
+        break;
+    default:
+        if(!ispunct(c) && !isspace(c)){
+            fprintf(stderr,"ileagal letter(%#x,`%1c')\n", c, (char)c);
+            fprintf(stderr,ERR_POS);
+            exit_code = 1;
+            goto END;
+        }
         c = 0;
-		break;
-	}
+        break;
+    }
 }
 
 END:
 if(_fin) fclose(_fin);
 if(_fout) fclose(_fout);
+if(_fmarge) fclose(_fmarge);
 if(_fnin) free(_fnin);
 if(_fnout) free(_fnout);
+if(_fnmarge) free(_fnmarge);
 return exit_code;
 }
