@@ -1,4 +1,4 @@
-/* configured for MINGW64_NT-10.0-18363 fy7 3.0.7-338.x86_64 2019-05-24 10:50 UTC x86_64 Msys */
+/* configured for MINGW64_NT-10.0-19042 fy7 3.2.0-340.x86_64 2021-08-02 16:30 UTC x86_64 Msys */
 #ifndef _ATM_H_
 #define _ATM_H_
 /*	
@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdint.h> /* 2013-03-25 tb14c */
 #include <string.h>
+#include <getopt.h> /* 2021-10-22 tb15 ttba-rev.2.1 */
 #if 0
 #include <strings.h>
 #endif

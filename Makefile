@@ -1,4 +1,4 @@
-# configured for MINGW64_NT-10.0-18363 fy7 3.0.7-338.x86_64 2019-05-24 10:50 UTC x86_64 Msys
+# configured for MINGW64_NT-10.0-19042 fy7 3.2.0-340.x86_64 2021-08-02 16:30 UTC x86_64 Msys
 ### MAKEFILE
 
 ########################################################################
@@ -23,11 +23,11 @@ INCS= @.h ArgParser.h Boolean.h GenArg.h Generic.h InputStream.h \
 	Member.h Message.h Ptr.h Record.h Resource.h StringOf.h Vector.h \
 	xnew.h StdinputStream.h
 DEFS=-DSP_HAVE_BOOL -DSP_API= -DSP_ANSI_LIB
-CFLAGS=-g3 -O  $(INC) $(DEFS)
+CFLAGS=-O  $(INC) $(DEFS)
 CXXFLAGS=-fno-implicit-templates -Wno-deprecated \
           $(CFLAGS)
 CPPFLAGS=-P -Sd $(CFLAGS)
-LDFLAGS=-static
+LDFLAGS=
 # CXXFLAGS+=-Diswprint="0 & "
 ########################################################################
 # targets
@@ -35,13 +35,13 @@ LDFLAGS=-static
 PKGNAME=tb14b
 EXT=.exe
 ASSERTED_TARGET=btta$(EXT)
-TARGET=btta.MINGW64_NT-10.0-18363$(EXT)
+TARGET=btta.MINGW64_NT-10.0-19042$(EXT)
 INSTALL_DIR=/usr/local
 INSTALL_BIN_DIR=$(INSTALL_DIR)/bin
 COMPLETE_TARGET=$(INSTALL_BIN_DIR)/$(ASSERTED_TARGET)
 
 TTBA_ASSERTED_TARGET=ttba$(EXT)
-TTBA_TARGET=ttba.MINGW64_NT-10.0-18363$(EXT)
+TTBA_TARGET=ttba.MINGW64_NT-10.0-19042$(EXT)
 TTBA_COMPLETE_TARGET=$(INSTALL_BIN_DIR)/$(TTBA_ASSERTED_TARGET)
 ########################################################################
 # sources

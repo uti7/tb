@@ -320,6 +320,7 @@ exit 0
 #include <stdlib.h>
 #include <stdint.h> /* 2013-03-25 tb14c */
 #include <string.h>
+#include <getopt.h> /* 2021-10-22 tb15 ttba-rev.2.1 */
 #if 0
 #include <strings.h>
 #endif

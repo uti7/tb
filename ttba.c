@@ -14,8 +14,11 @@
         R1.5    double support (to use, `d') 2k.06.03
         R1.51   jump support (to use, `j') 2k.06.07
         R1.6.0  for Borland C
-        R2.0b1  add gET_iNTEGER(), instead of fSCNAF
-                cease "-E" opt
+        R2.0b1  gET_iNTEGER() implemented, instead of fSCNAF
+                cease "-E" opt     <- what? (2021-10-22)
+        R2.0b2  option -m
+                fix for VS2019
+        R2.1    fix for Mingw
 **********************************/
 #ifndef _MSC_VER
 #include "@.h"
@@ -38,7 +41,7 @@ Usage: ttba [-{e|E}] [-m marge_src_file] infile outfile\n\
               in infile should be processed little(big) endian\n\
               (default: native)\n\
 %s%s\n"
-# define TTBA_REV "R2.1b1"
+# define TTBA_REV "R2.1"
 
 #ifdef __BORLANDC__
 # define TTBA_COMPILED "(bcc)"
@@ -183,8 +186,10 @@ int main(int argc, char **argv)
     int             exit_code = 0;
     int             opt, is_pipe = 0;
     size_t          pbyte,rbyte,zbyte = 0;
+    /* 2021-10-22  mingw: Warning: ‘optind’ was redeclared without the dllimport attribute
     extern int      optind;
     extern char     *optarg;
+    */
 
     int             isNativeEndian = 1;
     struct stat     s;
