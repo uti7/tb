@@ -1,4 +1,4 @@
-/* configured for MINGW64_NT-10.0-19042 fy7 3.2.0-340.x86_64 2021-08-02 16:30 UTC x86_64 Msys */
+/* configured for Linux fy7 4.19.128-microsoft-standard #1 SMP Tue Jun 23 12:58:10 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux */
 #ifndef _ATM_H_
 #define _ATM_H_
 /*	

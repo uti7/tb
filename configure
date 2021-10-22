@@ -257,8 +257,8 @@ printf "+configured C/C++ header created.\n"
 	printf '#include "%s"\nint main(){return iswprint((wint_t)0);}\n' $GEN_HEADER > $TMP_C_SOURCE
 	[ ! -s $TMP_C_SOURCE ] && \
 		printf "cannot create [$TMP_C_SOURCE].\n" && exit 1
-	[ ${HAS_LW:0} -eq 1 ] && WCLIB="-lw"
-	[ ${HAS_INTL:0} -eq 1 ] && WCLIB="$WCLIB -lintl"
+	[ ${HAS_LW:-0} -eq 1 ] && WCLIB="-lw"
+	[ ${HAS_INTL:-0} -eq 1 ] && WCLIB="$WCLIB -lintl"
 
 	$CC -I. ${TESTCC_OUTOPT}$WTMP_BIN $WTMP_C_SOURCE $WCLIB 1>/dev/null 2>&1
 	if [ $? -ne 0 ]; then

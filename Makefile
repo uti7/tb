@@ -1,4 +1,4 @@
-# configured for MINGW64_NT-10.0-19042 fy7 3.2.0-340.x86_64 2021-08-02 16:30 UTC x86_64 Msys
+# configured for Linux fy7 4.19.128-microsoft-standard #1 SMP Tue Jun 23 12:58:10 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 ### MAKEFILE
 
 ########################################################################
@@ -18,7 +18,7 @@ CTAGS=ctags
 ########################################################################
 # flags
 ########################################################################
-INC=-I. -I/mingw64/x86_64-w64-mingw32/include
+INC=-I. 
 INCS= @.h ArgParser.h Boolean.h GenArg.h Generic.h InputStream.h \
 	Member.h Message.h Ptr.h Record.h Resource.h StringOf.h Vector.h \
 	xnew.h StdinputStream.h
@@ -33,15 +33,15 @@ LDFLAGS=
 # targets
 ########################################################################
 PKGNAME=tb14b
-EXT=.exe
+EXT=
 ASSERTED_TARGET=btta$(EXT)
-TARGET=btta.MINGW64_NT-10.0-19042$(EXT)
+TARGET=btta.Linux$(EXT)
 INSTALL_DIR=/usr/local
 INSTALL_BIN_DIR=$(INSTALL_DIR)/bin
 COMPLETE_TARGET=$(INSTALL_BIN_DIR)/$(ASSERTED_TARGET)
 
 TTBA_ASSERTED_TARGET=ttba$(EXT)
-TTBA_TARGET=ttba.MINGW64_NT-10.0-19042$(EXT)
+TTBA_TARGET=ttba.Linux$(EXT)
 TTBA_COMPLETE_TARGET=$(INSTALL_BIN_DIR)/$(TTBA_ASSERTED_TARGET)
 ########################################################################
 # sources
@@ -64,7 +64,7 @@ TTBA_OBJ=$(TTBA_SRC:.c=.o)
 # libs
 ########################################################################
 LIB= \
--L/mingw64/x86_64-w64-mingw32/lib \
+ \
 
 
 ########################################################################
